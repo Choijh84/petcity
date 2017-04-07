@@ -1,0 +1,131 @@
+
+/* Class = "UIButton"; normalTitle = "Apply filter"; ObjectID = "5UH-aG-14W"; */
+"5UH-aG-14W.normalTitle" = "필터 적용";
+
+/* Class = "UILabel"; text = "Pet Cafe"; ObjectID = "5Vp-fN-3G2"; */
+"5Vp-fN-3G2.text" = "펫카페";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "5bd-y3-Rzg"; */
+"5bd-y3-Rzg.text" = "주소";
+
+/* Class = "UINavigationItem"; title = "카테고리 선택"; ObjectID = "5mS-A5-My5"; */
+"5mS-A5-My5.title" = "카테고리 선택";
+
+/* Class = "UILabel"; text = "Filter :"; ObjectID = "73D-qF-3bz"; */
+"73D-qF-3bz.text" = "필터 :";
+
+/* Class = "UINavigationItem"; title = "위치 설정"; ObjectID = "791-9l-6xS"; */
+"791-9l-6xS.title" = "위치 설정";
+
+/* Class = "UIButton"; normalTitle = "사업자정보 ▲"; ObjectID = "9Pt-bY-cKM"; */
+"9Pt-bY-cKM.normalTitle" = "사업자정보 ▲";
+
+/* Class = "UIBarButtonItem"; title = "취소"; ObjectID = "DDg-Le-3L4"; */
+"DDg-Le-3L4.title" = "취소";
+
+/* Class = "UILabel"; text = "Location :"; ObjectID = "DJl-hK-die"; */
+"DJl-hK-die.text" = "위치 :";
+
+/* Class = "UITabBarItem"; title = "펫시티 홈"; ObjectID = "Fhn-EQ-x02"; */
+"Fhn-EQ-x02.title" = "펫시티 홈";
+
+/* Class = "UIButton"; normalTitle = "여기를 눌러서 위치를 검색하세요"; ObjectID = "IbQ-Ae-KEZ"; */
+"IbQ-Ae-KEZ.normalTitle" = "여기를 눌러서 위치를 검색하세요";
+
+/* Class = "UITabBarItem"; title = "장소들"; ObjectID = "JeJ-8n-V8R"; */
+"JeJ-8n-V8R.title" = "장소들";
+
+/* Class = "UILabel"; text = "Store title"; ObjectID = "Jgg-On-mKv"; */
+"Jgg-On-mKv.text" = "장소 이름";
+
+/* Class = "UIButton"; normalTitle = "이용약관"; ObjectID = "LBu-Nx-abL"; */
+"LBu-Nx-abL.normalTitle" = "이용약관";
+
+/* Class = "UILabel"; text = "Pet Cafe in Gangnam"; ObjectID = "LMx-Ko-f3N"; */
+"LMx-Ko-f3N.text" = "펫카페";
+
+/* Class = "UIButton"; normalTitle = "개인정보 \n처리방침"; ObjectID = "MQ0-3e-HiL"; */
+"MQ0-3e-HiL.normalTitle" = "개인정보 \n처리방침";
+
+/* Class = "UILabel"; text = "Sub"; ObjectID = "QOa-5y-3VV"; */
+"QOa-5y-3VV.text" = "서브";
+
+/* Class = "UILabel"; text = "대표이사: 최정훈 | 사업자등록번호: 371-88-00609
+통신판매업: 서울 강남-03976호 
+주소: 서울시 강남구 강남대로 342, 5층(역삼동, 역삼빌딩)"; ObjectID = "S9f-F8-asm"; */
+"S9f-F8-asm.text" = "대표이사: 최정훈 | 사업자등록번호: 371-88-00609
+통신판매업: 서울 강남-03976호 
+주소: 서울시 강남구 강남대로 342, 5층(역삼동, 역삼빌딩)";
+
+/* Class = "UILabel"; text = "subtitle"; ObjectID = "SwT-xb-tmP"; */
+"SwT-xb-tmP.text" = "부가 설명";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "U4O-x2-9ZD"; */
+"U4O-x2-9ZD.text" = "라벨1";
+
+/* Class = "UIButton"; normalTitle = "x"; ObjectID = "WAK-9Q-9bN"; */
+"WAK-9Q-9bN.normalTitle" = "x";
+
+/* Class = "UILabel"; text = "Information"; ObjectID = "WwW-HY-Y9c"; */
+"WwW-HY-Y9c.text" = "정보";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Zg5-AF-XZ7"; */
+"Zg5-AF-XZ7.text" = "라벨2";
+
+/* Class = "UILabel"; text = "Pet Pension"; ObjectID = "a0d-ay-Sps"; */
+"a0d-ay-Sps.text" = "펫 펜션";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "aHj-i4-6pP"; */
+"aHj-i4-6pP.text" = "Title";
+
+/* Class = "UILabel"; text = "2,1 km"; ObjectID = "blH-bx-heN"; */
+"blH-bx-heN.text" = "2,1 km";
+
+/* Class = "UILabel"; text = "예시: 서울숲 또는 성수 1가 뚝섬로"; ObjectID = "icT-Vv-paZ"; */
+"icT-Vv-paZ.text" = "예시: 서울숲 또는 성수 1가 뚝섬로";
+
+/* Class = "UIBarButtonItem"; title = "확인"; ObjectID = "lUd-my-XVm"; */
+"lUd-my-XVm.title" = "확인";
+
+/* Class = "UILabel"; text = "(주)프레스에스"; ObjectID = "lfy-zy-W8I"; */
+"lfy-zy-W8I.text" = "(주)프레스에스";
+
+/* Class = "UIButton"; normalTitle = "Read more reviews"; ObjectID = "lw6-LH-FER"; */
+"lw6-LH-FER.normalTitle" = "리뷰 더 보기";
+
+/* Class = "UILabel"; text = "PET CITY"; ObjectID = "mtc-JA-trF"; */
+"mtc-JA-trF.text" = "PET CITY";
+
+/* Class = "UILabel"; text = "우리가 펫과 사랑할 시간"; ObjectID = "p4e-Eb-kAQ"; */
+"p4e-Eb-kAQ.text" = "우리가 펫과 사랑할 시간";
+
+/* Class = "UILabel"; text = "Main"; ObjectID = "qn8-c2-sVK"; */
+"qn8-c2-sVK.text" = "메인";
+
+/* Class = "UILabel"; text = "Gangnam Station in Korea"; ObjectID = "uDl-wI-4ZE"; */
+"uDl-wI-4ZE.text" = "강남역";
+
+/* Class = "UINavigationItem"; title = "Filter"; ObjectID = "uWO-J6-2UN"; */
+"uWO-J6-2UN.title" = "필터";
+
+/* Class = "UIButton"; normalTitle = "사업자 
+정보 확인"; ObjectID = "uZB-Nv-E8x"; */
+"uZB-Nv-E8x.normalTitle" = "사업자 정보 확인";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "vKh-8Y-jvR"; */
+"vKh-8Y-jvR.text" = "제목";
+
+/* Class = "UIButton"; normalTitle = "Change"; ObjectID = "xxd-gw-hLb"; */
+"xxd-gw-hLb.normalTitle" = "변경";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ykP-Ou-DeO"; */
+"ykP-Ou-DeO.text" = "라벨";
+
+/* Class = "UILabel"; text = "Filter"; ObjectID = "yvT-MT-o7q"; */
+"yvT-MT-o7q.text" = "필터";
+
+/* Class = "UINavigationItem"; title = "장소들"; ObjectID = "zb5-k9-m8s"; */
+"zb5-k9-m8s.title" = "장소들";
+
+/* Class = "UILabel"; text = "추천장소"; ObjectID = "zt7-ZB-vfF"; */
+"zt7-ZB-vfF.text" = "추천장소";

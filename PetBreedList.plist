@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Dog</key>
+	<array>
+		<array>
+			<string>그레이하운드</string>
+		</array>
+		<array>
+			<string>노리치 테리어</string>
+		</array>
+		<array>
+			<string>달마티안</string>
+		</array>
+		<array>
+			<string>라사압소</string>
+		</array>
+		<array>
+			<string>로첸</string>
+		</array>
+		<array>
+			<string>미니어처 불 테리어</string>
+		</array>
+		<array>
+			<string>버니즈 마운틴 도그</string>
+		</array>
+		<array>
+			<string>벨지안 그리펀</string>
+		</array>
+		<array>
+			<string>보스롱</string>
+		</array>
+		<array>
+			<string>불도그</string>
+		</array>
+		<array>
+			<string>브리타니</string>
+		</array>
+		<array>
+			<string>비숑 프리제</string>
+		</array>
+		<array>
+			<string>서식스 스패니얼</string>
+		</array>
+		<array>
+			<string>스위디쉬 발훈트</string>
+		</array>
+		<array>
+			<string>스태퍼드셔 불 테리어</string>
+		</array>
+		<array>
+			<string>시바 이누</string>
+		</array>
+		<array>
+			<string>아나톨리아 셰퍼드 도그</string>
+		</array>
+		<array>
+			<string>아메리칸 폭스하운드</string>
+		</array>
+		<array>
+			<string>아이리시 워터 스패니얼</string>
+		</array>
+		<array>
+			<string>알래스칸 맬러뮤트</string>
+		</array>
+		<array>
+			<string>오스트레일리언 셰퍼드</string>
+		</array>
+		<array>
+			<string>와이머라너</string>
+		</array>
+		<array>
+			<string>웰시 스프링어 스패니얼</string>
+		</array>
+		<array>
+			<string>잉글리시 스프링어 스패니얼</string>
+		</array>
+		<array>
+			<string>재퍼니스 친</string>
+		</array>
+		<array>
+			<string>저먼 헌팅 테리어</string>
+		</array>
+		<array>
+			<string>치와와</string>
+		</array>
+		<array>
+			<string>케언 테리어</string>
+		</array>
+		<array>
+			<string>코튼 드 툴리어</string>
+		</array>
+		<array>
+			<string>티베탄 마스티프</string>
+		</array>
+		<array>
+			<string>파피용</string>
+		</array>
+		<array>
+			<string>포메라니안</string>
+		</array>
+		<array>
+			<string>풀리</string>
+		</array>
+		<array>
+			<string>피니시 스피츠</string>
+		</array>
+		<array>
+			<string>해리어</string>
+		</array>
+		<array>
+			<string>삽살개</string>
+		</array>
+		<array>
+			<string>골든 리트리버</string>
+		</array>
+		<array>
+			<string>글렌 오브 이말 테리어</string>
+		</array>
+		<array>
+			<string>노바 스코셔 덕 톨링 레트리버</string>
+		</array>
+		<array>
+			<string>댄디 딘몬트 테리어</string>
+		</array>
+		<array>
+			<string>라포니안 허더</string>
+		</array>
+		<array>
+			<string>로트와일러</string>
+		</array>
+		<array>
+			<string>미니어처 슈나우저</string>
+		</array>
+		<array>
+			<string>베들링턴 테리어</string>
+		</array>
+		<array>
+			<string>벨지안 셰퍼드 독</string>
+		</array>
+		<array>
+			<string>보스턴 테리어</string>
+		</array>
+		<array>
+			<string>불 마스티프</string>
+		</array>
+		<array>
+			<string>블랙 러시안 테리어</string>
+		</array>
+		<array>
+			<string>비어디드 콜리</string>
+		</array>
+		<array>
+			<string>세인트 버나드</string>
+		</array>
+		<array>
+			<string>스카이 테리어</string>
+		</array>
+		<array>
+			<string>스탠더드 슈나우저</string>
+		</array>
+		<array>
+			<string>시베리언 허스키</string>
+		</array>
+		<array>
+			<string>아메리칸 스태퍼드셔 테리어</string>
+		</array>
+		<array>
+			<string>아이리쉬 소프트코티드 휘튼 테리어</string>
+		</array>
+		<array>
+			<string>아이리시 테리어</string>
+		</array>
+		<array>
+			<string>에스트렐라 마운틴 독</string>
+		</array>
+		<array>
+			<string>오스트레일리언 캐틀 도그</string>
+		</array>
+		<array>
+			<string>와이어 폭스 테리어</string>
+		</array>
+		<array>
+			<string>웰시 테리어</string>
+		</array>
+		<array>
+			<string>잉글리시 코커 스패니얼 </string>
+		</array>
+		<array>
+			<string>저먼 셰퍼드 도그</string>
+		</array>
+		<array>
+			<string>차우차우</string>
+		</array>
+		<array>
+			<string>카디건 웰시 코기</string>
+		</array>
+		<array>
+			<string>케이넌 도그</string>
+		</array>
+		<array>
+			<string>콜리</string>
+		</array>
+		<array>
+			<string>티베탄 스패니얼</string>
+		</array>
+		<array>
+			<string>퍼그</string>
+		</array>
+		<array>
+			<string>포인터</string>
+		</array>
+		<array>
+			<string>프렌치 불도그</string>
+		</array>
+		<array>
+			<string>피레니안 마스티프</string>
+		</array>
+		<array>
+			<string>허배너스</string>
+		</array>
+		<array>
+			<string>진돗개</string>
+		</array>
+		<array>
+			<string>그레이트 데인</string>
+		</array>
+		<array>
+			<string>네오폴리탄 마스티프</string>
+		</array>
+		<array>
+			<string>노퍽 테리어</string>
+		</array>
+		<array>
+			<string>도고 까나리오</string>
+		</array>
+		<array>
+			<string>래브라도 레트리버</string>
+		</array>
+		<array>
+			<string>마스티프</string>
+		</array>
+		<array>
+			<string>미니어처 핀셔</string>
+		</array>
+		<array>
+			<string>벨기에 말리노이즈</string>
+		</array>
+		<array>
+			<string>보더콜리</string>
+		</array>
+		<array>
+			<string>복서</string>
+		</array>
+		<array>
+			<string>불 테리어</string>
+		</array>
+		<array>
+			<string>블랙 앤드 탄 쿤하운드</string>
+		</array>
+		<array>
+			<string>비즐라</string>
+		</array>
+		<array>
+			<string>셔틀랜드 시프도그</string>
+		</array>
+		<array>
+			<string>스코티시 디어하운드</string>
+		</array>
+		<array>
+			<string>스패니쉬 그레이 하운드</string>
+		</array>
+		<array>
+			<string>시추</string>
+		</array>
+		<array>
+			<string>아메리칸 아키다</string>
+		</array>
+		<array>
+			<string>아이리시 레드 앤드 화이트 세터</string>
+		</array>
+		<array>
+			<string>아키타</string>
+		</array>
+		<array>
+			<string>에어데일 테리어</string>
+		</array>
+		<array>
+			<string>오스트레일리언 테리어</string>
+		</array>
+		<array>
+			<string>와이어헤어드 포인팅 그리펀</string>
+		</array>
+		<array>
+			<string>이비전 하운드</string>
+		</array>
+		<array>
+			<string>잉글리시 토이 스패니얼</string>
+		</array>
+		<array>
+			<string>저먼 쇼트헤어드 포인터</string>
+		</array>
+		<array>
+			<string>차이니스 샤페이</string>
+		</array>
+		<array>
+			<string>카발리에 킹 찰스 스패니얼</string>
+		</array>
+		<array>
+			<string>케이스혼트</string>
+		</array>
+		<array>
+			<string>쿠바스</string>
+		</array>
+		<array>
+			<string>티베탄 테리어</string>
+		</array>
+		<array>
+			<string>페키니즈</string>
+		</array>
+		<array>
+			<string>폴리시 롤런드 시프도그</string>
+		</array>
+		<array>
+			<string>프티 바세 그리퐁 방댕</string>
+		</array>
+		<array>
+			<string>피레니안 쉽독</string>
+		</array>
+		<array>
+			<string>휘핏</string>
+		</array>
+		<array>
+			<string>그레이트 스위스 마운틴 도그</string>
+		</array>
+		<array>
+			<string>노르웨이안 부훈트</string>
+		</array>
+		<array>
+			<string>뉴펀들랜드</string>
+		</array>
+		<array>
+			<string>도그 드 보르도</string>
+		</array>
+		<array>
+			<string>레이크랜드 테리어</string>
+		</array>
+		<array>
+			<string>맨체스터 테리어</string>
+		</array>
+		<array>
+			<string>바센지</string>
+		</array>
+		<array>
+			<string>벨기에 시프도그</string>
+		</array>
+		<array>
+			<string>보더 테리어</string>
+		</array>
+		<array>
+			<string>볼로네즈</string>
+		</array>
+		<array>
+			<string>브뤼셀 그리펀</string>
+		</array>
+		<array>
+			<string>블러드 하운드</string>
+		</array>
+		<array>
+			<string>사모예드</string>
+		</array>
+		<array>
+			<string>소프트 코티드 휘튼 테리어 </string>
+		</array>
+		<array>
+			<string>스코티시 테리어</string>
+		</array>
+		<array>
+			<string>스페니쉬 마스티프</string>
+		</array>
+		<array>
+			<string>실리엄 테리어</string>
+		</array>
+		<array>
+			<string>아메리칸 에스키모 도그</string>
+		</array>
+		<array>
+			<string>아이리시 세터</string>
+		</array>
+		<array>
+			<string>아펜핀셔</string>
+		</array>
+		<array>
+			<string>오스트레일리안 실키 테리어</string>
+		</array>
+		<array>
+			<string>오터 하운드</string>
+		</array>
+		<array>
+			<string>요크셔 테리어</string>
+		</array>
+		<array>
+			<string>이탤리언 그레이하운드</string>
+		</array>
+		<array>
+			<string>잉글리시 폭스하운드</string>
+		</array>
+		<array>
+			<string>저먼 와이어헤어드 포인터 </string>
+		</array>
+		<array>
+			<string>차이니스 크레스티드</string>
+		</array>
+		<array>
+			<string>컬리코티드 레트리버 </string>
+		</array>
+		<array>
+			<string>코몬도르</string>
+		</array>
+		<array>
+			<string>클럼버 스패니얼</string>
+		</array>
+		<array>
+			<string>파라오 하운드</string>
+		</array>
+		<array>
+			<string>펨브록 웰시 코기</string>
+		</array>
+		<array>
+			<string>푸들</string>
+		</array>
+		<array>
+			<string>플랫코티드 레트리버</string>
+		</array>
+		<array>
+			<string>피레니언 셰퍼드</string>
+		</array>
+		<array>
+			<string>동경견</string>
+		</array>
+		<array>
+			<string>그레이트 피레네</string>
+		</array>
+		<array>
+			<string>노르웨이 엘크 하운드</string>
+		</array>
+		<array>
+			<string>닥스훈트</string>
+		</array>
+		<array>
+			<string>도베르만 핀셔</string>
+		</array>
+		<array>
+			<string>로디지아 리지백</string>
+		</array>
+		<array>
+			<string>몰티즈</string>
+		</array>
+		<array>
+			<string>바셋 하운드</string>
+		</array>
+		<array>
+			<string>벨기에 테뷰런</string>
+		</array>
+		<array>
+			<string>보르조이</string>
+		</array>
+		<array>
+			<string>부비에 데 플랑드르</string>
+		</array>
+		<array>
+			<string>브리아드</string>
+		</array>
+		<array>
+			<string>비글</string>
+		</array>
+		<array>
+			<string>살루키</string>
+		</array>
+		<array>
+			<string>스무드 폭스 테리어</string>
+		</array>
+		<array>
+			<string>스키퍼키</string>
+		</array>
+		<array>
+			<string>스피노네 이탈리아노</string>
+		</array>
+		<array>
+			<string>실키 테리어</string>
+		</array>
+		<array>
+			<string>아메리칸 워터 스패니얼</string>
+		</array>
+		<array>
+			<string>아이리시 울프 하운드</string>
+		</array>
+		<array>
+			<string>아프간 하운드</string>
+		</array>
+		<array>
+			<string>오스트레일리안 켈피</string>
+		</array>
+		<array>
+			<string>올드 잉글리시 시프도그</string>
+		</array>
+		<array>
+			<string>웨스트 하이랜드 화이트 테리어</string>
+		</array>
+		<array>
+			<string>잉글리시 세터</string>
+		</array>
+		<array>
+			<string>자이언트 슈나우저</string>
+		</array>
+		<array>
+			<string>저먼 핀셔</string>
+		</array>
+		<array>
+			<string>체서피크 베이 레트리버 </string>
+		</array>
+		<array>
+			<string>케리 블루 테리어</string>
+		</array>
+		<array>
+			<string>코커 스패니얼</string>
+		</array>
+		<array>
+			<string>토이 폭스 테리어</string>
+		</array>
+		<array>
+			<string>파슨 러셀 테리어</string>
+		</array>
+		<array>
+			<string>포르투갈 워터 도그</string>
+		</array>
+		<array>
+			<string>푸미</string>
+		</array>
+		<array>
+			<string>플롯 하운드</string>
+		</array>
+		<array>
+			<string>필드 스패니얼</string>
+		</array>
+		<array>
+			<string>풍산개</string>
+		</array>
+	</array>
+	<key>Cat</key>
+	<array>
+		<array>
+			<string>랙돌</string>
+		</array>
+		<array>
+			<string>발리네즈</string>
+		</array>
+		<array>
+			<string>브리티시 쇼트헤어</string>
+		</array>
+		<array>
+			<string>셀커크 렉스</string>
+		</array>
+		<array>
+			<string>싱가퓨라</string>
+		</array>
+		<array>
+			<string>아메리칸컬</string>
+		</array>
+		<array>
+			<string>유러피안버미즈</string>
+		</array>
+		<array>
+			<string>재패니즈밥테일</string>
+		</array>
+		<array>
+			<string>터키시반</string>
+		</array>
+		<array>
+			<string>하바나브라운</string>
+		</array>
+		<array>
+			<string>데본렉스</string>
+		</array>
+		<array>
+			<string>러시안블루</string>
+		</array>
+		<array>
+			<string>버만</string>
+		</array>
+		<array>
+			<string>시베리아고양이</string>
+		</array>
+		<array>
+			<string>소말리</string>
+		</array>
+		<array>
+			<string>아메리칸밥테일</string>
+		</array>
+		<array>
+			<string>아비시니아고양이</string>
+		</array>
+		<array>
+			<string>이그저틱</string>
+		</array>
+		<array>
+			<string>컬러포인트쇼트헤어</string>
+		</array>
+		<array>
+			<string>터키시앙고라</string>
+		</array>
+		<array>
+			<string>라가머핀</string>
+		</array>
+		<array>
+			<string>맹크스고양이</string>
+		</array>
+		<array>
+			<string>버미즈</string>
+		</array>
+		<array>
+			<string>샴고양이</string>
+		</array>
+		<array>
+			<string>스코티시폴드</string>
+		</array>
+		<array>
+			<string>아메리칸쇼트헤어</string>
+		</array>
+		<array>
+			<string>오리엔탈</string>
+		</array>
+		<array>
+			<string>이집션마우</string>
+		</array>
+		<array>
+			<string>코니시 렉스</string>
+		</array>
+		<array>
+			<string>통키니즈</string>
+		</array>
+		<array>
+			<string>라팜</string>
+		</array>
+		<array>
+			<string>메인쿤</string>
+		</array>
+		<array>
+			<string>봄베이</string>
+		</array>
+		<array>
+			<string>샤트룩스</string>
+		</array>
+		<array>
+			<string>스핑크스</string>
+		</array>
+		<array>
+			<string>아메리칸와이어헤어</string>
+		</array>
+		<array>
+			<string>오시캣</string>
+		</array>
+		<array>
+			<string>자바니즈</string>
+		</array>
+		<array>
+			<string>코랫</string>
+		</array>
+		<array>
+			<string>페르시안고양이</string>
+		</array>
+	</array>
+</dict>
+</plist>

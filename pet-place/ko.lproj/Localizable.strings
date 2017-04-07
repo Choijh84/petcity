@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  pet-place
+
+  Created by Ken Choi on 2017. 3. 30..
+  Copyright © 2017년 press.S. All rights reserved.
+*/
+
+"Hospital" = "동물병원";
+"Pet Beauty Shop" = "펫 미용샵";
+"Pet Cafe" = "펫카페";
+"Pet Friendly Cafe" = "펫 동반 카페";
+"Pet Friendly Hotel" = "펫 동반 호텔";
+"Pet Friendly Park" = "펫 동반 공원";
+"Pet Friendly Pension" = "펫 동반 펜션";
+"Pet Friendly Restaurant" = "펫 동반 식당";
+"Pet Hotel" = "펫 호텔";
+"Pet Good Shop" = "펫 용품샵";
+"Pet Shop" = "펫 분양샵";
+"Pet Kindergarden" = "펫 유치원";
+"Pet Playground" = "펫 놀이방";
+"Pet Training" = "펫 훈련소";
+
+"Choose Gender" = "성별 선택";
+"Pet name" = "펫 이름";
+"Male" = "남아";
+"Female" = "여아";
+"Species" = "반려동물 종";
+"Breed" = "품종";
+"Weight" = "몸무게";
+"Neutralized" = "중성화 여부";
+"Registration" = "등록번호";
+"Pet Photo" = "펫 사진";
+"Birthday" = "생년월일";
+
+"Show Detail Info" = "정보 더 보기";
+"Hide Detail Info" = "정보 숨기기";
+"About" = "장소 소개";
+"Info" = "기본 정보";
+"Detail Info" = "세부 정보";
+"Photo" = "사진";
+"Location" = "지도";
+"Reviews" = "리뷰";

@@ -1,0 +1,6 @@
+framework module Pods_pet_place {
+  umbrella header "Pods-pet-place-umbrella.h"
+
+  export *
+  module * { export * }
+}

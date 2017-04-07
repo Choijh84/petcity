@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="Cjs-ZR-P37">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="BMHANNA_11yrs.otf">
+            <string>BMHANNA11yrsoldOTF</string>
+        </array>
+        <array key="BMJUA.otf">
+            <string>BMJUAOTF</string>
+        </array>
+        <array key="이순신돋움체M.otf">
+            <string>YiSunShinDotumM</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Onboarding View Controller-->
+        <scene sceneID="cYS-jd-L9a">
+            <objects>
+                <viewController id="Cjs-ZR-P37" customClass="OnboardingViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AyP-KH-dXz"/>
+                        <viewControllerLayoutGuide type="bottom" id="qNC-Yo-aoE"/>
+                    </layoutGuides>
+                    <view key="view" alpha="0.80000000000000004" contentMode="scaleToFill" id="6wh-BS-oC8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locationIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9Y4-mM-4N5">
+                                <rect key="frame" x="155.5" y="187.5" width="64" height="92"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="위치 정보를 알려주세요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yN7-MV-ooR">
+                                <rect key="frame" x="108" y="310.5" width="160.5" height="18.5"/>
+                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="펫시티에서 주변의 장소를  알려드리려면 위치 정보가 필요해요" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyX-Ug-lXz">
+                                <rect key="frame" x="30" y="341" width="315" height="30"/>
+                                <fontDescription key="fontDescription" name="BMHANNA11yrsoldOTF" family="BM HANNA 11yrs old OTF" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="323-WQ-FtK" customClass="OnboardingButton" customModule="pet_place" customModuleProvider="target">
+                                <rect key="frame" x="107.5" y="574" width="160" height="46"/>
+                                <color key="backgroundColor" red="0.8784313725490196" green="0.5725490196078431" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="SmO-ll-GUh"/>
+                                    <constraint firstAttribute="width" constant="160" id="VPq-mt-PC7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="16"/>
+                                <state key="normal" title="위치 정보 승인"/>
+                                <connections>
+                                    <action selector="gpsButtonPressed" destination="Cjs-ZR-P37" eventType="touchUpInside" id="nLU-Vs-BGA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="323-WQ-FtK" firstAttribute="centerX" secondItem="6wh-BS-oC8" secondAttribute="centerX" id="IiX-kW-SiV"/>
+                            <constraint firstAttribute="trailing" secondItem="xyX-Ug-lXz" secondAttribute="trailing" constant="30" id="Uow-MF-chU"/>
+                            <constraint firstItem="xyX-Ug-lXz" firstAttribute="leading" secondItem="6wh-BS-oC8" secondAttribute="leading" constant="30" id="VZS-lR-Qmi"/>
+                            <constraint firstItem="yN7-MV-ooR" firstAttribute="centerX" secondItem="6wh-BS-oC8" secondAttribute="centerX" id="YL6-Ga-xwb"/>
+                            <constraint firstItem="9Y4-mM-4N5" firstAttribute="centerX" secondItem="6wh-BS-oC8" secondAttribute="centerX" id="Ztg-bn-t6E"/>
+                            <constraint firstItem="9Y4-mM-4N5" firstAttribute="centerY" secondItem="6wh-BS-oC8" secondAttribute="centerY" constant="-100" id="gFG-8B-n9u"/>
+                            <constraint firstItem="yN7-MV-ooR" firstAttribute="top" secondItem="9Y4-mM-4N5" secondAttribute="bottom" constant="31" id="i4S-Oi-Brf"/>
+                            <constraint firstItem="xyX-Ug-lXz" firstAttribute="centerX" secondItem="6wh-BS-oC8" secondAttribute="centerX" id="mzV-KZ-AZ4"/>
+                            <constraint firstItem="qNC-Yo-aoE" firstAttribute="top" secondItem="323-WQ-FtK" secondAttribute="bottom" constant="47" id="rr0-Em-KD2"/>
+                            <constraint firstItem="xyX-Ug-lXz" firstAttribute="top" secondItem="yN7-MV-ooR" secondAttribute="bottom" constant="12" id="xiy-E1-hc1"/>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="gpsButton" destination="323-WQ-FtK" id="2Jp-I7-wS4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kjb-sN-6dV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="150" y="338"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="locationIcon" width="64" height="92"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>
