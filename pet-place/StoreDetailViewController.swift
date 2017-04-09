@@ -634,6 +634,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         }
     }
     
+    // 정보 더 보기 / 숨기기 보여주는 버튼 컨트롤
     func buttonTapped() {
         if isExpanded == false {
             isExpanded = true

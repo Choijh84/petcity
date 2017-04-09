@@ -63,14 +63,15 @@ class LocationsDownloadManager : NSObject {
         queryOptions.relationsDepth = 1
         
         // 쿼리조건 - 선택된 스토어 카테고리 및 2000km, 향후에 radius도 받아서 조정 가능
-        dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude ) < km(2000)"
+        dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude) < km(2000)"
         
         // 반려동물 타입에 관련해서 쿼리 조건 추가
-        if !((selectedPetType ?? "").isEmpty) {
+        if (selectedPetType != "" && selectedPetType != nil) {
             dataQuery.whereClause = dataQuery.whereClause.appending("\(selectedPetType!)")
         }
-        // 반려동물 크게 관련해서 쿼리 조건 추가
-        if !((selectedPetSize ?? "").isEmpty) {
+        
+        // 반려동물 크기 관련해서 쿼리 조건 추가
+        if (selectedPetSize != "" && selectedPetSize != nil) {
             dataQuery.whereClause = dataQuery.whereClause.appending("\(selectedPetSize!)")
         }
         

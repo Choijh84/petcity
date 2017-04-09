@@ -186,7 +186,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 /// self.selectedSortingOption1 = sortingOptions1[indexPath.row]
                 GlobalVar.filter1 = sortingOptions1[indexPath.row].name
             }
-            print("This is GlobalVar.filter1: \(String(describing: GlobalVar.filter1))")
+            // print("This is GlobalVar.filter1: \(String(describing: GlobalVar.filter1))")
         } else {
             /// let selectedSortingOption2 = sortingOptions2[indexPath.row]
             if GlobalVar.filter2 == sortingOptions2[indexPath.row].name {
@@ -196,7 +196,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 /// self.selectedSortingOption2 = sortingOptions2[indexPath.row]
                 GlobalVar.filter2 = sortingOptions2[indexPath.row].name
             }
-            print("This is GlobalVar.filter2: \(String(describing: GlobalVar.filter2))")
+            // print("This is GlobalVar.filter2: \(String(describing: GlobalVar.filter2))")
         }
         tableView.reloadData()
         setTrashButtonEmpty(false)

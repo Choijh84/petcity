@@ -514,16 +514,13 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location :" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-hK-die">
-                                        <rect key="frame" x="10" y="6.5" width="75" height="18.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="vun-rY-sBQ"/>
-                                        </constraints>
+                                        <rect key="frame" x="10" y="6.5" width="74" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5bd-y3-Rzg">
-                                        <rect key="frame" x="90" y="8.5" width="150" height="13"/>
+                                        <rect key="frame" x="89" y="8.5" width="150" height="13"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="Wwb-EP-Bs9"/>
                                         </constraints>
@@ -764,7 +761,7 @@
                                                             <color key="backgroundColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pet Cafe in Gangnam" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LMx-Ko-f3N">
-                                                            <rect key="frame" x="115.5" y="50" width="145.5" height="24"/>
+                                                            <rect key="frame" x="115" y="50" width="145.5" height="24"/>
                                                             <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1073,8 +1070,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg5-AF-XZ7">
-                                                    <rect key="frame" x="15" y="10" width="345" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <rect key="frame" x="15" y="10" width="345" height="12"/>
+                                                    <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="12"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1090,33 +1087,34 @@
                                             <outlet property="descriptionLabel" destination="Zg5-AF-XZ7" id="EsP-MD-mze"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoWithIcon" rowHeight="50" id="iau-OK-HoJ" customClass="InfoWithIconTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="302" width="375" height="50"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoWithIcon" rowHeight="100" id="iau-OK-HoJ" customClass="InfoWithIconTableViewCell" customModule="pet_place" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="302" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iau-OK-HoJ" id="oOR-Cd-9d4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfo-bN-sav">
-                                                    <rect key="frame" x="15" y="12" width="26" height="26"/>
+                                                    <rect key="frame" x="15" y="37.5" width="25" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="26" id="HGQ-XW-sIa"/>
-                                                        <constraint firstAttribute="width" constant="26" id="KCT-8p-YKA"/>
+                                                        <constraint firstAttribute="height" constant="25" id="HGQ-XW-sIa"/>
+                                                        <constraint firstAttribute="width" constant="25" id="KCT-8p-YKA"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykP-Ou-DeO">
-                                                    <rect key="frame" x="61" y="16" width="299" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <rect key="frame" x="60" y="13" width="300" height="73.5"/>
+                                                    <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="14"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="ykP-Ou-DeO" secondAttribute="trailing" constant="15" id="52G-gk-8j0"/>
-                                                <constraint firstAttribute="bottom" secondItem="dfo-bN-sav" secondAttribute="bottom" constant="11" id="GtB-sb-pgJ"/>
+                                                <constraint firstItem="dfo-bN-sav" firstAttribute="centerY" secondItem="oOR-Cd-9d4" secondAttribute="centerY" id="AUS-xJ-DHz"/>
+                                                <constraint firstItem="ykP-Ou-DeO" firstAttribute="top" secondItem="oOR-Cd-9d4" secondAttribute="topMargin" constant="5" id="U6m-Dl-hsS"/>
                                                 <constraint firstItem="ykP-Ou-DeO" firstAttribute="centerY" secondItem="oOR-Cd-9d4" secondAttribute="centerY" id="UZJ-Zc-7Nr"/>
                                                 <constraint firstItem="ykP-Ou-DeO" firstAttribute="leading" secondItem="dfo-bN-sav" secondAttribute="trailing" constant="20" id="UbR-mj-vLM"/>
-                                                <constraint firstItem="dfo-bN-sav" firstAttribute="top" secondItem="oOR-Cd-9d4" secondAttribute="top" constant="12" id="XtC-D5-ZEP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ykP-Ou-DeO" secondAttribute="bottom" constant="5" id="c3e-93-Q3V"/>
                                                 <constraint firstItem="dfo-bN-sav" firstAttribute="leading" secondItem="oOR-Cd-9d4" secondAttribute="leading" constant="15" id="e55-Pl-yJs"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1126,7 +1124,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell tag="1" contentMode="scaleAspectFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="storePhotoCell" rowHeight="200" id="jzM-cy-2g8" userLabel="storePhotoCell" customClass="storePhotoTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="352" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="402" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jzM-cy-2g8" id="sbD-ve-W60">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
@@ -1163,7 +1161,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="googleMapCell" rowHeight="160" id="dx0-xE-zrv" customClass="StoreGoogleMapTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="552" width="375" height="160"/>
+                                        <rect key="frame" x="0.0" y="602" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dx0-xE-zrv" id="BTA-tI-2iO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
@@ -1189,7 +1187,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="naverMapCell" rowHeight="180" id="wlB-zr-qtg" customClass="StoreNaverMapTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="712" width="375" height="180"/>
+                                        <rect key="frame" x="0.0" y="762" width="375" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wlB-zr-qtg" id="0Xc-dj-b7x">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="179.5"/>
@@ -1226,7 +1224,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sectionHeaderSpaceCell" textLabel="vZD-39-nOc" rowHeight="40" style="IBUITableViewCellStyleDefault" id="fj5-wN-x0b" customClass="ReviewOptionsTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="892" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="942" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fj5-wN-x0b" id="ARn-lD-N7I">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
@@ -1243,7 +1241,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewButtons" rowHeight="50" id="KZ1-8y-cTQ" customClass="ReviewOptionsTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="932" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="982" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KZ1-8y-cTQ" id="GXP-ve-kHr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
