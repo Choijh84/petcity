@@ -7,4 +7,6 @@
 #import <HCSStarRatingView/HCSStarRatingView.h>
 #import "Backendless.h"
 #import "BackendlessGeoQuery.h"
+#import <NMapViewerSDK/NMapView.h>
+#import <NMapViewerSDK/NMapLocationManager.h>
 

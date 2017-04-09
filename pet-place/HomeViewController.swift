@@ -35,6 +35,7 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     
     @IBOutlet var tableInsideHome: LoadingTableView!
     
+    
     // 프로모션은 처음에 보이는 이미지들, 우리 뉴스나 광고를 집어넣어야 할 곳?
     var promotions = [FrontPromotion]()
     
@@ -46,12 +47,14 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     
     var isFirstTime = false
     
+    @IBAction func wantToSearch(_ sender: Any) {
+        performSegue(withIdentifier: "performSearch", sender: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "펫시티 홈"
-
         downloadBoth()
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,6 +101,8 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         // 보여주기
         self.present(walkthrough, animated: true, completion: nil)
     }
+    
+    
     
     // 둘 다 다운로드 받게 함
     func downloadBoth() {

@@ -194,8 +194,8 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         /// set up the Self-Sizing Table View Cells
         /// Should set the label line as 0
+        tableView.estimatedRowHeight = 160
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 60.0
     
         setupDatasource()
         
@@ -252,16 +252,25 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         let tapLocation = recognizer.location(in: self.tableView)
         if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
-            if tapIndexPath == [6,0] {
-                let browser = SKPhotoBrowser(photos: SKimageArray)
-                browser.initializePageIndex(0)
-                self.present(browser, animated: true, completion: nil)
+            if isExpanded == false {
+                if tapIndexPath == [6,0] {
+                    let browser = SKPhotoBrowser(photos: SKimageArray)
+                    browser.initializePageIndex(0)
+                    self.present(browser, animated: true, completion: nil)
+                }
+            } else {
+                if tapIndexPath == [8,0] {
+                    let browser = SKPhotoBrowser(photos: SKimageArray)
+                    browser.initializePageIndex(0)
+                    self.present(browser, animated: true, completion: nil)
+                }
             }
+            
         }
     }
     
     /** 
-        Detect the tap and take action 
+        Detect the tap and take action, 액션을 정의하는 곳
         - parameter: recognizer
         
         Check the indexPath
@@ -270,50 +279,97 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         let tapLocation = recognizer.location(in: self.tableView)
         
         // 싱글탭하면 전화 걸기, 웹사이트 이동, 리뷰 보기 지원 
+        // 펼쳤는지 접었는지에 따라 indexPath가 달라짐
         
         if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
             print("This is tapIndexPath: \(tapIndexPath)")
+            print("This is isExpanded: \(isExpanded)")
             if self.tableView.cellForRow(at: tapIndexPath) != nil {
-                /// 전화번호 걸게
-                if tapIndexPath == [3,0] {
-                    callButtonPressed()
-                } else if tapIndexPath == [3,2] {
-                    /// 웹사이트 로딩, 사파리뷰
-                    if var website = storeToDisplay.website {
-                        if website.lowercased().hasPrefix("http") == false {
-                            website = "http://".appending(website)
-                        } 
-                        print("This is url: \(website)")
-                        if let url = URL(string: website) {
-                            let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
-                            vc.delegate = self
-                            // vc.modalPresentationStyle = .overFullScreen
-                            present(vc, animated: true, completion: nil)
+                // 안 접혔을 때
+                if isExpanded == false {
+                    /// 전화번호 걸게
+                    if tapIndexPath == [3,0] {
+                        callButtonPressed()
+                    } else if tapIndexPath == [3,2] {
+                        /// 웹사이트 로딩, 사파리뷰
+                        if var website = storeToDisplay.website {
+                            if website.lowercased().hasPrefix("http") == false {
+                                website = "http://".appending(website)
+                            } 
+                            print("This is url: \(website)")
+                            if let url = URL(string: website) {
+                                let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+                                vc.delegate = self
+                                // vc.modalPresentationStyle = .overFullScreen
+                                present(vc, animated: true, completion: nil)
+                            }
+                        } else {
+                            SCLAlertView().showNotice("웹사이트가 없어요", subTitle: "생기면 업데이트를 하겠습니다")
                         }
-                    } else {
-                        SCLAlertView().showNotice("웹사이트가 없어요", subTitle: "생기면 업데이트를 하겠습니다")
+                    } else if tapIndexPath.section == 11 {
+                        // [11]이 리뷰 3개를 표시하는 곳, 선택하면 바로 보여주기
+                        let reviewPresentManager : ReviewPresentManager = ReviewPresentManager()
+                        
+                        let selectedReview = downloadedReviews[tapIndexPath.row]
+                        let storyboard = UIStoryboard(name: "Reviews", bundle: nil)
+                        let destinationController = storyboard.instantiateViewController(withIdentifier: "ReviewsDetailViewController") as! ReviewsDetailViewController
+                        destinationController.reviewToDisplay = selectedReview
+                        destinationController.transitioningDelegate = reviewPresentManager
+                        present(destinationController, animated: true, completion: nil)
+                        
+                    } else if (tapIndexPath == [3,1]) ||  (tapIndexPath.section == 8) || (tapIndexPath == [3,3]) {
+                        // (tapIndexPath.section == 6) ||
+                        // [3,1]과 [8]은 주소 - 우선 주소만 카피
+                        // [3,3]은 영업시간, 섹션 6은 디테일 정보
+                        let pasteboard = UIPasteboard.general
+                        if let address = storeToDisplay.address {
+                            pasteboard.string = "\(address)"
+                            SCLAlertView().showSuccess("복사 완료", subTitle: "클립 보드에 저장됨")
+                        } else {
+                            SCLAlertView().showError("복사 실패", subTitle: "저장할 정보가 없습니다")
+                        }
                     }
-                } else if tapIndexPath.section == 11 {
-                    // [11]이 리뷰 3개를 표시하는 곳, 선택하면 바로 보여주기
-                    let reviewPresentManager : ReviewPresentManager = ReviewPresentManager()
-                    
-                    let selectedReview = downloadedReviews[tapIndexPath.row]
-                    let storyboard = UIStoryboard(name: "Reviews", bundle: nil)
-                    let destinationController = storyboard.instantiateViewController(withIdentifier: "ReviewsDetailViewController") as! ReviewsDetailViewController
-                    destinationController.reviewToDisplay = selectedReview
-                    destinationController.transitioningDelegate = reviewPresentManager
-                    present(destinationController, animated: true, completion: nil)
-                    
-                } else if (tapIndexPath == [3,1]) ||  (tapIndexPath.section == 8) {
-                    // (tapIndexPath == [3,3]) || (tapIndexPath.section == 6) ||
-                    // [3,1]과 [8]은 주소 - 우선 주소만 카피
-                    // [3,3]은 영업시간, 섹션 6은 디테일 정보
-                    let pasteboard = UIPasteboard.general
-                    if let address = storeToDisplay.address {
-                        pasteboard.string = "\(address)"
-                        SCLAlertView().showSuccess("주소 복사 완료", subTitle: "클립 보드에 저장됨")
-                    } else {
-                        SCLAlertView().showError("주소 복사 실패", subTitle: "저장할 주소가 없습니다")
+                } else {
+                    if tapIndexPath == [3,0] {
+                        callButtonPressed()
+                    } else if tapIndexPath == [3,2] {
+                        /// 웹사이트 로딩, 사파리뷰
+                        if var website = storeToDisplay.website {
+                            if website.lowercased().hasPrefix("http") == false {
+                                website = "http://".appending(website)
+                            }
+                            print("This is url: \(website)")
+                            if let url = URL(string: website) {
+                                let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+                                vc.delegate = self
+                                // vc.modalPresentationStyle = .overFullScreen
+                                present(vc, animated: true, completion: nil)
+                            }
+                        } else {
+                            SCLAlertView().showNotice("웹사이트가 없어요", subTitle: "생기면 업데이트를 하겠습니다")
+                        }
+                    } else if (tapIndexPath == [3,1]) ||  (tapIndexPath.section == 6) || (tapIndexPath == [3,3]) || (tapIndexPath == [10,0]) {
+                        // 펼쳐져 있을 때는 섹션 6이 디테일 정보
+                        // [3,1]과 [8]은 주소 - 우선 주소만 카피
+                        // [3,3]은 영업시간, 섹션 6은 디테일 정보
+                        let pasteboard = UIPasteboard.general
+                        if let address = storeToDisplay.address {
+                            pasteboard.string = "\(address)"
+                            SCLAlertView().showSuccess("복사 완료", subTitle: "클립 보드에 저장됨")
+                        } else {
+                            SCLAlertView().showError("복사 실패", subTitle: "저장할 정보가 없습니다")
+                        }
+                    } else if tapIndexPath.section == 13 {
+                        // [11]이 리뷰 3개를 표시하는 곳, 선택하면 바로 보여주기
+                        let reviewPresentManager : ReviewPresentManager = ReviewPresentManager()
+                        
+                        let selectedReview = downloadedReviews[tapIndexPath.row]
+                        let storyboard = UIStoryboard(name: "Reviews", bundle: nil)
+                        let destinationController = storyboard.instantiateViewController(withIdentifier: "ReviewsDetailViewController") as! ReviewsDetailViewController
+                        destinationController.reviewToDisplay = selectedReview
+                        destinationController.transitioningDelegate = reviewPresentManager
+                        present(destinationController, animated: true, completion: nil)
+                        
                     }
                 }
             }
@@ -431,6 +487,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
          */
         
         // 구글맵 기반
+        /**
         let googleMapSection = StoreDetailRowDatasource<StoreGoogleMapTableViewCell>(identifier: "googleMapCell", setupBlock: { (cell) in
                 DispatchQueue.main.async(execute: {
                     self.configureGoogleMapCell(cell)
@@ -438,9 +495,13 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         }) { 
             print("This is Google Map")
         }
+        */
         
-        let naverMapSection = StoreDetailRowDatasource<StoreNaverMapTableViewCell>(identifier: "naverMapCell", setupBlobk: { (cell) in
-            DispatchQueue.main.async(execute: { 
+        let naverMapSection = StoreDetailRowDatasource<StoreNaverMapTableViewCell>(identifier: "naverMapCell", setupBlock: { (cell) in
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.separatorInset = UIEdgeInsets.zero
+            
+            DispatchQueue.main.async(execute: {
                 self.configureNaverMapCell(cell)
             })
         }) {
@@ -477,10 +538,10 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         }
         
         if isExpanded == false {
-            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, googleMapSection,reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, naverMapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
             
         } else {
-            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, detailInfoSectionHeaderRow, detailInfoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, googleMapSection,reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
+            dataSource = StoreDetailViewDatasource(sectionSources: [aboutSectionHeaderRow, aboutSection, infoSectionHeaderRow, infoSection, detailInfoButton, detailInfoSectionHeaderRow, detailInfoSection, photoSectionHeaderRow, photoSection, locationSectionHeaderRow, mapInfoSection, naverMapSection, reviewSectionHeaderRow, reviewsSection, reviewButtonSection])
             
         }
         
@@ -705,7 +766,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
      - parameter cell: cell to configure
      */
     func configureNaverMapCell(_ cell: StoreNaverMapTableViewCell) {
-        // cell.zoomMapToStoreLocation(storeToDisplay)
+        cell.zoomMapToStoreLocation(storeToDisplay)
     }
     
     /**
@@ -716,6 +777,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     func configureMapInfoSectionCell(_ cell: InfoWithIconTableViewCell) {
         cell.infoLabel.text = storeToDisplay.address
         cell.iconImageView.image = UIImage(named: "cellLocationIcon")
+        
     }
     
     /**
@@ -837,22 +899,6 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         } else {
 //            webButtonPressed()
             print("Being Called")
-        }
-    }
-    
-    /**
-     Called when any of the detailInfo section's row is selected
-     
-     - parameter cell: cell that was selected
-     - parameter row: which row was selected
-     */
-    func detailinfoSectionCellWasSelected(_ cell: InfoWithIconTableViewCell, row: Int) {
-        if row == 0 {
-            //            callButtonPressed()
-        } else if row == 1 {
-            //            emailButtonPressed()
-        } else {
-            //            webButtonPressed()
         }
     }
     

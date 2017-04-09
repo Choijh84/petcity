@@ -78,6 +78,7 @@
 		BE6F63CC1E83B670008F8441 /* BMYEONSUNG.otf in Resources */ = {isa = PBXBuildFile; fileRef = BE6F63B41E83B439008F8441 /* BMYEONSUNG.otf */; };
 		BE7A22981E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A22971E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift */; };
 		BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */; };
+		BE8EC45C1E9A206E00FE1A5E /* PerformSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8EC45B1E9A206E00FE1A5E /* PerformSearchViewController.swift */; };
 		BE91C4A71E6D59CB00B4C8B5 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */; };
 		BE9C99B21E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */; };
 		BE9C99B41E79612C000838B8 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C99B31E79612C000838B8 /* Story.swift */; };
@@ -87,6 +88,11 @@
 		BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */; };
 		BEA6BE8D1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */; };
 		BEA6BE8E1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */; };
+		BEA79C401E97B8C100D92DA9 /* ApiGatewayMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA79C3E1E97B8C100D92DA9 /* ApiGatewayMac.framework */; };
+		BEA79C411E97B8C100D92DA9 /* NMapViewerSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEA79C3F1E97B8C100D92DA9 /* NMapViewerSDK.framework */; };
+		BEA79C431E97B8E900D92DA9 /* ApiGatewayMac.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEA79C3E1E97B8C100D92DA9 /* ApiGatewayMac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BEA79C471E97B94300D92DA9 /* strip-frameworks.sh in Resources */ = {isa = PBXBuildFile; fileRef = BEA79C461E97B94300D92DA9 /* strip-frameworks.sh */; };
+		BEA79C491E97BD4900D92DA9 /* NMapViewResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */; };
 		BEB0C4341E55925C006791E6 /* ReviewDetailPhotosCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0C4331E55925C006791E6 /* ReviewDetailPhotosCVC.swift */; };
 		BEB1F8961E6AB877002D273A /* LocationControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */; };
 		BEB74FE21E65696000DF0904 /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB74FE11E65696000DF0904 /* InquiryViewController.swift */; };
@@ -190,6 +196,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BEA79C441E97B8E900D92DA9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BEA79C431E97B8E900D92DA9 /* ApiGatewayMac.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1009EADB6B3C185148D7BD2B /* Pods_pet_placeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pet_placeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E50B3E20E6CDE14183D75C /* Pods-pet-placeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pet-placeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-pet-placeUITests/Pods-pet-placeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -267,6 +287,7 @@
 		BE6F63BE1E83B516008F8441 /* 서울한강 장체M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "서울한강 장체M.otf"; sourceTree = "<group>"; };
 		BE7A22971E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreNaverMapTableViewCell.swift; sourceTree = "<group>"; };
 		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
+		BE8EC45B1E9A206E00FE1A5E /* PerformSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformSearchViewController.swift; sourceTree = "<group>"; };
 		BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryPhotoCollectionVIewCell.swift; sourceTree = "<group>"; };
 		BE9C99B31E79612C000838B8 /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
@@ -276,6 +297,10 @@
 		BEA6BE891E3CCA4700D75CEE /* NewsListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListDetailViewController.swift; sourceTree = "<group>"; };
 		BEA6BE8B1E3CCA7D00D75CEE /* NewsTransitionPresentAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionPresentAnimator.swift; sourceTree = "<group>"; };
 		BEA6BE8C1E3CCA7D00D75CEE /* NewsTransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTransitionDismissalAnimator.swift; sourceTree = "<group>"; };
+		BEA79C3E1E97B8C100D92DA9 /* ApiGatewayMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ApiGatewayMac.framework; sourceTree = "<group>"; };
+		BEA79C3F1E97B8C100D92DA9 /* NMapViewerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NMapViewerSDK.framework; sourceTree = "<group>"; };
+		BEA79C461E97B94300D92DA9 /* strip-frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "strip-frameworks.sh"; sourceTree = "<group>"; };
+		BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMapViewResources.swift; sourceTree = "<group>"; };
 		BEB0C4331E55925C006791E6 /* ReviewDetailPhotosCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailPhotosCVC.swift; sourceTree = "<group>"; };
 		BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControlViewController.swift; sourceTree = "<group>"; };
 		BEB74FE11E65696000DF0904 /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
@@ -383,7 +408,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEA79C401E97B8C100D92DA9 /* ApiGatewayMac.framework in Frameworks */,
 				C6E04F711C401244AB82C13F /* Pods_pet_place.framework in Frameworks */,
+				BEA79C411E97B8C100D92DA9 /* NMapViewerSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +436,8 @@
 		A58D89FF8EEB76E9A0A3B04D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BEA79C3E1E97B8C100D92DA9 /* ApiGatewayMac.framework */,
+				BEA79C3F1E97B8C100D92DA9 /* NMapViewerSDK.framework */,
 				879F3A236BBF79457741F25C /* Pods_pet_place.framework */,
 				4E9391FDC6FC1C0B6E7C7D75 /* Pods_pet_placeTests.framework */,
 				1009EADB6B3C185148D7BD2B /* Pods_pet_placeUITests.framework */,
@@ -491,6 +520,14 @@
 			name = ImageRow;
 			sourceTree = "<group>";
 		};
+		BEA79C451E97B94200D92DA9 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				BEA79C461E97B94300D92DA9 /* strip-frameworks.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		BEB934B51E87C8280020304E /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +579,7 @@
 				EB2956E21E16D4E10024E3E3 /* pet-placeUITests */,
 				EB2956BE1E16D4E00024E3E3 /* Products */,
 				B7CCC762FE99705F5AE32D91 /* Pods */,
+				BEA79C451E97B94200D92DA9 /* Scripts */,
 				A58D89FF8EEB76E9A0A3B04D /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -598,6 +636,7 @@
 				EB2956FC1E16DABC0024E3E3 /* AppFonts.swift */,
 				EB2956FD1E16DABC0024E3E3 /* AppColors.swift */,
 				EBB619921E1993C80061BCEB /* CustomizeAppearance.swift */,
+				BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */,
 				EB2956CA1E16D4E00024E3E3 /* Assets.xcassets */,
 			);
 			name = "Customization Classes";
@@ -746,6 +785,7 @@
 			children = (
 				EBB619661E194F070061BCEB /* HomeViewController.swift */,
 				BE013FBA1E7EDA9900C4715E /* FirstViewController.swift */,
+				BE8EC45B1E9A206E00FE1A5E /* PerformSearchViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -923,6 +963,7 @@
 				63BFC31F95A35D0C1A40C7C4 /* [CP] Embed Pods Frameworks */,
 				0322BB7EDF9639536D6A0364 /* [CP] Copy Pods Resources */,
 				BED601F11E4CABA600EFB928 /* ShellScript */,
+				BEA79C441E97B8E900D92DA9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1033,6 +1074,7 @@
 			files = (
 				BE41655B1E7FCD6700B42DDF /* SDSwaggerTTF.ttf in Resources */,
 				BE4165591E7FCD1A00B42DDF /* 이순신돋움체M.otf in Resources */,
+				BEA79C471E97B94300D92DA9 /* strip-frameworks.sh in Resources */,
 				BE4165571E7FCD1A00B42DDF /* 이순신돋움체B.otf in Resources */,
 				BE6F63C31E83B66A008F8441 /* 서울한강 장체M.otf in Resources */,
 				BE6F63CA1E83B670008F8441 /* BMHANNA_11yrs.otf in Resources */,
@@ -1214,7 +1256,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "sh ${SRCROOT}/Scripts/strip-frameworks.sh";
 		};
 		D5C4F0959E047236F638B27E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1252,6 +1294,7 @@
 				BE9C99B61E796260000838B8 /* Comment.swift in Sources */,
 				BEFB34101E72491100895607 /* BounceAndRoundButton.swift in Sources */,
 				EBB619671E194F070061BCEB /* HomeViewController.swift in Sources */,
+				BE8EC45C1E9A206E00FE1A5E /* PerformSearchViewController.swift in Sources */,
 				BEE826F61E4F676D0004F750 /* StoreGoogleMapTableViewCell.swift in Sources */,
 				BE0001921E684E7000ED7B86 /* FavoriteListCollectionViewCell.swift in Sources */,
 				BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */,
@@ -1290,6 +1333,7 @@
 				BEB1F8961E6AB877002D273A /* LocationControlViewController.swift in Sources */,
 				BEDCE0581E91566F00E564DD /* ReviewComment.swift in Sources */,
 				BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */,
+				BEA79C491E97BD4900D92DA9 /* NMapViewResources.swift in Sources */,
 				EBB619761E1961E50061BCEB /* OnboardingTransitionAnimator.swift in Sources */,
 				EBB619521E1947CD0061BCEB /* SortingOption.swift in Sources */,
 				EBB619611E194C4F0061BCEB /* ProfileViewController.swift in Sources */,
@@ -1530,9 +1574,95 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YHNFRW5PMX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "pet-place/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"CommLibiOS\"",
+					"-l\"backendless\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AlamofireImage\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"DKImagePickerController\"",
+					"-framework",
+					"\"Eureka\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"GooglePlacePicker\"",
+					"-framework",
+					"\"GooglePlaces\"",
+					"-framework",
+					"\"HCSStarRatingView\"",
+					"-framework",
+					"\"Haneke\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"M13Checkbox\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SCLAlertView\"",
+					"-framework",
+					"\"SKPhotoBrowser\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"XLPagerTabStrip\"",
+					"-lxml2",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "press.S.pet-place";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "pet-place/pet-place-Bridging-Header.h";
@@ -1549,9 +1679,95 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = YHNFRW5PMX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "pet-place/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"CommLibiOS\"",
+					"-l\"backendless\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AlamofireImage\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"DKImagePickerController\"",
+					"-framework",
+					"\"Eureka\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"GooglePlacePicker\"",
+					"-framework",
+					"\"GooglePlaces\"",
+					"-framework",
+					"\"HCSStarRatingView\"",
+					"-framework",
+					"\"Haneke\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"M13Checkbox\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SCLAlertView\"",
+					"-framework",
+					"\"SKPhotoBrowser\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"XLPagerTabStrip\"",
+					"-lxml2",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "press.S.pet-place";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "pet-place/pet-place-Bridging-Header.h";
