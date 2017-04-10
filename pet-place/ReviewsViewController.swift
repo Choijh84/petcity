@@ -119,7 +119,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     /**
-     스크롤을 70% 이상 내리면 발동되는 스토어 객체 추가 다운로드 함수
+     스크롤을 70% 이상 내리면 발동되는 리뷰 객체 추가 다운로드 함수
      */
     func loadMoreReviews() {
         isLoadingItems = true

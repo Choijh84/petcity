@@ -10,6 +10,23 @@ import UIKit
 import Eureka
 import SCLAlertView
 
+/**
+struct AnimalBreed: CustomStringConvertible, Equatable, SearchableItem {
+    let name: String
+    
+    var description: String {
+        return name
+    }
+    func matchesSearchQuery(_ query: String) -> Bool {
+        return name.contains(query)
+    }
+    
+    static func ==(rhs: AnimalBreed, lhs: AnimalBreed) -> Bool {
+        return rhs.name == lhs.name
+    }
+}
+*/
+
 class PetProfileInputViewController: FormViewController {
 
     var petSpecies = "Dog"
@@ -134,7 +151,15 @@ class PetProfileInputViewController: FormViewController {
                     row.options = self.dogBreed
                 }
             })
+ 
             
+            /**
+            <<< ComposableSearchablePushRow<AnimalBreed>("Test") {
+                $0.title = "Test"
+            }.onCellSelection({ (<#PushSelectorCell<ComposableSearchableItem<AnimalBreed>>#>, <#ComposableSearchablePushRow<AnimalBreed>#>) in
+                <#code#>
+            })
+            */
             
         +++ Section("추가 정보 1")
     
@@ -204,6 +229,7 @@ class PetProfileInputViewController: FormViewController {
         }
         
         dogBreed = dogBreed.sorted()
+        // dogBreed = dogBreed.sorted(by: {$0.name > $1.name })
         
         temps = datasourceDictionary["Cat"] as! [NSArray]
         
@@ -211,6 +237,7 @@ class PetProfileInputViewController: FormViewController {
             catBreed.append(temp[0] as! String)
         }
         catBreed = catBreed.sorted()
+        // catBreed = catBreed.sorted(by: {$0.name > $1.name })
         
     }
 

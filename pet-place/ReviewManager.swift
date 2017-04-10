@@ -179,10 +179,47 @@ class ReviewManager: NSObject {
     func downloadReviewPage(skippingNumberOfObects skip: NSNumber, location: String?, limit: NSNumber, _ completionBlock: @escaping (_ review: [Review]?, _ errorMessage: String?) -> Void) {
         let dataQuery = BackendlessDataQuery()
         let queryOption = QueryOptions()
+        // queryOption.related = ["store", "store.address"]
         
         // 향후 위치가 정해지는 쿼리를 하는 경우
         if let location = location {
-            dataQuery.whereClause = "Review[location] = \'\(location)\'"
+            switch location {
+            case "서울 강남":
+                dataQuery.whereClause = "store.address LIKE \'%%서울시 강남구%%\' OR store.address LIKE \'%%서울시 서초구%%\' OR store.address LIKE \'%%서울시 송파구%%\' OR store.address LIKE \'%%서울시 강동구%%\' OR store.address LIKE \'%%서울시 관악구%%\' OR store.address LIKE \'%%서울시 동작구%%\' OR store.address LIKE \'%%서울시 금천구%%\' OR store.address LIKE \'%%서울시 영등포구%%\' OR store.address LIKE \'%%서울시 구로구%%\' OR store.address LIKE \'%%서울시 양천구%%\' OR store.address LIKE \'%%서울시 강서구%%\' OR store.address LIKE \'%%서울특별시 강남구%%\' OR store.address LIKE \'%%서울특별시 서초구%%\' OR store.address LIKE \'%%서울특별시 송파구%%\' OR store.address LIKE \'%%서울특별시 강동구%%\' OR store.address LIKE \'%%서울특별시 관악구%%\' OR store.address LIKE \'%%서울특별시 동작구%%\' OR store.address LIKE \'%%서울특별시 금천구%%\' OR store.address LIKE \'%%서울특별시 영등포구%%\' OR store.address LIKE \'%%서울특별시 구로구%%\' OR store.address LIKE \'%%서울특별시 양천구%%\' OR store.address LIKE \'%%서울특별시 강서구%%\'"
+            case "서울 강북":
+                dataQuery.whereClause = "store.address LIKE \'%%서울시 마포구%%\' OR store.address LIKE \'%%서울시 서대문구%%\' OR store.address LIKE \'%%서울시 은평구%%\' OR store.address LIKE \'%%서울시 종로구%%\' OR store.address LIKE \'%%서울시 중구%%\' OR store.address LIKE \'%%서울시 용산구%%\' OR store.address LIKE \'%%서울시 성북구%%\' OR store.address LIKE \'%%서울시 강북구%%\' OR store.address LIKE \'%%서울시 성동구%%\' OR store.address LIKE \'%%서울시 동대문구%%\' OR store.address LIKE \'%%서울시 광진구%%\' OR store.address LIKE \'%%서울시 중랑구%%\' OR store.address LIKE \'%%서울시 노원구%%\' OR store.address LIKE \'%%서울시 도봉구%%\' OR store.address LIKE \'%%서울특별시 마포구%%\' OR store.address LIKE \'%%서울특별시 서대문구%%\' OR store.address LIKE \'%%서울특별시 은평구%%\' OR store.address LIKE \'%%서울특별시 종로구%%\' OR store.address LIKE \'%%서울특별시 중구%%\' OR store.address LIKE \'%%서울특별시 용산구%%\' OR store.address LIKE \'%%서울특별시 성북구%%\' OR store.address LIKE \'%%서울특별시 강북구%%\' OR store.address LIKE \'%%서울특별시 성동구%%\' OR store.address LIKE \'%%서울특별시 동대문구%%\' OR store.address LIKE \'%%서울특별시 광진구%%\' OR store.address LIKE \'%%서울특별시 중랑구%%\' OR store.address LIKE \'%%서울특별시 노원구%%\' OR store.address LIKE \'%%서울특별시 도봉구%%\'"
+            case "인천":
+                dataQuery.whereClause = "store.address LIKE \'%%인천광역시%%\' OR store.address LIKE \'%%인천시%%\'"
+            case "대구":
+                dataQuery.whereClause = "store.address LIKE \'%%대구광역시%%\' OR store.address LIKE \'%%대구시%%\'"
+            case "부산":
+                dataQuery.whereClause = "store.address LIKE \'%%부산광역시%%\' OR store.address LIKE \'%%부산시%%\'"
+            case "제주":
+                dataQuery.whereClause = "store.address LIKE \'%%제주특별자치도%%\' OR store.address LIKE \'%%제주도%%\'"
+            case "대전":
+                dataQuery.whereClause = "store.address LIKE \'%%대전광역시%%\' OR store.address LIKE \'%%대전시%%\'"
+            case "광주":
+                dataQuery.whereClause = "store.address LIKE \'%%광주광역시%%\' OR store.address LIKE \'%%광주시%%\'"
+            case "울산":
+                dataQuery.whereClause = "store.address LIKE \'%%울산광역시%%\' OR store.address LIKE \'%%울산시%%\'"
+            case "세종":
+                dataQuery.whereClause = "store.address LIKE \'%%세종특별자치시%%\' OR store.address LIKE \'%%세종시%%\'"
+            case "경기":
+                dataQuery.whereClause = "store.address LIKE \'%%경기도%%\'"
+            case "강원도":
+                dataQuery.whereClause = "store.address LIKE \'%%강원도%%\'"
+            case "경상도":
+                dataQuery.whereClause = "store.address LIKE \'%%경상도%%\' OR store.address LIKE \'%%경상남도%%\' OR store.address LIKE \'%%경상북도%%\'"
+            case "전라도":
+                dataQuery.whereClause = "store.address LIKE \'%%전라도%%\' OR store.address LIKE \'%%전라남도%%\' OR store.address LIKE \'%%전라북도%%\'"
+            case "충청도":
+                dataQuery.whereClause = "store.address LIKE \'%%충청도%%\' OR store.address LIKE \'%%충청남도%%\' OR store.address LIKE \'%%충청북도%%\'"
+            case "모두 보기":
+                dataQuery.whereClause = nil
+            default:
+                print("There is no location")
+            }
+            // dataQuery.whereClause = "Review[location] = \'\(location)\'"
         }
         
         queryOption.sortBy = ["created desc"]
@@ -191,9 +228,10 @@ class ReviewManager: NSObject {
         dataQuery.queryOptions = queryOption
         
         dataStore?.find(dataQuery, response: { (collection) in
+            dump(collection)
             completionBlock(collection?.data as? [Review], nil)
         }, error: { (Fault) in
-            print(Fault ?? "There is an error dowloading review list")
+            print("There is an error dowloading review list: \(String(describing: Fault?.description))")
             completionBlock(nil, Fault?.description)
         })
     }

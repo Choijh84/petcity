@@ -32,6 +32,9 @@ class LoginViewController: UIViewController {
     let falseColor = UIColor(red: 255/255, green: 224/255, blue: 130/255, alpha: 0.9)
     let trueColor = UIColor(red: 240/255, green: 244/255, blue: 195/255, alpha: 0.9)
     
+    /// SNS 로그인 버튼
+    @IBOutlet weak var snsLogin: KenButton!
+    
     /// Facebook login button
     @IBOutlet weak var facebookLoginButton: UIButton!
     /// 구글 로그인 버튼
@@ -58,6 +61,12 @@ class LoginViewController: UIViewController {
         let loginViewController = StoryboardManager.loginViewController()
         return loginViewController
     }()
+    
+    
+    @IBAction func clickSIgnupButton(_ sender: Any) {
+        // 향후 소셜로그인 도입하면 "showSignupType"로 세그를 변경
+        performSegue(withIdentifier: "showSignupByEmail", sender: nil)
+    }
     
     /**
      Dismiss the view when the close button is pressed
@@ -120,6 +129,13 @@ class LoginViewController: UIViewController {
         // 자동로그인 관련 숨기기
         autoLoginBox.isHidden = true
         autoLoginLabel.isHidden = true
+        
+        // 현재 소셜 로그인 관련 숨기기
+        snsLogin.isHidden = true
+        facebookLoginButton.isHidden = true
+        googleLoginButton.isHidden = true
+        kakaoLoginButton.isHidden = true
+        naverLoginButton.isHidden = true
         
         // NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         // NotificationCenter.default.addObserver(self, selector: #selector(LoginViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

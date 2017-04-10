@@ -887,7 +887,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="Z4a-NJ-nbP" kind="push" id="YOT-m6-Umd"/>
+                                                    <action selector="clickSIgnupButton:" destination="kbT-cq-KJ0" eventType="touchUpInside" id="o6g-QF-lCl"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -913,9 +913,6 @@
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loginUser" destination="kbT-cq-KJ0" eventType="touchUpInside" id="HIh-vK-09X"/>
-                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="V71-SF-DQt">
                                         <rect key="frame" x="0.0" y="185" width="283" height="30"/>
@@ -937,7 +934,6 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="facebookLoginButtonTapped:" destination="kbT-cq-KJ0" eventType="touchUpInside" id="Y7Q-bu-m7q"/>
-                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="9NJ-eM-nqN"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwI-rx-GVg" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
@@ -955,9 +951,6 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="eCG-SU-4sG"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -982,9 +975,6 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="OxX-M1-cur"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.69999998807907104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kam-0a-Hea" customClass="KenButton" customModule="pet_place" customModuleProvider="target">
                                                 <rect key="frame" x="151.5" y="0.0" width="131.5" height="27"/>
@@ -1001,9 +991,6 @@
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="loginUserViaFacebook" destination="kbT-cq-KJ0" eventType="touchUpInside" id="3sh-9U-P27"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1064,6 +1051,9 @@
                         <outlet property="naverLoginButton" destination="Kam-0a-Hea" id="RFf-Nn-p6X"/>
                         <outlet property="passwordField" destination="Ygh-zW-mej" id="XfV-0E-Zbv"/>
                         <outlet property="signupButton" destination="ZHY-l9-Qhj" id="iS5-z6-Jjm"/>
+                        <outlet property="snsLogin" destination="ruT-R1-5Fo" id="kLg-jI-O4t"/>
+                        <segue destination="hE9-Z0-fzp" kind="push" identifier="showSignupByEmail" id="86f-M4-1YA"/>
+                        <segue destination="Z4a-NJ-nbP" kind="push" identifier="showSignupType" id="vcf-2S-rop"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97u-qT-lnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3199,5 +3189,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="VPw-fT-VhB"/>
         <segue reference="fB6-vW-Yuv"/>
+        <segue reference="86f-M4-1YA"/>
     </inferredMetricsTieBreakers>
 </document>

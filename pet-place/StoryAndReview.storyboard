@@ -668,7 +668,7 @@
                                             <action selector="locationSelection:" destination="0dk-fY-M4D" eventType="touchUpInside" id="eU3-Zg-Wdo"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서울 강남" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOH-TG-7vc">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="모두 보기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOH-TG-7vc">
                                         <rect key="frame" x="87" y="20" width="75" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="0bT-Yv-mmb"/>

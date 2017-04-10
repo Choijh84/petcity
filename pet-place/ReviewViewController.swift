@@ -27,10 +27,11 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     var isShowing: Bool = false
     
     // 지역 선택할 수 있게 하는 배열
-    let locations = ["모두 보기", "서울 강북", "서울 강남", "인천", "대구", "부산", "제주", "대전", "광주", "울산", "세종", "강원도", "경상도", "전라도", "충청도"]
+    let locations = ["모두 보기", "서울 강북", "서울 강남", "경기도", "인천", "대구", "부산", "제주", "대전", "광주", "울산", "세종", "강원도", "경상도", "전라도", "충청도"]
     
     // 선택된 지역 
     var selectedLocation: String?
+    
     // 내리고 있던 마지막 스크롤을 기억하게 하는 변수
     var lastContentOffset: CGFloat = 0
     
@@ -67,6 +68,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     
     // 지역 선택하는 버튼
     @IBAction func locationSelection(_ sender: Any) {
+        // 보이기
         if isShowing == false {
             UIView.animate(withDuration: 0.5) {
                 self.locationShowView.alpha = 1.0
@@ -74,8 +76,11 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             }
             isShowing = true
             self.tableView.isUserInteractionEnabled = false
-            print("선택된 장소: \(String(describing: selectedLocation))")
+            selectedLocation = nil
+            
+            
         } else {
+            // 숨기기
             UIView.animate(withDuration: 0.5) {
                 self.locationShowView.alpha = 0.0
                 self.tableView.alpha = 1.0
@@ -83,6 +88,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             isShowing = false
             self.tableView.isUserInteractionEnabled = true
             print("선택된 장소: \(String(describing: selectedLocation))")
+            
         }
     }
     
@@ -96,7 +102,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         customizeViews()
         
         DispatchQueue.main.async {
-            self.downloadReviews()
+            self.downloadReviews(nil)
         }
         super.viewDidLoad()
     }
@@ -114,7 +120,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
      초기에 리뷰를 다운로드 하는 함수, 아직 로케이션 처리는 안됨
      - 처음 다운로드 하므로 데이터 배열을 초기화하고 시작, 추가 다운로드는 downloadMoreReviews에서 처리
     */
-    func downloadReviews() {
+    func downloadReviews(_ location: String?) {
         isLoadingItems = true
         refreshControl.beginRefreshing()
         tableView.showLoadingIndicator()
@@ -124,7 +130,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         
         // 향후에 파라미터로 로케이션이 들어가면 쿼리가 되어야 함
         
-        ReviewManager().downloadReviewPage(skippingNumberOfObects: 0, location: nil, limit: 10) { (reviews, error) in
+        ReviewManager().downloadReviewPage(skippingNumberOfObects: 0, location: location, limit: 10) { (reviews, error) in
             self.isLoadingItems = false
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
@@ -141,7 +147,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         self.tableView.hideLoadingIndicator()
     }
     
-    func downloadMoreReviews() {
+    func downloadMoreReviews(_ location: String?) {
         isLoadingItems = true
         self.refreshControl.beginRefreshing()
         self.tableView.showLoadingIndicator()
@@ -149,7 +155,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         // 이미 다운로드 받은 리뷰의 숫자
         let temp = ReviewArray.count as NSNumber
         
-        ReviewManager().downloadReviewPage(skippingNumberOfObects: temp, location: nil, limit: 10) { (reviews, error) in
+        ReviewManager().downloadReviewPage(skippingNumberOfObects: temp, location: location, limit: 10) { (reviews, error) in
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
             } else {
@@ -171,7 +177,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let endScrolling = scrollView.contentOffset.y + scrollView.frame.height
         if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && ReviewArray.count >= 10 {
-            self.downloadMoreReviews()
+            self.downloadMoreReviews(selectedLocation)
         }
         
         // 지역 선택하는 뷰를 스크롤 방향에 따라 보였다 숨겼다 하기 - 뷰 높이 조절이 안되서 아직 미구현
@@ -199,7 +205,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             print("확인 완료")
         }
         alert.addButton("다시 시도") {
-            self.downloadReviews()
+            self.downloadReviews(self.selectedLocation)
         }
         alert.showError("에러 발생", subTitle: "다운로드에 문제가 있습니다")
     }
@@ -411,6 +417,7 @@ extension ReviewViewController: UICollectionViewDataSource, UICollectionViewDele
         self.tableView.isUserInteractionEnabled = true
         selectedLocation = locations[indexPath.row]
         locationLabel.text = selectedLocation
+        downloadReviews(selectedLocation)
     }
 }
 

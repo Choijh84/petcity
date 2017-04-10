@@ -41,7 +41,7 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "MAPS"
+        title = "지도보기"
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

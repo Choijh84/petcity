@@ -123,5 +123,5 @@ open class _SelectorViewController<Row: SelectableRowType>: FormViewController, 
 }
 
 /// Selector Controller (used to select one option among a list)
-open class SelectorViewController<T:Equatable> : _SelectorViewController<ListCheckRow<T>>  {
+open class SelectorViewController<T:Equatable> : _SelectorViewController<ListCheckRow<T>> {
 }
