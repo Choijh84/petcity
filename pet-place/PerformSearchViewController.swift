@@ -103,7 +103,7 @@ class PerformSearchViewController: UIViewController, UITableViewDelegate, UITabl
         let store = filteredStoreArray[indexPath.row]
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "storeDetailViewController") as! StoreDetailViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "StoreDetailViewController") as! StoreDetailViewController
         controller.storeToDisplay = store
         
         navigationController?.pushViewController(controller, animated: true)

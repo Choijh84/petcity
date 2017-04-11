@@ -44,9 +44,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     /// 리뷰를 다운로드하고 있으면 true
     var isLoadingItems: Bool = false
     
-    /// Refreshcontrol to show a loading indicator and a pull to refresh view, when the view is loading content
-    var refreshControl: UIRefreshControl!
-    
     var itemInfo: IndicatorInfo = "지역 리뷰"
     
     /// 레이지 게터 데이트포매터
@@ -122,14 +119,12 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     */
     func downloadReviews(_ location: String?) {
         isLoadingItems = true
-        refreshControl.beginRefreshing()
         tableView.showLoadingIndicator()
 
         // 배열 초기화
         ReviewArray.removeAll()
         
         // 향후에 파라미터로 로케이션이 들어가면 쿼리가 되어야 함
-        
         ReviewManager().downloadReviewPage(skippingNumberOfObects: 0, location: location, limit: 10) { (reviews, error) in
             self.isLoadingItems = false
             if let error = error {
@@ -143,13 +138,11 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                 }
             }
         }
-        self.refreshControl.endRefreshing()
         self.tableView.hideLoadingIndicator()
     }
     
     func downloadMoreReviews(_ location: String?) {
         isLoadingItems = true
-        self.refreshControl.beginRefreshing()
         self.tableView.showLoadingIndicator()
         
         // 이미 다운로드 받은 리뷰의 숫자
@@ -167,7 +160,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                 }
             }
         }
-        self.refreshControl.endRefreshing()
         self.tableView.hideLoadingIndicator()
     }
     
@@ -219,11 +211,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         tableView.separatorColor = .separatorLineColor()
         
         locationShowView.alpha = 0.0
-        
-        refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .globalTintColor()
-        refreshControl.addTarget(self, action: #selector(ReviewViewController.downloadReviews), for: .valueChanged)
-        tableView.addSubview(refreshControl)
     }
     
     // MARK: - IndicatorInfoProvider
@@ -253,13 +240,16 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         // 태그 설정
         // 프로필 이름 및 이미지 - 태그 0
         // 댓글 라벨 - 태그 1, 신고 버튼 - 태그 2
-        // 댓글 버튼 - 태그 3, 공유 버튼 - 태그 4
+        // 댓글 버튼 - 태그 3, 공유 버튼 - 태그 4, 이동 버튼 - 태그 5
+        // 사진 콜렉션 - 태그 6
         cell.profileImage.tag = (indexPath.row*10)+0
         cell.profileName.tag = (indexPath.row*10)+0
         cell.replyLabel.tag = (indexPath.row*10)+01
         cell.moreButton.tag = (indexPath.row*10)+02
         cell.replyButton.tag = (indexPath.row*10)+03
         cell.shareButton.tag = (indexPath.row*10)+04
+        cell.moveButton.tag = (indexPath.row*10)+05
+        cell.collectionView.tag = (indexPath.row*10)+06
         
         // 프로필 이미지랑 닉네임 설정
         if let user = review.creator {
@@ -295,12 +285,18 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         // 댓글 개수 적어기기
         cell.replyLabel.text = String(review.commentNumbers) + "개의 리플"
         
+        // 사진URL이 유효한지 체크
         if let string = review.fileURL {
             cell.photoList = string.components(separatedBy: ",").sorted()
+            cell.photoStackview.isHidden = false
+            cell.pageControl.isHidden = false
             cell.collectionView.reloadData()
         } else {
-            cell.collectionView.isHidden = true
+            print("There is no fileURL: \(review.text)")
+            // cell.collectionView.isHidden = true
+            cell.photoStackview.isHidden = true
             cell.pageControl.isHidden = true
+            cell.collectionView.reloadData()
         }
         
         cell.timeLabel.text = dateFormatter.string(from: review.created! as Date)
@@ -343,9 +339,65 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         case 4:
             // 공유 액션
             self.shareButtonPressed(row)
+        case 5:
+            // 이동 액션
+            self.moveToStore(row)
+        case 6:
+            // 사진 보기
+            self.showPhoto(row)
         default:
             print("Some other action")
         }
+    }
+    
+    // 사진 전체화면으로 보기
+    func showPhoto(_ row: Int) {
+        
+        // imageArray 구성하기
+        let selectedReview = ReviewArray[row]
+        let selectedImages = selectedReview.fileURL
+        let imageURL = selectedImages?.components(separatedBy: ",")
+        
+        var images = [SKPhoto]()
+        
+        // 킹피셔 사용해서 캐시에서 url 이용해서 이미지 불러오기
+        for url in imageURL! {
+            ImageCache.default.retrieveImage(forKey: url, options: [.transition(.fade(0.2))], completionHandler: { (image, cacheType) in
+                if let image = image {
+                    let photo = SKPhoto.photoWithImage(image)
+                    images.append(photo)
+                } else {
+                    print("Problem on cache image")
+                }
+            })
+            
+        }
+        // 브라우저 보여주기
+        let browser = SKPhotoBrowser(photos: images)
+        browser.initializePageIndex(0)
+        self.present(browser, animated: true, completion: nil)
+    }
+    
+    // 뷰 이동
+    func moveToStore(_ row: Int) {
+        let selectedReview = ReviewArray[row]
+        let selectedStore = selectedReview.store
+        let selectedObjectId = selectedStore?.objectId
+        
+        let dataStore = Backendless.sharedInstance().data.of(Store.ofClass())
+        dataStore?.findID(selectedObjectId, response: { (response) in
+            
+            let returnedStore = response as? Store
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "StoreDetailViewController") as! StoreDetailViewController
+            destinationVC.storeToDisplay = returnedStore
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+            
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+        })
+        
     }
     
     // 신고 이메일 현재 수신인: ourpro.choi@gmail.com

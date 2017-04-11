@@ -66,6 +66,9 @@ class ReviewTableViewCell: UITableViewCell {
         // 뷰 세팅
         profileImageView.layer.cornerRadius = profileImageView.layer.frame.width/2
         reviewImageView.layer.cornerRadius = 5.0
+        
+        // 별점 0.5점도 가능하게
+        ratingView.allowsHalfStars = true
     }
     
     /**

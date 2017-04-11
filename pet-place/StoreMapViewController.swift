@@ -46,7 +46,7 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         lastCoordinate = mapView.camera.target
-        print("This is camera center: \(lastCoordinate)")
+        // print("This is camera center: \(lastCoordinate)")
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     

@@ -63,6 +63,12 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
             settings.style.buttonBarHeight = 0
         }
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     // MARK: - PagerTabStripDataSource

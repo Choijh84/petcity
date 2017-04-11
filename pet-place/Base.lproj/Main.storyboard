@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,14 +18,11 @@
         <array key="BMJUA.otf">
             <string>BMJUAOTF</string>
         </array>
-        <array key="Montserrat-Bold.ttf">
-            <string>Montserrat-Bold</string>
-        </array>
-        <array key="Montserrat-Light.otf">
-            <string>Montserrat-Light</string>
-        </array>
         <array key="Montserrat-Regular.ttf">
             <string>Montserrat-Regular</string>
+        </array>
+        <array key="서울남산 장체B.otf">
+            <string>SeN-CB</string>
         </array>
         <array key="서울남산 장체BL.otf">
             <string>SeN-CBL</string>
@@ -34,6 +32,9 @@
         </array>
         <array key="서울남산 장체M.otf">
             <string>SeN-CM</string>
+        </array>
+        <array key="이순신돋움체B.otf">
+            <string>YiSunShinDotumB</string>
         </array>
         <array key="이순신돋움체L.otf">
             <string>YiSunShinDotumL</string>
@@ -229,7 +230,7 @@
                                             </imageView>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PlaceCell" id="qID-Dl-Qrd" userLabel="PlaceCell" customClass="StoreCollectionViewCell" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="92" y="0.0" width="172" height="172"/>
+                                                    <rect key="frame" x="91.5" y="0.0" width="172" height="172"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="172"/>
@@ -514,17 +515,17 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location :" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-hK-die">
-                                        <rect key="frame" x="10" y="6.5" width="74" height="18.5"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                        <rect key="frame" x="10" y="8" width="65.5" height="15.5"/>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5bd-y3-Rzg">
-                                        <rect key="frame" x="89" y="8.5" width="150" height="13"/>
+                                        <rect key="frame" x="80.5" y="8.5" width="150" height="13.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="Wwb-EP-Bs9"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="11"/>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -534,7 +535,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="efv-lU-lKg"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="12"/>
+                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                         <state key="normal" title="Change">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
@@ -984,7 +985,7 @@
         <!--Store Detail View Controller-->
         <scene sceneID="V94-mN-88b">
             <objects>
-                <viewController storyboardIdentifier="storeDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m3k-HE-CDl" customClass="StoreDetailViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoreDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m3k-HE-CDl" customClass="StoreDetailViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EoB-L5-LH6"/>
                         <viewControllerLayoutGuide type="bottom" id="CX4-LB-uLd"/>
@@ -1008,15 +1009,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
-                                            <rect key="frame" x="165.5" y="113.5" width="44.5" height="14"/>
-                                            <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="12"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
+                                            <rect key="frame" x="167" y="114" width="42.5" height="13.5"/>
+                                            <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="13"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwW-HY-Y9c">
-                                            <rect key="frame" x="155" y="150.5" width="65" height="15"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <rect key="frame" x="156.5" y="150.5" width="63" height="12.5"/>
+                                            <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                             <color key="textColor" red="0.92156862750000001" green="0.77647058820000003" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1087,22 +1088,22 @@
                                             <outlet property="descriptionLabel" destination="Zg5-AF-XZ7" id="EsP-MD-mze"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoWithIcon" rowHeight="100" id="iau-OK-HoJ" customClass="InfoWithIconTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="302" width="375" height="100"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="infoWithIcon" rowHeight="60" id="iau-OK-HoJ" customClass="InfoWithIconTableViewCell" customModule="pet_place" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="302" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iau-OK-HoJ" id="oOR-Cd-9d4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfo-bN-sav">
-                                                    <rect key="frame" x="15" y="37.5" width="25" height="25"/>
+                                                    <rect key="frame" x="15" y="17.5" width="25" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="HGQ-XW-sIa"/>
-                                                        <constraint firstAttribute="width" constant="25" id="KCT-8p-YKA"/>
+                                                        <constraint firstAttribute="width" secondItem="dfo-bN-sav" secondAttribute="height" multiplier="1:1" id="4QT-Kj-SIR"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="25" id="BZ6-ax-rti"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykP-Ou-DeO">
-                                                    <rect key="frame" x="60" y="13" width="300" height="73.5"/>
+                                                    <rect key="frame" x="60" y="13" width="300" height="33.5"/>
                                                     <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="14"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1110,12 +1111,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="ykP-Ou-DeO" secondAttribute="trailing" constant="15" id="52G-gk-8j0"/>
-                                                <constraint firstItem="dfo-bN-sav" firstAttribute="centerY" secondItem="oOR-Cd-9d4" secondAttribute="centerY" id="AUS-xJ-DHz"/>
                                                 <constraint firstItem="ykP-Ou-DeO" firstAttribute="top" secondItem="oOR-Cd-9d4" secondAttribute="topMargin" constant="5" id="U6m-Dl-hsS"/>
                                                 <constraint firstItem="ykP-Ou-DeO" firstAttribute="centerY" secondItem="oOR-Cd-9d4" secondAttribute="centerY" id="UZJ-Zc-7Nr"/>
                                                 <constraint firstItem="ykP-Ou-DeO" firstAttribute="leading" secondItem="dfo-bN-sav" secondAttribute="trailing" constant="20" id="UbR-mj-vLM"/>
+                                                <constraint firstItem="dfo-bN-sav" firstAttribute="centerY" secondItem="oOR-Cd-9d4" secondAttribute="centerY" id="VD7-EV-x2h"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ykP-Ou-DeO" secondAttribute="bottom" constant="5" id="c3e-93-Q3V"/>
                                                 <constraint firstItem="dfo-bN-sav" firstAttribute="leading" secondItem="oOR-Cd-9d4" secondAttribute="leading" constant="15" id="e55-Pl-yJs"/>
+                                                <constraint firstItem="dfo-bN-sav" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oOR-Cd-9d4" secondAttribute="top" constant="7.5" id="eGw-U4-7gM"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dfo-bN-sav" secondAttribute="bottom" constant="7.5" id="j8Z-LC-cu1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1124,7 +1127,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell tag="1" contentMode="scaleAspectFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="storePhotoCell" rowHeight="200" id="jzM-cy-2g8" userLabel="storePhotoCell" customClass="storePhotoTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="402" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="362" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jzM-cy-2g8" id="sbD-ve-W60">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
@@ -1161,7 +1164,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="googleMapCell" rowHeight="160" id="dx0-xE-zrv" customClass="StoreGoogleMapTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="602" width="375" height="160"/>
+                                        <rect key="frame" x="0.0" y="562" width="375" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dx0-xE-zrv" id="BTA-tI-2iO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="159.5"/>
@@ -1187,7 +1190,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="naverMapCell" rowHeight="180" id="wlB-zr-qtg" customClass="StoreNaverMapTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="762" width="375" height="180"/>
+                                        <rect key="frame" x="0.0" y="722" width="375" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wlB-zr-qtg" id="0Xc-dj-b7x">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="179.5"/>
@@ -1224,36 +1227,36 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sectionHeaderSpaceCell" textLabel="vZD-39-nOc" rowHeight="40" style="IBUITableViewCellStyleDefault" id="fj5-wN-x0b" customClass="ReviewOptionsTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="942" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="902" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fj5-wN-x0b" id="ARn-lD-N7I">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vZD-39-nOc">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="섹션 헤더" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vZD-39-nOc">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="39.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="SeN-CB" family="SeoulNamsan CB" pointSize="16"/>
+                                                    <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="0.89156142979452058" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewButtons" rowHeight="50" id="KZ1-8y-cTQ" customClass="ReviewOptionsTableViewCell" customModule="pet_place" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="982" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="942" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KZ1-8y-cTQ" id="GXP-ve-kHr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lw6-LH-FER">
+                                                <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lw6-LH-FER">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                                     <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="49" id="8wX-pQ-jQV"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="YiSunShinDotumB" family="YiSunShin Dotum B" pointSize="16"/>
                                                     <state key="normal" title="Read more reviews">
                                                         <color key="titleColor" red="0.92156862750000001" green="0.77647058820000003" blue="0.062745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>

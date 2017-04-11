@@ -223,7 +223,7 @@ class PetProfileEditViewController: FormViewController {
     func readPetBreedList() {
         let pathList = Bundle.main.path(forResource: "PetBreedList", ofType: "plist")
         let data: NSData? = NSData(contentsOfFile: pathList!)
-        let datasourceDictionary = try! PropertyListSerialization.propertyList(from: data as! Data, options: [], format: nil) as! [String:Any]
+        let datasourceDictionary = try! PropertyListSerialization.propertyList(from: data! as Data, options: [], format: nil) as! [String:Any]
         
         var temps = datasourceDictionary["Dog"] as! [NSArray]
         

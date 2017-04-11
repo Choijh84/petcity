@@ -87,14 +87,21 @@ class ReviewManager: NSObject {
         review.creator = UserManager.currentUser()
         review.store = store
         
-        store.reviewCount = (store.reviews.count+1)
-        store.reviews.append(review)
-        
         var error: Fault?
         let result = Backendless.sharedInstance().data.save(store, error: &error) as? Store
         if error == nil {
             print("Review havs been updated: \(String(describing: result))")
-            completionBlock(true, result, nil)
+            
+            result?.reviewCount = ((result?.reviews.count)!+1)
+            result?.reviews.append(review)
+            
+            _ = Backendless.sharedInstance().data.save(result, response: { (response) in
+                print("Review relationship has been updated")
+                completionBlock(true, result, nil)
+            }, error: { (Fault) in
+                print("Server reported an error: \(String(describing: Fault?.description))")
+            })
+            
         } else {
             print("Server reported an error: \(String(describing: error))")
             completionBlock(false, nil, error?.description)
@@ -204,7 +211,7 @@ class ReviewManager: NSObject {
                 dataQuery.whereClause = "store.address LIKE \'%%울산광역시%%\' OR store.address LIKE \'%%울산시%%\'"
             case "세종":
                 dataQuery.whereClause = "store.address LIKE \'%%세종특별자치시%%\' OR store.address LIKE \'%%세종시%%\'"
-            case "경기":
+            case "경기도":
                 dataQuery.whereClause = "store.address LIKE \'%%경기도%%\'"
             case "강원도":
                 dataQuery.whereClause = "store.address LIKE \'%%강원도%%\'"

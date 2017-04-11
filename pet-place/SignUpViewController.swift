@@ -99,17 +99,16 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                 
                                     // 위설정 내용으로 사용자 업데이트 진행 - 마케팅 및 닉네임 관련
                                     Backendless.sharedInstance().userService.update(registeredUser, response: { (updatedUser) in
-                                        print("Updated user: \(updatedUser)")
                                         SCLAlertView().showSuccess("가입 완료", subTitle: "감사합니다")
                                         // 바로 로그인
                                         Backendless.sharedInstance().userService.login(newUser.email! as String!, password: tempPassword as String!, response: { (loggedUser) in
                                             print("Logged In")
                                         }, error: { (Fault) in
-                                            print("Server reported an error logging in user: \(Fault?.description)")
+                                            print("Server reported an error logging in user: \(String(describing: Fault?.description))")
                                         })
                                         
                                     }, error: { (Fault) in
-                                        print("Server reported an error updating user: \(Fault?.description)")
+                                        print("Server reported an error updating user: \(String(describing: Fault?.description))")
                                         SCLAlertView().showError("가입 실패", subTitle: "Retry")
                                     })
                                 
@@ -117,7 +116,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                     
                                 }, error: { (Fault) in
                                     // 서버에서 가입처리 안됨
-                                    print("Server reported error on registering user: \(Fault?.description)")
+                                    print("Server reported error on registering user: \(String(describing: Fault?.description))")
                                 })
                             } else {
                                 // 약관 동의 안되어있을 때
@@ -156,11 +155,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 dataStore?.find(dataQuery, response: { (response) in
                     if response?.totalObjects == 0 {
                         // 만약에 데이터베이스에 닉네임이 안 겹칠 때
-                        print("This is response1: \(response)")
+                        print("This is response1: \(String(describing: response))")
                         self.changeNickCheck()
                     } else {
                         // 데이터베이스에 겹칠 때
-                        print("This is response2: \(response)")
+                        print("This is response2: \(String(describing: response))")
                         SCLAlertView().showError("닉네임 중복", subTitle: "다른 닉네임을 선택해주세요")
                         UIView.animate(withDuration: 0.3, animations: {
                             self.nickOverlapCheckButton.backgroundColor = self.falseColor
@@ -169,7 +168,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         self.nicknameTextfield.becomeFirstResponder()
                     }
                 }, error: { (Fault) in
-                    print("Server reported an error: \(Fault?.description)")
+                    print("Server reported an error: \(String(describing: Fault?.description))")
                 })
             }
         }

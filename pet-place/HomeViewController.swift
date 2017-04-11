@@ -255,9 +255,13 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         } else if (indexPath.row == 1) {
             return 40
         } else if (indexPath.row == 2) {
-            let number = ceil(Double(recommendStores.count/2))+1
-            print("This is collectionView Height: \(180*number)")
-            return CGFloat(180*number)
+            let storeCount = recommendStores.count
+            // 짝수면 180*짝수/2, 홀수면 180*(짝수/2+1)
+            if storeCount%2 == 0 {
+                return CGFloat(180 * storeCount/2)
+            } else {
+                return CGFloat(180 * ((storeCount/2)+1))
+            }
         } else {
             if isShowBusinessInfo == false {
                 return 150

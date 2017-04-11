@@ -38,7 +38,9 @@ class StoreNaverMapTableViewCell: UITableViewCell, NMapViewDelegate, NMapPOIdata
             initLevelStepper(mapView.minZoomLevel(), maxValue:mapView.maxZoomLevel(), initialValue:11)
             subMapView.bringSubview(toFront: levelStepper)
             
-            mapView.setBuiltInAppControl(true)
+            // 네이버 지도앱 실행 - 지속적으로 설치 여부 물어봄
+            // mapView.setBuiltInAppControl(true)
+            // mapView.executeNaverMap()
         }
     }
 

@@ -231,6 +231,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         // 프로필 이름 및 이미지 - 태그 0 
         // 라이크 버튼 - 태그 1, 코멘트 버튼 - 태그 2, 공유 버튼 - 태그 3
         // 라이크 개수 - 태그 4, 코멘트 개수 - 태그 5
+        // 사진 콜렉션 - 태그 6
         // indexPath.row + 태그 숫자로 숫자를 조합 0,1,2,3,4,5 / 10,11,12,13,14,15 / 20,21,22,23,24,25 등
         
         cell.nicknameLabel.tag = (indexPath.row*10)+0

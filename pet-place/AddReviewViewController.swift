@@ -56,7 +56,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         
         // 리뷰가 30자 이상 되는지 검사
         if let text = reviewField.text {
-            if textCount < 30 {
+            if textCount < 20 {
                 SCLAlertView().showError("30자가 안되요 ㅠ", subTitle: "상세한 리뷰를 부탁드릴게요")
             } else {
                 reviewField.resignFirstResponder()
@@ -66,7 +66,8 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                 if imageArray.count == 0 {
                     reviewManager.uploadNewReview(text, fileURL: nil, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock: { (success, store, errorMessage) in
                         if success == true {
-                            self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
+                            // self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
+                            self.navigationController?.popViewController(animated: true)
                         } else {
                             SCLAlertView().showInfo("에러 발생", subTitle: "확인 부탁드립니다")
                             self.overlayView.hideView()
@@ -81,7 +82,8 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                                 { (success, store, errorMessage) in
                                     if success == true {
                                         // if it completed, it will pop this viewController and refresh the reviews
-                                        self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
+                                        // self.performSegue(withIdentifier: "unwindToReviews", sender: nil)
+                                        self.navigationController?.popViewController(animated: true)
                                     } else {
                                         SCLAlertView().showInfo("에러 발생", subTitle: "확인 부탁드립니다")
                                     }

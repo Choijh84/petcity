@@ -86,7 +86,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
                 selectedStoreCategory = (bc!.data as! [StoreCategory]).first
             }
             else {
-                print("Server reported an error: \(error)")
+                print("Server reported an error: \(String(describing: error?.description))")
             }
         } else {
             print("Error: The Category has not fixed")

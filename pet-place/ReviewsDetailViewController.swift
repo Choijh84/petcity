@@ -73,6 +73,7 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
         configureProfile()
         addShadowsToViews()
     }
+
     
     func configureProfile() {
         if let user = reviewToDisplay.creator {

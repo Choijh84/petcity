@@ -25,6 +25,10 @@ class StoryReviewTableViewCell: UITableViewCell {
     
     // 이미지 표시하는 콜렉션뷰
     @IBOutlet weak var collectionView: UICollectionView!
+    // 콜렉션뷰를 담고 있는 스택뷰
+    @IBOutlet weak var photoStackview: UIStackView!
+    @IBOutlet weak var photoStackViewAspectConstraints: NSLayoutConstraint!
+    
     
     // 프로필 이미지와 닉네임
     @IBOutlet weak var profileImage: UIImageView!
@@ -53,6 +57,15 @@ class StoryReviewTableViewCell: UITableViewCell {
     
     // 공유 버튼
     @IBOutlet weak var shareButton: UIButton!
+    
+    // 이동 버튼
+    @IBOutlet weak var moveButton: UIButton!
+    
+    // 이 버튼 누르면 해당 장소로 이동, 태그 5
+    @IBAction func moveToStore(_ sender: Any) {
+        print("Move Button Clicked: \(moveButton.tag)")
+        delegate?.actionTapped(tag: moveButton.tag)
+    }
     
     // 댓글버튼 누르면 Reply 창으로 이동 tag = 3
     @IBAction func commentButtonClicked(_ sender: Any) {
@@ -97,7 +110,19 @@ class StoryReviewTableViewCell: UITableViewCell {
         
         // 이미지뷰 원형 모양으로
         profileImage.layer.cornerRadius = profileImage.layer.frame.width/2
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(StoryTableViewCell.showPhotos(_:)))
+        tap.numberOfTapsRequired = 2
+        collectionView.isUserInteractionEnabled = true
+        collectionView.addGestureRecognizer(tap)
     }
+    
+    func showPhotos(_ sender: UITapGestureRecognizer) {
+        print("Show Photos: \(String(describing: sender.view?.tag))")
+        guard let row = sender.view?.tag else { return }
+        delegate?.actionTapped(tag: row)
+    }
+    
 }
 
 extension StoryReviewTableViewCell : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {

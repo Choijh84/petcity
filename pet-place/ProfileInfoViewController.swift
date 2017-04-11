@@ -52,6 +52,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                 self.menuLeading.constant = -120
                 self.stackLeading.constant = 0
                 self.stackTrailing.constant = 0
+                self.menuView.layer.shadowOpacity = 0
             })
         } else {
             // 메뉴를 보이자
@@ -59,11 +60,13 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                 self.menuLeading.constant = 0
                 self.stackLeading.constant = 130
                 self.stackTrailing.constant = -110
+                self.menuView.layer.shadowOpacity = 1
+                self.menuView.layer.shadowRadius = 10
             })
         }
         menuShowing = !menuShowing
         
-        UIView.animate(withDuration: 0.5) { 
+        UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
     }
@@ -276,10 +279,6 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         } else {
             print("User hasn't been logged")
         }
-        
-        // 메뉴뷰 레이어 세팅
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 10
     }
     
     /**

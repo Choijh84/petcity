@@ -71,8 +71,6 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "reviewCell")
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        
     }
     
     /**
@@ -80,15 +78,14 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
      - parameter animated: animated
      */
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 기억하고 있던 자리로 이동 - 나중에 실시간 글이 많아지게 되면 안 통할 듯...
+        tableView.setContentOffset(CGPoint(x: 0, y: verticalContentOffset), animated: false)
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
         DispatchQueue.main.async {
             self.loadReviews()
         }
-        // 기억하고 있던 자리로 이동
-        tableView.setContentOffset(CGPoint(x: 0, y: verticalContentOffset), animated: false)
-        
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-
     }
     
     /**

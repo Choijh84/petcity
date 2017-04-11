@@ -110,7 +110,7 @@ class InquiryViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                         SCLAlertView().showSuccess("Success", subTitle: "Sent!")
                         _ = self.navigationController?.popViewController(animated: true)
                     } else {
-                        print("Server reported error: \(error)")
+                        print("Server reported error: \(String(describing: error))")
                     }
                 }
             } else {
@@ -177,7 +177,7 @@ class InquiryViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         Backendless.sharedInstance().messagingService.sendHTMLEmail(subject, body: body, to: [recipient], response: { (response) in
             print("Inquiry Email has sent")
         }) { (Fault) in
-            print("Server reported an error: \(Fault?.description)")
+            print("Server reported an error: \(String(describing: Fault?.description))")
         }
     }
     

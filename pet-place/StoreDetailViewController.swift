@@ -705,7 +705,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                                         imageView.contentMode = .scaleAspectFill
                                         cell.scrollView.contentSize.width = cell.scrollView.frame.width * CGFloat(i+1)
                                         cell.scrollView.addSubview(imageView)
-                                        cell.layoutSubviews()
+                                        cell.layoutIfNeeded()
                                         
                                         // 포토브라우저 준비를 위한 배열에 사진 삽입
                                         if let image = image {
@@ -722,7 +722,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                             print("url is nil")
                         }
                     }
-                    self.view.setNeedsLayout()
+                    // self.view.setNeedsLayout()
                 }
             })
         } else {

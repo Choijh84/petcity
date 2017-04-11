@@ -107,7 +107,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
         
         if isConfirmedLocation == false {
             var userLocation = locationHandler.locationManager.location
-            print("userLocation: \(userLocation)")
+            // print("userLocation: \(userLocation)")
             if userLocation == nil {
                 userLocation = lastLocation
                 locationHandler.geocodeLocation(userLocation!) { (geocodedName, placeMark, error) -> () in
