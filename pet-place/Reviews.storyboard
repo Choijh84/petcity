@@ -25,7 +25,7 @@
         <!--Reviews View Controller-->
         <scene sceneID="bEO-zx-Hve">
             <objects>
-                <viewController storyboardIdentifier="ReviewsViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D6s-xI-gKh" customClass="ReviewsViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReviewsViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D6s-xI-gKh" customClass="ReviewsViewController" customModule="pet_place" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wTe-gj-yBd"/>
                         <viewControllerLayoutGuide type="bottom" id="Bkm-5y-8Py"/>
@@ -71,7 +71,7 @@
                             <constraint firstAttribute="bottom" secondItem="jLX-gh-OeK" secondAttribute="bottom" constant="20" id="drn-03-Qgx"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="TFX-2V-M6k"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -126,7 +126,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="리뷰 입력해주세요(20자 이상)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfg-HS-GuF">
-                                <rect key="frame" x="101" y="85" width="175" height="15.5"/>
+                                <rect key="frame" x="100" y="85" width="175" height="15.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                 <color key="textColor" red="0.078431372550000003" green="0.01176470588" blue="0.20000000000000001" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -263,7 +263,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtN-Re-Tnf">
-                                <rect key="frame" x="28" y="137.5" width="319" height="303.5"/>
+                                <rect key="frame" x="28" y="137" width="319" height="303.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="리뷰 내용" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABz-8L-10c">
                                         <rect key="frame" x="15" y="276" width="289" height="12.5"/>
@@ -388,7 +388,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euF-A7-33O">
-                                <rect key="frame" x="88" y="461" width="200" height="50"/>
+                                <rect key="frame" x="88" y="460.5" width="200" height="50"/>
                                 <color key="backgroundColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="9ry-YU-XXR"/>
@@ -637,7 +637,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXw-W6-ccu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1025.5" y="1479.5"/>
+            <point key="canvasLocation" x="1013" y="1425"/>
         </scene>
     </scenes>
     <resources>

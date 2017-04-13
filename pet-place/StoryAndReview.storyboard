@@ -900,7 +900,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2Pe-mU-dp7">
                                                             <rect key="frame" x="0.0" y="360" width="359" height="44.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="댓글" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="QCg-mf-W9q">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="좋아요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="QCg-mf-W9q">
                                                                     <rect key="frame" x="0.0" y="16" width="60" height="12.5"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="60" id="bJm-YY-yXr"/>
@@ -909,8 +909,17 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="댓글" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="O4g-NP-cqm">
+                                                                    <rect key="frame" x="105.5" y="16" width="60" height="12.5"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="60" id="9br-XM-7ey"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                                 <pageControl userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" defersCurrentPageDisplay="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="yfz-QS-kTx">
-                                                                    <rect key="frame" x="158.5" y="12.5" width="60" height="20"/>
+                                                                    <rect key="frame" x="211" y="12.5" width="60" height="20"/>
                                                                     <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.15443065070000001" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="60" id="WBl-1n-xzJ"/>
@@ -933,10 +942,21 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WBt-Yb-9hF">
-                                                            <rect key="frame" x="0.0" y="419.5" width="105" height="45"/>
+                                                            <rect key="frame" x="0.0" y="419.5" width="165" height="45"/>
                                                             <subviews>
-                                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8N-70-R3y">
+                                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDU-dz-h0a">
                                                                     <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="45" id="dMO-C2-ACH"/>
+                                                                        <constraint firstAttribute="width" constant="45" id="oDS-hf-eyI"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="like_bw"/>
+                                                                    <connections>
+                                                                        <action selector="likeButtonClicked:" destination="S7p-c2-BuL" eventType="touchUpInside" id="rtt-Ak-lCc"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8N-70-R3y">
+                                                                    <rect key="frame" x="60" y="0.0" width="45" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="45" id="b7V-VS-FtZ"/>
                                                                         <constraint firstAttribute="height" constant="45" id="skM-2B-0Tb"/>
@@ -947,7 +967,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zh-2S-Zkn">
-                                                                    <rect key="frame" x="60" y="0.0" width="45" height="45"/>
+                                                                    <rect key="frame" x="120" y="0.0" width="45" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="45" id="2f6-da-5z8"/>
                                                                         <constraint firstAttribute="width" constant="45" id="hSB-VW-2NT"/>
@@ -983,6 +1003,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="collectionView" destination="I62-C3-ywe" id="o2o-BE-TLa"/>
+                                            <outlet property="likeButton" destination="nDU-dz-h0a" id="mFp-lG-8NH"/>
+                                            <outlet property="likeLabel" destination="QCg-mf-W9q" id="qSj-ap-oYc"/>
                                             <outlet property="moreButton" destination="Wox-mp-NbK" id="D84-4c-FMU"/>
                                             <outlet property="moveButton" destination="Rns-EM-He4" id="Lao-rf-DMa"/>
                                             <outlet property="pageControl" destination="yfz-QS-kTx" id="iiJ-ul-C6k"/>
@@ -991,7 +1013,7 @@
                                             <outlet property="profileName" destination="jB1-fO-Np1" id="hya-zJ-yVO"/>
                                             <outlet property="ratingView" destination="Gf8-Zb-PKI" id="bhG-2C-pOd"/>
                                             <outlet property="replyButton" destination="D8N-70-R3y" id="tHH-1G-8lo"/>
-                                            <outlet property="replyLabel" destination="QCg-mf-W9q" id="5wo-Nu-O2B"/>
+                                            <outlet property="replyLabel" destination="O4g-NP-cqm" id="miM-9t-32H"/>
                                             <outlet property="reviewBody" destination="aT0-sM-MvO" id="0T6-dW-rEl"/>
                                             <outlet property="shareButton" destination="2Zh-2S-Zkn" id="qpb-bp-UpT"/>
                                             <outlet property="storeName" destination="AXY-yA-sHL" id="Hly-sP-Jsk"/>
@@ -1040,7 +1062,7 @@
                     <tabBarItem key="tabBarItem" title="커뮤니티" image="newsIcon" id="JMn-zV-z1G"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SIy-O5-EtU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SIy-O5-EtU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

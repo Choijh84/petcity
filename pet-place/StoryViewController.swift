@@ -264,16 +264,21 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             cell.profileImageView.image = #imageLiteral(resourceName: "user_profile")
         }
         
-        // 라이크버튼 설정
+        // 라이크버튼 설정 - 라이크 모양은 여기서 컨트롤, delegate에서 user 라이크 컨트롤
         DispatchQueue.main.async { 
             self.checkLike(indexPath.row) { (success) in
                 if success {
                     // 어떤 스토리를 좋아했다면
-                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+                    UIView.animate(withDuration: 0.2, animations: { 
+                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+                    })
                     
                 } else {
                     // 좋아했던 스토리가 아니라면
-                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+                    UIView.animate(withDuration: 0.2, animations: { 
+                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+                    })
+                    
                 }
             }
         }
@@ -310,11 +315,15 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             case 1:
                 print("Like Button Clicked")
                 // 라이크 변경 함수 콜 - changeLike
-                changeLike(row, completionHandler: { (success) in
+                self.checkLike(row, completionHandler: { (success) in
                     if success {
-                        self.tableView.reloadData()
+                        self.changeLike(row, true, completionHandler: { (success) in
+                            
+                        })
                     } else {
-                        print("Like Change has failed")
+                        self.changeLike(row, false, completionHandler: { (success) in
+                            
+                        })
                     }
                 })
             case 2:
@@ -376,20 +385,24 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
 
         let userID = Backendless.sharedInstance().userService.currentUser.objectId
         let selectedStoryID = StoryArray[row].objectId
+        // 기본은 라이크가 체크되어 있지 않다
         var isLike = false
         
+        // 스토리 클래스를 스토리 ID로 검색해서 스토리를 찾음
         let dataStore = Backendless.sharedInstance().data.of(Story.ofClass())
+        
         dataStore?.findID(selectedStoryID, response: { (response) in
             let selectedStory = response as! Story
             let likeUsers = selectedStory.likeUsers
             
+            // 좋아요를 누른 유저를 검색, objectId를 검색해서 있는 경우 isLike값 변경
             for likeUser in likeUsers {
                 if likeUser.objectId == userID {
                     isLike = true
-                    completionHandler(isLike)
                 }
             }
             completionHandler(isLike)
+            print("내가 라이크를 눌렀었나? \(isLike)")
             
         }, error: { (Fault) in
             print("Server reported an error: \(String(describing: Fault?.description))")
@@ -402,51 +415,70 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
      : param: completionHandler
     */
 
-    func changeLike(_ row: Int, completionHandler: @escaping (_ success: Bool) -> Void) {
+    func changeLike(_ row: Int, _ alreadyLike: Bool, completionHandler: @escaping (_ success: Bool) -> Void) {
         print("Change like")
         let selectedStory = StoryArray[row]
+        let storyId = selectedStory.objectId
         
         let likeNumber = selectedStory.likeNumbers
+        print("현재 라이크 수: \(likeNumber)개")
         
         // 그냥 유저 객체로 비교는 안되고 objectId로 체크를 해야 함
         let objectID = Backendless.sharedInstance().userService.currentUser.objectId
         
         let dataStore = Backendless.sharedInstance().data.of(Story.ofClass())
         
-        checkLike(row) { (success) in
-            if success {        // 좋아요를 이미 누른 경우 - 취소가 됨
-                selectedStory.likeNumbers = likeNumber-1
+        // DB에서 한 번 찾아서 
+        dataStore?.findID(storyId, response: { (response) in
+            let foundStory = response as! Story
+            
+            // 이미 라이크를 누른 상태에서 취소
+            if alreadyLike {
+                foundStory.likeNumbers = likeNumber-1
                 
-                for (index, _) in selectedStory.likeUsers.enumerated() {
-                    if selectedStory.likeUsers[index].objectId == objectID {
-                        selectedStory.likeUsers.remove(at: index)
-                        break
+                // 유저 찾아서 배열에서 삭제하기
+                let likeUserArray = foundStory.likeUsers
+                for (index, _) in likeUserArray.enumerated() {
+                    print("인덱스와 유저: \(index) & \(likeUserArray[index].objectId)")
+                    if likeUserArray[index].objectId == objectID {
+                        foundStory.likeUsers.remove(at: index)
+                        print("내가 좋아요 눌렀던거 제거함")
                     }
                 }
                 
-                dataStore?.save(selectedStory, response: { (response) in
+                dataStore?.save(foundStory, response: { (response) in
                     let story = response as! Story
-                    print("Successfully like deleted: \(story.likeNumbers)")
+                    print("저장된 라이크수: \(story.likeNumbers)")
+                    self.StoryArray[row] = story
+                    
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
                     completionHandler(true)
                 }, error: { (Fault) in
-                    print("Server reported an error on update Like: \(String(describing: Fault?.description))")
+                    print("Server reported an error on update like in story: \(String(describing: Fault?.description))")
                     completionHandler(false)
                 })
                 
-            } else {            // 아직 좋아요를 누르지 않은 경우 - 좋아요가 추가가 됨
-                selectedStory.likeNumbers = likeNumber+1
-                selectedStory.likeUsers.append(Backendless.sharedInstance().userService.currentUser)
+            } else {
+                foundStory.likeNumbers = likeNumber+1
+                foundStory.likeUsers.append(Backendless.sharedInstance().userService.currentUser)
                 
-                dataStore?.save(selectedStory, response: { (response) in
+                dataStore?.save(foundStory, response: { (response) in
                     let story = response as! Story
-                    print("Successfully like added: \(story.likeNumbers)")
+                    self.StoryArray[row] = story
+                    print("저장된 라이크수: \(story.likeNumbers)")
+                    
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
                     completionHandler(true)
                 }, error: { (Fault) in
                     print("Server reported an error on update Like: \(String(describing: Fault?.description))")
                     completionHandler(false)
                 })
             }
-        }
+        }, error: { (Fault) in
+            print("Server reported an error to find a right Story: \(String(describing: Fault?.description))")
+        })
     }
     
     // 신고 이메일 현재 수신인: ourpro.choi@gmail.com

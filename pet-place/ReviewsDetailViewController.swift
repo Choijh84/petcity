@@ -51,7 +51,7 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
     }()
     
     /**
-     
+     뷰 초기화
      */
     override func viewDidLoad() {
         super.viewDidLoad()

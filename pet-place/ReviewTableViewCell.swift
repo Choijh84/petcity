@@ -28,8 +28,15 @@ class ReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var ratingView: HCSStarRatingView!
     /// 사진 보여주는 뷰
     @IBOutlet weak var reviewImageView: UIImageView!
+    
+    /// 좋아요 개수 보여주는 라벨
+    @IBOutlet weak var likeLabel: UILabel!
+    
     /// 댓글 개수 보여주는 라벨
     @IBOutlet weak var commentLabel: UILabel!
+    
+    /// 라이크 버튼
+    @IBOutlet weak var likeButton: UIButton!
     /// 댓글 보여주는 버튼
     @IBOutlet weak var commentButton: UIButton!
     /// 공유 버튼
@@ -38,9 +45,25 @@ class ReviewTableViewCell: UITableViewCell {
     weak var delegate: ReviewTableViewCellProtocol?
     var row: Int?
     
-    
     /// Width constraint for the reviewImageView so it can be adjusted according to the review's image. If there isn't any, than we hide the imageView completely, by setting the constraint to be 0
     @IBOutlet weak var reviewImageViewWidthConstraint: NSLayoutConstraint!
+    
+    // 라이크 버튼 눌렀을 때
+    @IBAction func likeButtonClicked(_ sender: UIButton) {
+        print("Like Button Clicked: \(likeButton.tag)")
+        
+        delegate?.actionTapped(tag: likeButton.tag)
+        
+        if sender.image(for: .normal) == #imageLiteral(resourceName: "like_bw") {
+            UIView.transition(with: sender, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+            }, completion: nil)
+        } else {
+            UIView.transition(with: sender, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+            }, completion: nil)
+        }
+    }
 
     // 댓글 버튼 눌렀을 때
     @IBAction func commentButtonClicked(_ sender: Any) {
@@ -69,6 +92,13 @@ class ReviewTableViewCell: UITableViewCell {
         
         // 별점 0.5점도 가능하게
         ratingView.allowsHalfStars = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        likeLabel.text = "좋아요"
+        commentLabel.text = "댓글"
+        likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
     }
     
     /**

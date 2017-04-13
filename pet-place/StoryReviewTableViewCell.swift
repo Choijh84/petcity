@@ -44,6 +44,9 @@ class StoryReviewTableViewCell: UITableViewCell {
     // 리뷰 본문
     @IBOutlet weak var reviewBody: UILabel!
     
+    // 좋아요 개수 라벨
+    @IBOutlet weak var likeLabel: UILabel!
+    
     // 댓글 개수 라벨
     @IBOutlet weak var replyLabel: UILabel!
     // 페이지 컨트롤
@@ -52,6 +55,9 @@ class StoryReviewTableViewCell: UITableViewCell {
     // 신고 버튼
     @IBOutlet weak var moreButton: UIButton!
 
+    // 라이크 버튼
+    @IBOutlet weak var likeButton: UIButton!
+    
     // 댓글 버튼
     @IBOutlet weak var replyButton: UIButton!
     
@@ -60,6 +66,22 @@ class StoryReviewTableViewCell: UITableViewCell {
     
     // 이동 버튼
     @IBOutlet weak var moveButton: UIButton!
+    
+    // 라이크버튼 누르면 액션 실행, 태그 6
+    @IBAction func likeButtonClicked(_ sender: UIButton) {
+        print("Like Button Clicked: \(likeButton.tag)")
+        delegate?.actionTapped(tag: likeButton.tag)
+        // 우선 이미지 바꿔주기
+        if sender.image(for: .normal) == #imageLiteral(resourceName: "like_bw") {
+            UIView.transition(with: sender, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+            }, completion: nil)
+        } else {
+            UIView.transition(with: sender, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+            }, completion: nil)
+        }
+    }
     
     // 이 버튼 누르면 해당 장소로 이동, 태그 5
     @IBAction func moveToStore(_ sender: Any) {
@@ -169,9 +191,12 @@ extension StoryReviewTableViewCell : UICollectionViewDataSource, UICollectionVie
         profileName.text = nil
         profileImage.image = #imageLiteral(resourceName: "user_profile")
         storeName.text = "가게 이름"
-        timeLabel.text = "계산 필요"
+        timeLabel.text = ""
         reviewBody.text = "로딩 필요"
         collectionView.isHidden = false
         pageControl.numberOfPages = 1
+        likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+        likeLabel.text = "좋아요"
+        replyLabel.text = "댓글"
     }
 }

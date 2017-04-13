@@ -321,7 +321,7 @@ class PetProfileEditViewController: FormViewController {
             SCLAlertView().showSuccess("변경 완료", subTitle: "완료되었습니다")
             completionHandler(true)
         }, error: { (Fault) in
-            print("Server reported an error on saving pet profile: \(Fault?.description)")
+            print("Server reported an error on saving pet profile: \(String(describing: Fault?.description))")
             completionHandler(false)
         })
     }

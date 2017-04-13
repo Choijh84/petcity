@@ -153,10 +153,6 @@ class StoryTableViewCell: UITableViewCell {
         guard let row = sender.view?.tag else { return }
         delegate?.actionTapped(tag: row)
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
 }
 
 extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {

@@ -34,4 +34,12 @@ class Review: NSObject {
         }
     }
     
+    /// 라이크 누른 사람
+    /// 라이크 개수
+    var likeNumbers = 0
+    var likeUsers: [BackendlessUser] = [] {
+        didSet {
+            self.likeNumbers = Int((likeUsers.count as NSNumber?)!)
+        }
+    }
 }

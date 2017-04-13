@@ -241,7 +241,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         // 프로필 이름 및 이미지 - 태그 0
         // 댓글 라벨 - 태그 1, 신고 버튼 - 태그 2
         // 댓글 버튼 - 태그 3, 공유 버튼 - 태그 4, 이동 버튼 - 태그 5
-        // 사진 콜렉션 - 태그 6
+        // 사진 콜렉션 - 태그 6, 좋아요 버튼 - 태그 7, 좋아요 라벨 - 태그 8
         cell.profileImage.tag = (indexPath.row*10)+0
         cell.profileName.tag = (indexPath.row*10)+0
         cell.replyLabel.tag = (indexPath.row*10)+01
@@ -250,6 +250,8 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         cell.shareButton.tag = (indexPath.row*10)+04
         cell.moveButton.tag = (indexPath.row*10)+05
         cell.collectionView.tag = (indexPath.row*10)+06
+        cell.likeButton.tag = (indexPath.row*10)+07
+        cell.likeLabel.tag = (indexPath.row*10)+08
         
         // 프로필 이미지랑 닉네임 설정
         if let user = review.creator {
@@ -277,13 +279,32 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             cell.storeName.text = "가게 이름"
         }
         
+        // 좋아요 체크해서 이미지 바꿔주기
+        DispatchQueue.main.async {
+            self.checkLike(indexPath.row, completionHandler: { (success) in
+                if success {
+                    // 어떤 스토리를 좋아했다면
+                    UIView.animate(withDuration: 0.2, animations: {
+                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+                    })
+                } else {
+                    // 좋아했던 스토리가 아니라면
+                    UIView.animate(withDuration: 0.2, animations: {
+                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+                    })
+                }
+            })
+        }
+        
         // 리뷰 평점 배당
         cell.ratingView.value = review.rating as! CGFloat
         
         // 리뷰 바디
         cell.reviewBody.text = review.text
-        // 댓글 개수 적어기기
-        cell.replyLabel.text = String(review.commentNumbers) + "개의 리플"
+        // 좋아요 개수 적어두기 
+        cell.likeLabel.text = "좋아요 \(review.likeNumbers)개"
+        // 댓글 개수 적어두기
+        cell.replyLabel.text = "댓글 \(review.commentNumbers)개"
         
         // 사진URL이 유효한지 체크
         if let string = review.fileURL {
@@ -316,6 +337,10 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     // 프로필 이름 및 이미지 - 태그 0
     // 댓글 라벨 - 태그 1, 신고 버튼 - 태그 2
     // 댓글 버튼 - 태그 3, 공유 버튼 - 태그 4
+    // 해당 샵으로 이동하는 버튼 - 태그 5
+    // 사진 보여주기 - 태그 6
+    // 좋아요 버튼 - 태그 7
+    // 좋아요 라벨 - 태그 8
     func actionTapped(tag: Int) {
         let row = tag/10
         let realTag = tag%10
@@ -345,10 +370,138 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         case 6:
             // 사진 보기
             self.showPhoto(row)
+        case 7:
+            // 좋아요 관련 액션
+            // 라이크 체크
+            self.checkLike(row, completionHandler: { (success) in
+                if success {
+                    // 이미 좋아해서 취소할 때
+                    self.changeLike(row, true, completionHandler: { (success) in
+                        if success {
+                            // 나중에 DB에 처리하고 바꿔주기
+                            // self.tableView.reloadData()
+                        }
+                    })
+                } else {
+                    // 새롭게 좋아해서 추가
+                    self.changeLike(row, false, completionHandler: { (success) in
+                        if success {
+                            // 나중에 DB에 처리하고 바꿔주기
+                            // self.tableView.reloadData()
+                        }
+                    })
+                }
+            })
+            
         default:
             print("Some other action")
         }
     }
+    
+    // 라이크가 체크되었는지를 확인
+    func checkLike(_ row: Int, completionHandler: @escaping (_ success: Bool) -> Void) {
+        let userID = Backendless.sharedInstance().userService.currentUser.objectId
+        let selectedReviewID = ReviewArray[row].objectId
+        // 기본은 라이크가 체크되어 있지 않다
+        var isLike = false
+        
+        // 스토리 클래스를 스토리 ID로 검색해서 스토리를 찾음
+        let dataStore = Backendless.sharedInstance().data.of(Review.ofClass())
+        
+        dataStore?.findID(selectedReviewID, response: { (response) in
+            let selectedReview = response as! Review
+            let likeUsers = selectedReview.likeUsers
+            
+            print("내가 라이크를 눌렀었나? \(isLike) 이게 몇 번째지: \(row) 무슨 리뷰지: \(selectedReview.text)")
+            
+            // 좋아요를 누른 유저를 검색, objectId를 검색해서 있는 경우 isLike값 true로 변경 - 콘솔에서 autoload가 필수
+            for likeUser in likeUsers {
+                if likeUser.objectId == userID {
+                    isLike = true
+                }
+            }
+            
+            print("라이크 결과: \(isLike)")
+            
+            completionHandler(isLike)
+            
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+            // 이래도 되나...
+            completionHandler(isLike)
+        })
+    }
+    
+    func changeLike(_ row: Int, _ alreadyLike: Bool, completionHandler: @escaping (_ success:Bool) -> Void) {
+        print("Changen LIKE in Review")
+        let selectedReview = ReviewArray[row]
+        let reviewId = selectedReview.objectId
+        
+        let likeNumber = selectedReview.likeNumbers
+        print("현재 라이크수: \(likeNumber)개")
+        
+        // 그냥 유저 객체로 비교는 안되고 objectId로 체크를 해야 함
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId
+        
+        let dataStore = Backendless.sharedInstance().data.of(Review.ofClass())
+        
+        // 적용이 안되는거 같으니 DB에서 한 번 찾아서 작업합세 - 완료
+        dataStore?.findID(reviewId, response: { (response) in
+            let foundReview = response as! Review
+            
+            // 이미 라이크를 누른 상태에서 취소
+            if alreadyLike {
+                // 좋아요 숫자 줄이기
+                foundReview.likeNumbers = likeNumber-1
+                
+                // 유저 삭제하기
+                let likeUserArray = foundReview.likeUsers
+                for (index, _) in likeUserArray.enumerated() {
+                    if likeUserArray[index].objectId == objectID {
+                        foundReview.likeUsers.remove(at: index)
+                        print("내가 좋아요 눌렀던거 제거함")
+                    }
+                }
+                
+                dataStore?.save(foundReview, response: { (response) in
+                    let review = response as! Review
+                    print("지우기 성공: \(review.likeNumbers)")
+                    self.ReviewArray[row] = review
+                    
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    completionHandler(true)
+                }, error: { (Fault) in
+                    print("Server reported an error on update Like in Review: \(String(describing: Fault?.description))")
+                    completionHandler(false)
+                })
+                
+            } else {
+                // 라이크를 누른 경우
+                foundReview.likeNumbers = likeNumber+1
+                
+                foundReview.likeUsers.append(Backendless.sharedInstance().userService.currentUser)
+                
+                dataStore?.save(foundReview, response: { (response) in
+                    let review = response as! Review
+                    print("리뷰 라이크 바꾸기 성공: \(review.likeNumbers)")
+                    self.ReviewArray[row] = review
+                    
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    completionHandler(true)
+                }, error: { (Fault) in
+                    print("Server reported an error on update Like in Review: \(String(describing: Fault?.description))")
+                    completionHandler(false)
+                })
+            }
+            
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+        })
+        
+    }
+
     
     // 사진 전체화면으로 보기
     func showPhoto(_ row: Int) {

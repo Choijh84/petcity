@@ -45,6 +45,8 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     /// 사진 브라우징을 위한 asset array 
     var SKimageArray = [SKPhoto]()
     
+    var urlString = ""
+    
     /// Manager that downloads the reviews for the selected Store
     let reviewManager: ReviewManager = ReviewManager()
     /// Array of downloaded Reviews
@@ -680,20 +682,26 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         cell.scrollView.delaysContentTouches = false
         
+        // 데이터베이스에 저장된 이미지 배열이 있는 경우
         if storeToDisplay.imageArray != nil {
-            DispatchQueue.main.async(execute: { 
+            DispatchQueue.main.async(execute: {
+                // 읽어들여와서
                 if let imageArray = self.storeToDisplay.imageArray {
-                    
+                    // 구분을 나눠주고 배열을 만든다 문자열 배열: storePhotos
                     let storePhotos = imageArray.components(separatedBy: ",").sorted()
                     print("This is store photos number: \(storePhotos.count)")
+                    
+                    // 여기서 뷰어는 한 번 초기화
                     self.SKimageArray.removeAll()
+                    // 이미지 url들을 담아놓는 문자열 초기화
+                    self.urlString.removeAll()
                     
                     for i in 0..<(storePhotos.count) {
                         
                         if let url = URL(string: storePhotos[i].trimmingCharacters(in: .whitespacesAndNewlines)) {
                             print("This is photo url: \(url)")
                             
-                            DispatchQueue.main.async(execute: { 
+                            DispatchQueue.main.async(execute: {
                                 
                                 let imageView = UIImageView()
                                 imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, returnedUrl) in
@@ -707,10 +715,17 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                                         cell.scrollView.addSubview(imageView)
                                         cell.layoutIfNeeded()
                                         
-                                        // 포토브라우저 준비를 위한 배열에 사진 삽입
+                                        // 포토브라우저 준비를 위한 배열에 사진 삽입, completionHandler의 이미지 활용, 이미지 로딩이 비동기이다보니 테이블뷰 스크롤에 의해 configureStorePhotoCell이 여러번 실행되는 경우 겹치는 경우 발생
                                         if let image = image {
-                                            let photo = SKPhoto.photoWithImage(image)
-                                            self.SKimageArray.append(photo)
+                                            print("이미지 뷰어에 추가됨: \(String(describing: returnedUrl))")
+                                            // 중복 검사
+                                            if !self.urlString.contains(String(describing: returnedUrl)) {
+                                                self.urlString.append(String(describing: returnedUrl))
+                                                let photo = SKPhoto.photoWithImage(image)
+                                                self.SKimageArray.append(photo)
+                                            } else {
+                                                print("중복 검사에 걸림")
+                                            }
                                         }
                                     }
                                     
@@ -722,7 +737,6 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                             print("url is nil")
                         }
                     }
-                    // self.view.setNeedsLayout()
                 }
             })
         } else {
@@ -805,9 +819,11 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         })
         
         // 댓글, 공유 버튼 숨기기 false
-        cell.commentLabel.isHidden = false
-        cell.commentButton.isHidden = false
-        cell.shareButton.isHidden = false
+        cell.likeButton.isHidden = true
+        cell.likeLabel.isHidden = true
+        cell.commentLabel.isHidden = true
+        cell.commentButton.isHidden = true
+        cell.shareButton.isHidden = true
         
         // 본문 세팅
         cell.reviewTextLabel.text = review.text

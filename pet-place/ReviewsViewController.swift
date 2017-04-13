@@ -71,6 +71,11 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil), forCellReuseIdentifier: "reviewCell")
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        // 처음에 10개는 로딩
+        DispatchQueue.main.async {
+            self.loadReviews()
+        }
     }
     
     /**
@@ -80,12 +85,9 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 기억하고 있던 자리로 이동 - 나중에 실시간 글이 많아지게 되면 안 통할 듯...
+        // 10개 이상 있던 곳에서 확인했다가 돌아오면? 어떻게 그걸 보유하고 있을까
         tableView.setContentOffset(CGPoint(x: 0, y: verticalContentOffset), animated: false)
-        
         navigationController?.setNavigationBarHidden(false, animated: false)
-        DispatchQueue.main.async {
-            self.loadReviews()
-        }
     }
     
     /**
@@ -118,14 +120,13 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     /**
      스크롤을 70% 이상 내리면 발동되는 리뷰 객체 추가 다운로드 함수
      */
-    func loadMoreReviews() {
+    func loadMoreReviews(skipNumber: Int) {
         isLoadingItems = true
         self.refreshControl.beginRefreshing()
         self.tableView.showLoadingIndicator()
-        // 이미 다운로드 받은 리뷰의 숫자
-        let temp = reviewsArray.count as NSNumber
         
-        reviewDownloadManager.downloadReviewCountAndReviewByPage(skippingNumberOfObject: temp, limit: 10, storeObject: selectedStoreObject) { (reviews, error) in
+        reviewDownloadManager.downloadReviewCountAndReviewByPage(skippingNumberOfObject: skipNumber as NSNumber, limit: 10, storeObject: selectedStoreObject) { (reviews, error) in
+            self.isLoadingItems = false
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
             } else {
@@ -137,7 +138,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             }
         }
-        isLoadingItems = false
+        
         self.refreshControl.endRefreshing()
         self.tableView.hideLoadingIndicator()
     }
@@ -147,8 +148,17 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
      */
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let endScrolling = scrollView.contentOffset.y + scrollView.frame.height
-        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && reviewsArray.count >= 10 {
-            self.loadMoreReviews()
+        
+        var selectedNumber = 0
+        if reviewsArray.count >= 10 {
+            selectedNumber = reviewsArray.count
+        } else {
+            selectedNumber = 10
+        }
+        
+        // 조건: 스크롤의 70% 이상 내려오고, 현재 로딩 중이 아니며,
+        if endScrolling >= (scrollView.contentSize.height*0.7) && !isLoadingItems && reviewsArray.count >= (selectedNumber) {
+            self.loadMoreReviews(skipNumber: selectedNumber)
         }
     }
 
@@ -200,24 +210,45 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         // 댓글 개수 - 태그 0
         // 댓글 버튼 - 태그 1
         // 공유 버튼 - 태그 2
+        // 좋아요 버튼 - 태그 3
         reviewCell.commentLabel.tag = (indexPath.row*10)+0
         reviewCell.commentButton.tag = (indexPath.row*10)+01
         reviewCell.shareButton.tag = (indexPath.row*10)+02
+        reviewCell.likeButton.tag = (indexPath.row*10)+03
         
         // 리뷰 프로필 뷰 세팅
         let userId = reviewObject.creator?.objectId!
-        
         let dataStore = Backendless.sharedInstance().data.of(Users.ofClass())
-        dataStore?.findID(userId, response: { (response) in
-            let user = response as! BackendlessUser
-            if let imageURL = user.getProperty("profileURL") {
-                reviewCell.profileImageView.kf.setImage(with: URL(string: imageURL as! String), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
-            }
-            reviewCell.nameLabel.text = user.name! as String
-        }, error: { (Fault) in
-            print("Server reported error on retreiving an user: \(String(describing: Fault?.description))")
-        })
+        DispatchQueue.main.async { 
+            dataStore?.findID(userId, response: { (response) in
+                let user = response as! BackendlessUser
+                if let imageURL = user.getProperty("profileURL") {
+                    reviewCell.profileImageView.kf.setImage(with: URL(string: imageURL as! String), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                }
+                reviewCell.nameLabel.text = user.name! as String
+            }, error: { (Fault) in
+                print("Server reported error on retreiving an user: \(String(describing: Fault?.description))")
+            })
+        }
+        
+        // 좋아요 체크해서 이미지 바꿔주기
+        DispatchQueue.main.async {
+            self.checkLike(indexPath.row, completionHandler: { (success) in
+                if success {
+                    // 어떤 스토리를 좋아했다면
+                    UIView.animate(withDuration: 0.2, animations: {
+                        reviewCell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
+                    })
+                } else {
+                    // 좋아했던 스토리가 아니라면
+                    UIView.animate(withDuration: 0.2, animations: {
+                        reviewCell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
+                    })
+                }
+            })
+        }
 
+        reviewCell.likeLabel.text = "좋아요 \(reviewObject.likeNumbers)개"
         reviewCell.commentLabel.text = "댓글 \(reviewObject.commentNumbers)개"
         reviewCell.reviewTextLabel.text = reviewObject.text
         reviewCell.setRating(reviewObject.rating)
@@ -229,11 +260,16 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
             if imageArray.count == 1 {
                 
                 // 이미지가 1개인 경우
-                reviewCell.reviewImageView.kf.setImage(with: URL(string: fileURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                DispatchQueue.main.async(execute: { 
+                    reviewCell.reviewImageView.kf.setImage(with: URL(string: fileURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                })
+                
                 
             } else {
-                
-                reviewCell.reviewImageView.kf.setImage(with:  URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                // 이미지가 여러개인 경우 한개만 우선 앞에 보이기
+                DispatchQueue.main.async(execute: { 
+                    reviewCell.reviewImageView.kf.setImage(with:  URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                })
                 
                 // Add UIView which can explain the number of photos behind
                 let myLabel = UILabel(frame: CGRect(x: reviewCell.reviewImageView.frame.width-30, y: reviewCell.reviewImageView.frame.height-30, width: 30, height: 30))
@@ -247,7 +283,6 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             reviewCell.setReviewImageViewHidden(true)
         }
-        
         return reviewCell
     }
     
@@ -263,6 +298,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     // 댓글 개수 - 태그 0
     // 댓글 버튼 - 태그 1
     // 공유 버튼 - 태그 2
+    // 좋아요 버튼 - 태그 3
     
     func actionTapped(tag: Int) {
         let row = tag/10
@@ -292,9 +328,136 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                 print("Share Button Clicked")
                 // 공유 액션
                 self.shareButtonPressed(row)
+            
+            case 3:
+                print("Like Button Clicked")
+                // 라이크 체크
+                self.checkLike(row, completionHandler: { (success) in
+                    if success {
+                        // 이미 좋아해서 취소할 때
+                        self.changeLike(row, true, completionHandler: { (success) in
+                            if success {
+                                // 나중에 DB에 처리하고 바꿔주기
+                                // self.tableView.reloadData()
+                            }
+                        })
+                    } else {
+                        // 새롭게 좋아해서 추가
+                        self.changeLike(row, false, completionHandler: { (success) in
+                            if success {
+                                // 나중에 DB에 처리하고 바꿔주기
+                                // self.tableView.reloadData()
+                            }
+                        })
+                    }
+                })
             default:
                 print("Some other action")
         }
+    }
+    
+    // 라이크가 체크되었는지를 확인
+    func checkLike(_ row: Int, completionHandler: @escaping (_ success: Bool) -> Void) {
+        let userID = Backendless.sharedInstance().userService.currentUser.objectId
+        let selectedReviewID = reviewsArray[row].objectId
+        // 기본은 라이크가 체크되어 있지 않다
+        var isLike = false
+        
+        // 스토리 클래스를 스토리 ID로 검색해서 스토리를 찾음
+        let dataStore = Backendless.sharedInstance().data.of(Review.ofClass())
+        
+        dataStore?.findID(selectedReviewID, response: { (response) in
+            let selectedReview = response as! Review
+            let likeUsers = selectedReview.likeUsers
+            
+            print("내가 라이크를 눌렀었나? \(isLike) 이게 몇 번째지: \(row) 무슨 리뷰지: \(selectedReview.text)")
+            
+            // 좋아요를 누른 유저를 검색, objectId를 검색해서 있는 경우 isLike값 true로 변경 - 콘솔에서 autoload가 필수
+            for likeUser in likeUsers {
+                if likeUser.objectId == userID {
+                    isLike = true
+                }
+            }
+            
+            print("라이크 결과: \(isLike)")
+            
+            completionHandler(isLike)
+            
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+            // 이래도 되나...
+            completionHandler(isLike)
+        })
+    }
+    
+    func changeLike(_ row: Int, _ alreadyLike: Bool, completionHandler: @escaping (_ success:Bool) -> Void) {
+        print("Changen LIKE in Review")
+        let selectedReview = reviewsArray[row]
+        let reviewId = selectedReview.objectId
+        
+        let likeNumber = selectedReview.likeNumbers
+        print("현재 라이크수: \(likeNumber)개")
+        
+        // 그냥 유저 객체로 비교는 안되고 objectId로 체크를 해야 함
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId
+        
+        let dataStore = Backendless.sharedInstance().data.of(Review.ofClass())
+        
+        // 적용이 안되는거 같으니 DB에서 한 번 찾아서 작업합세 - 완료
+        dataStore?.findID(reviewId, response: { (response) in
+            let foundReview = response as! Review
+            
+            // 이미 라이크를 누른 상태에서 취소
+            if alreadyLike {
+                // 좋아요 숫자 줄이기
+                foundReview.likeNumbers = likeNumber-1
+                
+                // 유저 삭제하기
+                let likeUserArray = foundReview.likeUsers
+                for (index, _) in likeUserArray.enumerated() {
+                    if likeUserArray[index].objectId == objectID {
+                        foundReview.likeUsers.remove(at: index)
+                        print("내가 좋아요 눌렀던거 제거함")
+                    }
+                }
+                
+                dataStore?.save(foundReview, response: { (response) in
+                    let review = response as! Review
+                    print("지우기 성공: \(review.likeNumbers)")
+                    self.reviewsArray[row] = review
+                    
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    completionHandler(true)
+                }, error: { (Fault) in
+                    print("Server reported an error on update Like in Review: \(String(describing: Fault?.description))")
+                    completionHandler(false)
+                })
+                
+            } else {
+                // 라이크를 누른 경우
+                foundReview.likeNumbers = likeNumber+1
+                
+                foundReview.likeUsers.append(Backendless.sharedInstance().userService.currentUser)
+                
+                dataStore?.save(foundReview, response: { (response) in
+                    let review = response as! Review
+                    print("리뷰 라이크 바꾸기 성공: \(review.likeNumbers)")
+                    self.reviewsArray[row] = review
+                    
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    completionHandler(true)
+                }, error: { (Fault) in
+                    print("Server reported an error on update Like in Review: \(String(describing: Fault?.description))")
+                    completionHandler(false)
+                })
+            }
+            
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+        })
+        
     }
     
     /// 공유를 위한 함수
