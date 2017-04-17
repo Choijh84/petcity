@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PhotoRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
@@ -25,7 +26,11 @@ class PhotoRow: UITableViewCell, UICollectionViewDelegateFlowLayout, UICollectio
         let imageURL = photoList[indexPath.row].imageURL
         let url = URL(string: imageURL!)
         
-        cell.imageView.hnk_setImage(from: url, placeholder: UIImage(named: "placeholder"))
+        DispatchQueue.main.async { 
+            cell.imageView.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+        }
+        
+        cell.imageView.kf.indicatorType = .activity
         
         return cell
         

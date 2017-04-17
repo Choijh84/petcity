@@ -347,7 +347,7 @@ class PetProfileInputViewController: FormViewController {
                 SCLAlertView().showSuccess("Save Pet Profile", subTitle: "OK")
                 _ = self.navigationController?.popViewController(animated: true)
             }, error: { (Fault) in
-                print("Server reported an error on saving pet profile: \(Fault?.description)")
+                print("Server reported an error on saving pet profile: \(String(describing: Fault?.description))")
             })
         } else {
             print("There is no user u can save")

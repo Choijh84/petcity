@@ -57,24 +57,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         tableView.estimatedRowHeight = 320
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        let user = Backendless.sharedInstance().userService.currentUser
-        
-        // 유저 로그인이 안 되어있으면 로그인으로 이동
-        if user == nil {
-            let appearance = SCLAlertView.SCLAppearance(
-                showCloseButton: false
-            )
-            let alertView = SCLAlertView(appearance: appearance)
-            alertView.addButton("로그인으로 이동") {
-                self.presentLoginViewController()
-            }
-            alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
-        } else {
-            
-            customizeViews()
-            super.viewDidLoad()
-            
-        }
+        customizeViews()
+        super.viewDidLoad()
     }
     
     // 뷰가 보일 때마다 불러오는 함수
@@ -84,14 +68,17 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         
         // 유저 로그인이 안 되어있으면 로그인으로 이동
         if user == nil {
+            /**
             let appearance = SCLAlertView.SCLAppearance(
                 showCloseButton: false
             )
             let alertView = SCLAlertView(appearance: appearance)
             alertView.addButton("로그인으로 이동") {
-                self.presentLoginViewController()
+                 self.presentLoginViewController()
+        
             }
             alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
+            */
         } else {
             // 내 스토리인 경우에는 다운로드 안함
             if isMyStory {
@@ -119,8 +106,10 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             view.addSubview(loginViewController.view)
             loginViewController.didMove(toParentViewController: self)
             addChildViewController(loginViewController)
+            
         } else {
-            dismiss(animated: true, completion: nil)
+            // 여기서 dismiss를 하게 되면 topview로 돌아감 - topview가 firstviewcontroller
+            // dismiss(animated: true, completion: nil)
         }
     }
     
@@ -265,19 +254,16 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         }
         
         // 라이크버튼 설정 - 라이크 모양은 여기서 컨트롤, delegate에서 user 라이크 컨트롤
+        // checklike를 하지 말고 우선 이미지 모양에 따라 바꿔주자
         DispatchQueue.main.async { 
             self.checkLike(indexPath.row) { (success) in
                 if success {
                     // 어떤 스토리를 좋아했다면
-                    UIView.animate(withDuration: 0.2, animations: { 
-                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
-                    })
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
                     
                 } else {
                     // 좋아했던 스토리가 아니라면
-                    UIView.animate(withDuration: 0.2, animations: { 
-                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
-                    })
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
                     
                 }
             }
@@ -287,12 +273,16 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         cell.likeNumberLabel.text = String(story.likeNumbers) + "개의 좋아요"
         cell.commentNumberLabel.text = String(story.commentNumbers) + "개의 리플"
         
-        cell.photoList = (story.imageArray?.components(separatedBy: ",").sorted())!
+        DispatchQueue.main.async { 
+            cell.photoList = (story.imageArray?.components(separatedBy: ",").sorted())!
+        }
         
         cell.timeLabel.text = dateFormatter.string(from: story.created! as Date)
         
-        // 향후 스크롤링하면서 데이터가 부정확해지기 때문에 꼭 reload를 해줘야 함
-        cell.imageCollection.reloadData()
+        DispatchQueue.main.async { 
+            // 향후 스크롤링하면서 데이터가 부정확해지기 때문에 꼭 reload를 해줘야 함
+            cell.imageCollection.reloadData()
+        }
         
         return cell
     }

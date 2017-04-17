@@ -1,3 +1,4 @@
+
 //
 //  UsrManager.swift
 //  pet-place
@@ -24,10 +25,10 @@ class UserManager: NSObject {
     class func loginUser(withEmail email: String, password: String, completionBlock: @escaping (_ successful: Bool, _ errorMessage: String?) -> ()) {
         Backendless.sharedInstance().userService.setStayLoggedIn(true)
         Backendless.sharedInstance().userService.login(email, password: password, response: { (user) in
-            print("User has been logged in (ASYNC): \(user)")
+            print("User has been logged in (ASYNC): \(String(describing: user))")
             completionBlock(true, nil)
         }) { (fault) in
-            print("Server reported an error: \(fault)")
+            print("Server reported an error: \(String(describing: fault))")
             completionBlock(false, fault?.description)
         }
     }
@@ -86,10 +87,10 @@ class UserManager: NSObject {
     fileprivate class func loginWithFacebookAccessToken(_ token: FBSDKAccessToken, completionBlock: @escaping (_ successfule: Bool, _ errorMessage: String?) -> ()) {
         Backendless.sharedInstance().userService.setStayLoggedIn(true)
         Backendless.sharedInstance().userService.login(withFacebookSDK: token, fieldsMapping: ["email": "email"], response: { (user) in
-            print("Result: \(user)")
+            print("Result: \(String(describing: user))")
             completionBlock(true, nil)
         }) { (fault) in
-            print("Server reported an error: \(fault)")
+            print("Server reported an error: \(String(describing: fault))")
             completionBlock(false, fault?.description)
         }
     }
@@ -104,7 +105,7 @@ class UserManager: NSObject {
             print("User logged out")
             completionBlock(true, nil)
         }) { (fault) in
-            print("Server reported an error: \(fault)")
+            print("Server reported an error: \(String(describing: fault))")
             completionBlock(false, fault?.description)
         }
     }

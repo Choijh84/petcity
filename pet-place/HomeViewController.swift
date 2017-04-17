@@ -35,7 +35,6 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     
     @IBOutlet var tableInsideHome: LoadingTableView!
     
-    
     // 프로모션은 처음에 보이는 이미지들, 우리 뉴스나 광고를 집어넣어야 할 곳?
     var promotions = [FrontPromotion]()
     
@@ -45,20 +44,14 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     var isShowBusinessInfo = false
     var reloadIndexPath: IndexPath?
     
-    var isFirstTime = false
-    
     @IBAction func wantToSearch(_ sender: Any) {
         performSegue(withIdentifier: "performSearch", sender: nil)
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         title = "펫시티 홈"
         downloadBoth()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewDidLoad()
         
         // 사용자 설정 편집
         let userDefaults = UserDefaults.standard
@@ -71,18 +64,28 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
             userDefaults.synchronize()
         }
         
-        if !isFirstTime {
+        // 앱 초기 애니메이션 실행, MyFirstView에서 체크
+        if MyFirstViewState.isLoaded == false {
             let firstView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FirstViewController")
             self.present(firstView, animated: false, completion: nil)
-            isFirstTime = true
         }
+    }
+    
+    /**
+     Set the navigation bar visible
+     
+     - parameter animated: animated
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+
     }
     
     // 워크스루 보여주는 함수
     func showWalkThrough() {
         let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
         let walkthrough = stb.instantiateViewController(withIdentifier: "walk") as! BWWalkthroughViewController
-        
         
         let page_one = stb.instantiateViewController(withIdentifier: "walk1")
         let page_two = stb.instantiateViewController(withIdentifier: "walk2")
@@ -201,8 +204,11 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoRow", for: indexPath) as! PhotoRow
-            cell.photoList = promotions
-            cell.promotionCollection.reloadData()
+            DispatchQueue.main.async(execute: { 
+                cell.photoList = self.promotions
+                cell.promotionCollection.reloadData()
+            })
+            
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderRow", for: indexPath) as! HeaderRow
@@ -211,8 +217,11 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceRow", for: indexPath) as! PlaceRow
             
-            cell.storeList = recommendStores
-            cell.placeCollection.reloadData()
+            DispatchQueue.main.async(execute: { 
+                cell.storeList = self.recommendStores
+                cell.placeCollection.reloadData()
+            })
+            
             return cell
             
         } else {
@@ -270,18 +279,6 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
             }
         }
     }
-    
-    /**
-     Set the navigation bar visible
-     
-     - parameter animated: animated
-     */
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
-    }
-    
     
     /**
      Which statusbar style to display, white in this case.

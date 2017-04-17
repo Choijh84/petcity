@@ -172,9 +172,9 @@ class InfoChangeViewController: UIViewController {
     func describeUserAsync() {
         
         Backendless.sharedInstance().userService.describeUserClass({ (property) in
-            print("This is user property: \(property)")
+            print("This is user property: \(String(describing: property))")
         }) { (Fault) in
-            print("This is fault: \(Fault?.description)")
+            print("This is fault: \(String(describing: Fault?.description))")
         }
 
     }

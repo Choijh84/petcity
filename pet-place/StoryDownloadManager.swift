@@ -1,3 +1,4 @@
+
 //
 //  StoryDownloadManager.swift
 //  pet-place
@@ -33,10 +34,10 @@ class StoryDownloadManager: NSObject {
         newStory.commentNumbers = 0
         
         dataStore1?.save(newStory, response: { (response) in
-            print("Story has beed added: \(response)")
+            print("Story has beed added: \(String(describing: response))")
             completionBlock(true, nil)
         }, error: { (Fault) in
-            print("Server reported an error: \(Fault?.description)")
+            print("Server reported an error: \(String(describing: Fault?.description))")
             completionBlock(false, Fault?.description)
         })
     }

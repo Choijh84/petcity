@@ -23,6 +23,10 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var loggedInEmailLabel: UILabel!
     //// The logout Button
     @IBOutlet weak var logoutButton: UIBarButtonItem!
+    
+    /// 메뉴 보이는 버튼
+    @IBOutlet weak var userMenu: UIBarButtonItem!
+    
     // 메뉴가 보이는지 체크하는 변수
     var menuShowing = false
     
@@ -210,7 +214,8 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         UserManager.logoutUser { (successful, errorMessage) -> () in
             if successful {
                 self.presentLoginViewController()
-                self.dismiss(animated: true, completion: nil)
+                // self.dismiss(animated: true, completion: nil)
+                // self.navigationController?.popToRootViewController(animated: true)
             } else {
                 // Present error
                 self.displayAlertView(errorMessage!, title: "Error")
@@ -283,6 +288,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
     
     /**
      Checks if the loginViewController is already presented, if not, it adds it as a subview to our view
+     로그인뷰가 이미 뷰에 있는지 확인하고 없다면 로그인뷰를 현재뷰에 서브로 붙여서 보여준다 
      */
     func presentLoginViewController() {
         if loginViewController.view.superview == nil {
@@ -291,8 +297,6 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             view.addSubview(loginViewController.view)
             loginViewController.didMove(toParentViewController: self)
             addChildViewController(loginViewController)
-        } else {
-            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -300,8 +304,11 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
      Dismisses the login viewController if it is visible
      */
     func dismissLoginViewController() {
+        // 만약에 현재 뷰 중에 로그인 뷰가 있다면 디스미스
         if loginViewController.view.superview != nil {
             loginViewController.dismissView()
+        } else {
+            // 없다면 아무 것도 안해도 됨
         }
     }
         
@@ -319,7 +326,6 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         eventButton.center = moreButton.center
         envSettingButton.center = moreButton.center
         */
-        
     }
     
     /**

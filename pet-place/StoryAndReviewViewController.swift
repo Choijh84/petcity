@@ -61,6 +61,17 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         // 유저 로그인이 안 되어있으면 버튼바 높이를 조절
         if user == nil {
             settings.style.buttonBarHeight = 0
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("로그인으로 이동") {
+                self.presentLoginViewController()
+                
+            }
+            alertView.showInfo("로그인 필요", subTitle: "로그인해주세요!")
+        } else {
+            
         }
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -78,6 +89,24 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         let child_1 = storyboard.instantiateViewController(withIdentifier: "StoryViewController")
         let child_2 = storyboard.instantiateViewController(withIdentifier: "ReviewViewController")
         return [child_1, child_2]
+    }
+    
+    /**
+     Checks if the loginViewController is already presented, if not, it adds it as a subview to our view
+     */
+    func presentLoginViewController() {
+        if loginViewController.view.superview == nil {
+            self.tabBarController?.selectedIndex = 3
+            loginViewController.view.frame = self.view.bounds
+            loginViewController.willMove(toParentViewController: self)
+            view.addSubview(loginViewController.view)
+            loginViewController.didMove(toParentViewController: self)
+            addChildViewController(loginViewController)
+            
+        } else {
+            // 여기서 dismiss를 하게 되면 topview로 돌아감 - topview가 firstviewcontroller
+            // dismiss(animated: true, completion: nil)
+        }
     }
     
 }

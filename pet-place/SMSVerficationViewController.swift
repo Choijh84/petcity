@@ -15,7 +15,7 @@ class SMSVerficationViewController: UIViewController {
     let user = Backendless.sharedInstance().userService.currentUser
     
     let url = "https://api.bluehouselab.com/smscenter/v1.0/sendsms"
-    let appid = "petcity1123123"
+    let appid = "petcity"
     let apikey = "8c8f208003ed11e7ba080cc47a1fcfae"
     
     // 인증 번호
@@ -45,6 +45,18 @@ class SMSVerficationViewController: UIViewController {
     @IBOutlet weak var remainingTime: UILabel!
     // 휴대폰 번호 중복 경고 라벨
     @IBOutlet weak var overlapMessageLabel: UILabel!
+    
+    
+    @IBAction func nextView(_ sender: Any) {
+        // 인증했는지 물어보고 
+        
+        // 홈 뷰로 이동하기
+        // 홈 화면으로 이동
+        let vc = StoryboardManager.homeTabbarController()
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    
     
     // 번호 전송 요청
     @IBAction func verificationRequest(_ sender: Any) {
@@ -86,11 +98,11 @@ class SMSVerficationViewController: UIViewController {
                     
                     if response?.totalObjects == 0 {
                         // 만약에 데이터베이스에 인증 번호가 없을 때
-                        print("This is response1: \(response)")
+                        print("This is response1: \(String(describing: response))")
                         SCLAlertView().showError("인증 실패", subTitle: "확인되지 않는 인증 번호")
                     } else {
                         // 데이터베이스에 인증 번호 확인
-                        print("This is response2: \(response)")
+                        print("This is response2: \(String(describing: response))")
                         // 매칭 되면 핸드폰 번호 인증
                         SCLAlertView().showSuccess("인증 완료", subTitle: "감사합니다")
                         // 홈 화면으로 이동
@@ -103,7 +115,7 @@ class SMSVerficationViewController: UIViewController {
                         
                     }
                 }, error: { (Fault) in
-                    print("Server reported an error: \(Fault?.description)")
+                    print("Server reported an error: \(String(describing: Fault?.description))")
                 })
             } else {
                 // 시간이 지났을 때
@@ -118,7 +130,7 @@ class SMSVerficationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("This is current user: \(user)")
+        print("This is current user: \(String(describing: user))")
         
         // 아래 메세지 라벨들은 우선 숨김
         remainingTimeLabel.isHidden = true
@@ -154,9 +166,9 @@ class SMSVerficationViewController: UIViewController {
                 let newVerification = SMSVerification()
                 newVerification.generatedString = self.generatedString
                 dataStore?.save(newVerification, response: { (response) in
-                    print("This is response on saving: \(response)")
+                    print("This is response on saving: \(String(describing: response))")
                 }, error: { (Fault) in
-                    print("Server reported an error to save: \(Fault?.description)")
+                    print("Server reported an error to save: \(String(describing: Fault?.description))")
                 })
                 
             } else {
@@ -168,7 +180,7 @@ class SMSVerficationViewController: UIViewController {
                 }
             }
         }, error: { (Fault) in
-            print("Server reported an error to make a query: \(Fault?.description)")
+            print("Server reported an error to make a query: \(String(describing: Fault?.description))")
         })
         
         return true
@@ -201,7 +213,7 @@ class SMSVerficationViewController: UIViewController {
                 
                 if response?.totalObjects == 0 {
                     // 만약에 데이터베이스에 핸드폰 번호가 안 겹칠 때
-                    print("This is response1: \(response)")
+                    print("This is response1: \(String(describing: response))")
                     self.overlapMessageLabel.isHidden = true
                     if self.checkSMS() {
                         self.sendSMS()
@@ -211,16 +223,17 @@ class SMSVerficationViewController: UIViewController {
                     }
                 } else {
                     // 데이터베이스에 겹칠 때
-                    print("This is response2: \(response)")
+                    print("This is response2: \(String(describing: response))")
                     self.overlapMessageLabel.isHidden = false
                     self.phoneNumberField.becomeFirstResponder()
                 }
                 
             }, error: { (Fault) in
-                print("Server reported an error: \(Fault?.description)")
+                print("Server reported an error: \(String(describing: Fault?.description))")
             })
         }
     }
+    
     
     // 문자 발송 함수
     func sendSMS() {
@@ -262,10 +275,10 @@ class SMSVerficationViewController: UIViewController {
             }
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
+                print("response = \(String(describing: response))")
             }
             let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString)")
+            print("responseString = \(String(describing: responseString))")
         }
         
         task.resume()
@@ -292,7 +305,7 @@ class SMSVerficationViewController: UIViewController {
             dataStore?.save(loggedUser, response: { (response) in
                 print("데이터베이스에 핸드폰 번호 저장 완료")
             }, error: { (Fault) in
-                print("Server reported an error to save user Phone number: \(Fault?.description)")
+                print("Server reported an error to save user Phone number: \(String(describing: Fault?.description))")
             })
             
         }
@@ -309,7 +322,7 @@ class SMSVerficationViewController: UIViewController {
         dataStore?.removeAll(dataQuery, response: { (response) in
             print("인증번호가 데이터베이스에서 삭제되었습니다")
         }, error: { (Fault) in
-            print("Server reported an error to delete: \(Fault?.description)")
+            print("Server reported an error to delete: \(String(describing: Fault?.description))")
         })
     }
     

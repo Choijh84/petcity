@@ -92,11 +92,10 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
             loginViewController.willMove(toParentViewController: self)
             view.addSubview(loginViewController.view)
             loginViewController.didMove(toParentViewController: self)
-            
             addChildViewController(loginViewController)
             
         } else {
-            dismiss(animated: true, completion: nil)
+            // dismiss(animated: true, completion: nil)
         }
     }
     

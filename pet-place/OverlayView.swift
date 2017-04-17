@@ -117,7 +117,7 @@ class OverlayView: UIView {
     fileprivate func startLoading() {
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.isRemovedOnCompletion = false
-        animation.toValue = M_PI * 2.0
+        animation.toValue = Double.pi * 2.0
         animation.duration = 0.8
         animation.isCumulative = true
         animation.repeatCount = Float.infinity

@@ -26,4 +26,5 @@ class GeneralSettings: NSObject {
     class func isOnboardingFinished() -> Bool {
         return UserDefaults.standard.bool(forKey: "onboarding")
     }
+    
 }

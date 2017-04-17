@@ -106,6 +106,8 @@ class StoryTableViewCell: UITableViewCell {
         // Initialization
         imageCollection.delegate = self
         imageCollection.dataSource = self
+        // 우선 보류
+        // imageCollection.prefetchDataSource = self
         
         // 페이지컨트롤 한개의 사진이면 안 보이게
         pageControl.hidesForSinglePage = true
@@ -156,6 +158,7 @@ class StoryTableViewCell: UITableViewCell {
 }
 
 extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    
     // MARK: Collectionview Method
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -166,6 +169,23 @@ extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         self.pageControl.numberOfPages = photoList.count
         return photoList.count
     }
+
+    ///
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.pageControl.currentPage = indexPath.row
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath) as! StoryPhotoCollectionViewCell
+        
+        let imageURL = photoList[indexPath.row]
+        let url = URL(string: imageURL)
+        
+        cell.imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: { (receivedSize, totalSize) in
+            print("\(indexPath.row): \(receivedSize)/\(totalSize)")
+        }) { (image, error, cacheTyle, returnUrl) in
+            print("\(indexPath.row): Finished")
+            collectionView.reloadItems(at: [indexPath])
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath) as! StoryPhotoCollectionViewCell
@@ -174,9 +194,12 @@ extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         let url = URL(string: imageURL)
         
         // 킹피셔 활용
-        DispatchQueue.main.async { 
+        DispatchQueue.main.async {
             cell.imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
         }
+ 
+        // 로딩하는 동한 액티비티 보여주기
+        cell.imageView.kf.indicatorType = .activity
         
         return cell
     }
@@ -190,7 +213,32 @@ extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         return CGSize(width: width, height: width*0.8)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.pageControl.currentPage = indexPath.row
-    }
+    
 }
+
+/**
+extension StoryTableViewCell: UICollectionViewDataSourcePrefetching {
+    
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        // 미리 url 배열을 만들어두자, 어떻게 만들지?
+        var urls = [URL]()
+        for indexPath in indexPaths {
+            let imageURL = photoList[indexPath.row]
+            if let url = URL(string: imageURL) {
+                urls.append(url)
+            }
+        }
+        print("Prefetch Start")
+        ImagePrefetcher(urls: urls).start()
+    }
+    
+    /**
+     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+     // 만약에 cell이 안 보이면 다운로드 캔슬
+     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath) as! StoryPhotoCollectionViewCell
+     cell.imageView.kf.cancelDownloadTask()
+     print("다운로드 캔슬")
+     }
+     */
+}
+*/

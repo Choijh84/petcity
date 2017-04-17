@@ -284,14 +284,10 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             self.checkLike(indexPath.row, completionHandler: { (success) in
                 if success {
                     // 어떤 스토리를 좋아했다면
-                    UIView.animate(withDuration: 0.2, animations: {
-                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
-                    })
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
                 } else {
                     // 좋아했던 스토리가 아니라면
-                    UIView.animate(withDuration: 0.2, animations: {
-                        cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
-                    })
+                    cell.likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
                 }
             })
         }

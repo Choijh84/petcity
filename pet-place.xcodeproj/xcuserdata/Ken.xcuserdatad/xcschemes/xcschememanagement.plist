@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>OneSIgnalNotificationServiceExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
 		<key>pet-place.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>BEA4806E1EA47C4100975FDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EB2956BC1E16D4E00024E3E3</key>
 		<dict>
 			<key>primary</key>

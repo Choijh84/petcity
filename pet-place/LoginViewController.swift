@@ -260,6 +260,7 @@ class LoginViewController: UIViewController {
             emailField.text = ""
             passwordField.text = ""
             
+            // 로그인뷰를 제거
             parentViewController.viewDidAppear(true)
             willMove(toParentViewController: nil)
             view.removeFromSuperview()

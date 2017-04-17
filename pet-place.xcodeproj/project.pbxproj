@@ -103,6 +103,7 @@
 		BEBF030A1E790AA500484B81 /* StoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBF03091E790AA500484B81 /* StoryTableViewCell.swift */; };
 		BECD06D51E8E270D00E72EB8 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BECD06D71E8E270D00E72EB8 /* Account.storyboard */; };
 		BECD06DB1E8E32A700E72EB8 /* PetProfilePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECD06DA1E8E32A700E72EB8 /* PetProfilePopUpViewController.swift */; };
+		BED547321EA21D9200D6A2F6 /* CustomHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED547311EA21D9200D6A2F6 /* CustomHelper.swift */; };
 		BED601F01E4C535700EFB928 /* HomeDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */; };
 		BED69DFF1E8BDE6B002DB00F /* PasswordRetrieveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED69DFE1E8BDE6B002DB00F /* PasswordRetrieveViewController.swift */; };
 		BED69E011E8BFB77002DB00F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED69E001E8BFB77002DB00F /* SettingsViewController.swift */; };
@@ -198,6 +199,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		BEA4807A1EA47C4100975FDC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BEA79C441E97B8E900D92DA9 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -255,6 +266,7 @@
 		BE3E04B61E47BEB3007735DF /* PlaceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceRow.swift; sourceTree = "<group>"; };
 		BE3E04B81E47C3D7007735DF /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE3E04BA1E47CBEE007735DF /* StoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCollectionViewCell.swift; sourceTree = "<group>"; };
+		BE3EF7D41EA46EB5008D6773 /* pet-place.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "pet-place.entitlements"; sourceTree = "<group>"; };
 		BE4165501E7FCD1100B42DDF /* 이순신Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "이순신Bold.otf"; sourceTree = "<group>"; };
 		BE4165511E7FCD1100B42DDF /* 이순신Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "이순신Regular.otf"; sourceTree = "<group>"; };
 		BE4165541E7FCD1A00B42DDF /* 이순신돋움체B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "이순신돋움체B.otf"; sourceTree = "<group>"; };
@@ -313,6 +325,7 @@
 		BECD06D81E8E272200E72EB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Account.storyboard; sourceTree = "<group>"; };
 		BECD06D91E8E273900E72EB8 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Account.strings; sourceTree = "<group>"; };
 		BECD06DA1E8E32A700E72EB8 /* PetProfilePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfilePopUpViewController.swift; sourceTree = "<group>"; };
+		BED547311EA21D9200D6A2F6 /* CustomHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHelper.swift; sourceTree = "<group>"; };
 		BED601EF1E4C535700EFB928 /* HomeDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeDownloadManager.swift; sourceTree = "<group>"; };
 		BED69DFE1E8BDE6B002DB00F /* PasswordRetrieveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordRetrieveViewController.swift; sourceTree = "<group>"; };
 		BED69E001E8BFB77002DB00F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -600,6 +613,7 @@
 		EB2956BF1E16D4E00024E3E3 /* pet-place */ = {
 			isa = PBXGroup;
 			children = (
+				BE3EF7D41EA46EB5008D6773 /* pet-place.entitlements */,
 				EBB619881E197B2A0061BCEB /* pet-place-Bridging-Header.h */,
 				EB2956C01E16D4E00024E3E3 /* AppDelegate.swift */,
 				EB2956FA1E16DA5F0024E3E3 /* GlobalApplicationKeys.swift */,
@@ -638,6 +652,7 @@
 			children = (
 				EB2956FC1E16DABC0024E3E3 /* AppFonts.swift */,
 				EB2956FD1E16DABC0024E3E3 /* AppColors.swift */,
+				BED547311EA21D9200D6A2F6 /* CustomHelper.swift */,
 				EBB619921E1993C80061BCEB /* CustomizeAppearance.swift */,
 				BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */,
 				EB2956CA1E16D4E00024E3E3 /* Assets.xcassets */,
@@ -967,6 +982,7 @@
 				0322BB7EDF9639536D6A0364 /* [CP] Copy Pods Resources */,
 				BED601F11E4CABA600EFB928 /* ShellScript */,
 				BEA79C441E97B8E900D92DA9 /* Embed Frameworks */,
+				BEA4807A1EA47C4100975FDC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -1025,15 +1041,23 @@
 		EB2956B51E16D4E00024E3E3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = press.S;
 				TargetAttributes = {
 					EB2956BC1E16D4E00024E3E3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = YHNFRW5PMX;
+						DevelopmentTeam = 3E927AURX9;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					EB2956D31E16D4E10024E3E3 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1399,6 +1423,7 @@
 				EBB619631E194C640061BCEB /* LoginViewController.swift in Sources */,
 				BE9C99B81E797A68000838B8 /* StoryDownloadManager.swift in Sources */,
 				BEFA14D51E9B4A61007AEEDC /* ComposableSearchRow.swift in Sources */,
+				BED547321EA21D9200D6A2F6 /* CustomHelper.swift in Sources */,
 				EBE8A8AA1E1C30C800902C75 /* ExtensionDistanceHelper.swift in Sources */,
 				BE270FBD1E3CB13D00DE1DF5 /* NewsListViewController.swift in Sources */,
 				EBD4821D1E1A8B0E00F2B8D5 /* StoresListNavigationController.swift in Sources */,
@@ -1518,7 +1543,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1562,7 +1587,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1574,10 +1599,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE0981706075B964937C4135 /* Pods-pet-place.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = YHNFRW5PMX;
+				CODE_SIGN_ENTITLEMENTS = "pet-place/pet-place.entitlements";
+				DEVELOPMENT_TEAM = 3E927AURX9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1667,7 +1692,7 @@
 					"\"XLPagerTabStrip\"",
 					"-lxml2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "press.S.pet-place";
+				PRODUCT_BUNDLE_IDENTIFIER = "press.S.pet-city";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "pet-place/pet-place-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1679,10 +1704,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3DBCE5A9B7B30A789BB8366 /* Pods-pet-place.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = YHNFRW5PMX;
+				CODE_SIGN_ENTITLEMENTS = "pet-place/pet-place.entitlements";
+				DEVELOPMENT_TEAM = 3E927AURX9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1772,7 +1797,7 @@
 					"\"XLPagerTabStrip\"",
 					"-lxml2",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "press.S.pet-place";
+				PRODUCT_BUNDLE_IDENTIFIER = "press.S.pet-city";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "pet-place/pet-place-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

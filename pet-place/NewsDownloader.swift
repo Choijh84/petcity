@@ -38,7 +38,7 @@ class NewsDownloader: NSObject {
         dataStore?.find(query, response: { (collection) in
             completionBlock(collection?.data as? [News], nil)
         }, error: { (error) in
-            print("Server reported error when downloading news: \(error)")
+            print("Server reported error when downloading news: \(String(describing: error))")
             completionBlock(nil, nil)
         })
     }

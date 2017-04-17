@@ -704,7 +704,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                             DispatchQueue.main.async(execute: {
                                 
                                 let imageView = UIImageView()
-                                imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, returnedUrl) in
+                                imageView.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, returnedUrl) in
                                     if error != nil {
                                         print("there is an error on fetching store photos")
                                     } else {

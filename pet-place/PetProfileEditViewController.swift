@@ -9,7 +9,6 @@
 import UIKit
 import Eureka
 import SCLAlertView
-import AlamofireImage
 
 class PetProfileEditViewController: FormViewController {
     

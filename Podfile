@@ -18,10 +18,12 @@ target 'pet-place' do
   pod 'SKPhotoBrowser'
   pod 'Eureka', '~> 2.0'
   pod 'SCLAlertView'
-  pod 'AlamofireImage', '~> 3.1'
   pod 'M13Checkbox'
   pod 'XLPagerTabStrip', '~> 7.0'
   pod 'Kingfisher', '~> 3.0'
+  pod 'OneSignal', '~> 2.0'
+  pod 'AlamofireImage', '~> 3.1' 
+  
 
   # Pods for pet-place
 
@@ -34,5 +36,5 @@ target 'pet-place' do
     inherit! :search_paths
     # Pods for testing
   end
-
+  
 end

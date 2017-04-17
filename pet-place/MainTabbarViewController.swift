@@ -11,7 +11,7 @@ import UIKit
 /// The tabbar controller that hold the tabBar of the app.
 
 class MainTabbarViewController: UITabBarController {
-
+    
     /**
      Adds new tabbar items to the tabbar
      */
@@ -29,7 +29,6 @@ class MainTabbarViewController: UITabBarController {
         /// Adds the account viewController to the tabbar
         let accountNavigationController = StoryboardManager.accountNavigationController()
         addChildViewController(accountNavigationController)
-        
         
     }
 
