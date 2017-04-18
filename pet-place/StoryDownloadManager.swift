@@ -166,6 +166,7 @@ class StoryDownloadManager: NSObject {
         })
     }
     
+    /// 백엔드리스에 다수의 이미지를 업로드, 그러고 이미지들의 연결한 URL을 completionBlock으로 return
     func uploadPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ completion: Bool, _ fileURL: String, _ errorMessage: String?) -> ()) {
         var totalFileURL = ""
         let myGroup = DispatchGroup()

@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CustomizeAppearance.globalCustomization()
         window?.tintColor = UIColor.globalTintColor()
         
+        // 백엔드리스 관련 설정
         backendless?.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
         
         // 유저 자동 로그인 관련 세팅
@@ -51,11 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             backendless?.userService.setStayLoggedIn((result?.boolValue)!)
         }
         
-        
+        // 구글 맵 관련 설정
         GMSPlacesClient.provideAPIKey("AIzaSyBwzZ6Mx2_3cn0mCFS4I2guim4T2Mu1IFs")
         GMSServices.provideAPIKey("AIzaSyBwzZ6Mx2_3cn0mCFS4I2guim4T2Mu1IFs")
         IQKeyboardManager.sharedManager().enable = true
         
+        // 위치 정보 설정 관련
         print("General Setting: \(GeneralSettings.isOnboardingFinished())")
         // 위치정보 동의하면 rootview가 바뀜, homeTabbar
         if GeneralSettings.isOnboardingFinished() == false {
@@ -70,6 +72,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sync hashed email if you have a login system or collect it.
         // Will be used to reach the user at the most optimal time of day.
         // OneSignal.syncHashedEmail(userEmail)
+        
+        // 푸쉬 관련 설정
+        
         
         return true
     }
