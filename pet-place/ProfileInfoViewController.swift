@@ -190,24 +190,32 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         if UserManager.isUserLoggedIn() == true {
             print("User has been logged")
             
-            if isProfilePictureChanged == false {
-                DispatchQueue.main.async(execute: {
-                    if let profile = UserManager.currentUser()?.getProperty("profileURL") {
-                        if let url = profile as? String {
-                            if url == "<null>" {
-                                print("there is no profile pic")
-                            } else {
-                                if let url = URL(string: url) {
-                                    self.profilePicture.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+            let userID = UserManager.currentUser()?.objectId
+            let dataStore = Backendless.sharedInstance().data.of(Users.ofClass())
+            
+            dataStore?.findID(userID, response: { (responseUser) in
+                if self.isProfilePictureChanged == false {
+                    DispatchQueue.main.async(execute: {
+                        if let profile = (responseUser as! BackendlessUser).getProperty("profileURL") {
+                            if let url = profile as? String {
+                                if url == "<null>" {
+                                    print("there is no profile pic")
+                                } else {
+                                    if let url = URL(string: url) {
+                                        // print("이게 프로필 url: \(url)")
+                                        self.profilePicture.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                                    }
                                 }
                             }
+                            
                         }
-                        
-                    }
-                })
-            } else {
-                print("profile picture has changed")
-            }
+                    })
+                } else {
+                    print("profile picture has changed")
+                }
+            }, error: { (Fault) in
+                print("에러: 유저 정보 가져오기 실패: \(String(describing: Fault?.description))")
+            })
             
             // 이메일 체크
             if let email = UserManager.currentUser()?.email {
@@ -340,6 +348,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                 _ = user?.setProperty("profileURL", object: fileURL)
                 
                 Backendless.sharedInstance().userService.update(user, response: { (updatedUser) in
+                    print("프로필 사진 바뀜")
                     self.isProfilePictureChanged = false
                 }, error: { (Fault) in
                     print("Server reported an error to update an user: \(String(describing: Fault?.description))")

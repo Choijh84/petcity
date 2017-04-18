@@ -79,7 +79,7 @@ class PhotoManager: NSObject {
                         completionBlock(false, nil, error.localizedDescription)
                     } else {
                         print("Upload Success to Azure")
-                        let url = "https://petcity.blob.core.windows.net/store-images/\(fileName)"
+                        let url = "https://petcity.blob.core.windows.net/\(container)/\(fileName)"
                         completionBlock(true, url, nil)
                     }
                 })

@@ -43,6 +43,8 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
                 } else {
                     self.addView.isHidden = false
                 }
+            } else {
+                self.addView.isHidden = false
             }
         }
     }
@@ -83,18 +85,16 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
                 }, error: { (Fault) in
                     print("There is error to retrieve Pet Profiles: \(String(describing: Fault?.description))")
                 })
-                
-                myGroup.notify(queue: DispatchQueue.main, execute: {
-                    // 정렬
-                    self.petArray = self.petArray.sorted { (left, right) -> Bool in
-                        return left.created > right.created
-                    }
-                    print("This is number of petArray: \(self.petArray.count)")
-                    completionHandler(true)
-                    self.collectionView.reloadData()
-                })
-                
             }
+            myGroup.notify(queue: DispatchQueue.main, execute: {
+                // 정렬
+                self.petArray = self.petArray.sorted { (left, right) -> Bool in
+                    return left.created > right.created
+                }
+                print("This is number of petArray: \(self.petArray.count)")
+                completionHandler(true)
+                self.collectionView.reloadData()
+            })
         }, error: { (Fault) in
             print("There is error to retrieve user: \(String(describing: Fault?.description))")
         })
@@ -227,11 +227,11 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         cell.registrationLabel.text = petArray[indexPath.row].registration
         
         if petArray[indexPath.row].neutralized == true {
-            cell.neutralizedLabel.text = "YES"
+            cell.neutralizedLabel.text = NSLocalizedString("Neutralized", comment: "")
         } else if petArray[indexPath.row].neutralized == false {
-            cell.neutralizedLabel.text = "NO"
+            cell.neutralizedLabel.text = NSLocalizedString("No Neutralized", comment: "")
         } else {
-            cell.neutralizedLabel.text = "NIL"
+            cell.neutralizedLabel.text = "정보 없음"
         }
         
         // 버튼에 어떤 펫 프로필인지 저장

@@ -17,9 +17,9 @@ class PetProfileEditViewController: FormViewController {
     /// Initial Value of the species
     var petSpecies = "Dog"
     /// Array of Dog Breed List
-    var dogBreed = [String]()
+    var DogBreed = [AnimalBreed]()
     /// Array of Cat Breed List
-    var catBreed = [String]()
+    var CatBreed = [AnimalBreed]()
     /// value of all rows in the form
     var valueDictionary = [String: AnyObject]()
     
@@ -28,7 +28,7 @@ class PetProfileEditViewController: FormViewController {
         
         // form에서 value 형성
         valueDictionary = form.values(includeHidden: false) as [String : AnyObject]
-        dump(valueDictionary)
+        
         /// 데이터 입력 여부 체크
         /// 필수 입력: 이름, 성별, 종, 품종 등
         if valueDictionary["species"] is NSNull || valueDictionary["name"] is NSNull || valueDictionary["breed"] is NSNull || valueDictionary["gender"] is NSNull {
@@ -85,27 +85,6 @@ class PetProfileEditViewController: FormViewController {
                     }
             }
             
-            <<< SwitchRow("gender") {
-                
-                if selectedPetProfile.gender == "Male" {
-                    $0.value = true
-                    $0.title = NSLocalizedString("Male", comment: "")
-                } else {
-                    $0.value = false
-                    $0.title = NSLocalizedString("Female", comment: "")
-                }
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChange
-                }
-                .onChange({ row in
-                    if row.value == true {
-                        row.cell.textLabel?.text = NSLocalizedString("Female", comment: "")
-                    }
-                    else {
-                        row.cell.textLabel?.text = NSLocalizedString("Male", comment: "")
-                    }
-                })
-            
             <<< ActionSheetRow<String>("species") {
                 $0.title = NSLocalizedString("Species", comment: "")
                 $0.selectorTitle = "Your Pet? "
@@ -118,6 +97,7 @@ class PetProfileEditViewController: FormViewController {
                     print("This is pet species: \(self.petSpecies)")
                 })
             
+            /*
             <<< PushRow<String>("breed") {
                 $0.title = NSLocalizedString("Breed", comment: "")
                 $0.value = selectedPetProfile.breed
@@ -139,6 +119,53 @@ class PetProfileEditViewController: FormViewController {
                         row.options = self.dogBreed
                     }
                 })
+            */
+            
+            <<< SearchablePushRow<AnimalBreed>("breed") { row in
+                row.title = NSLocalizedString("Breed", comment: "")
+                row.value = AnimalBreed(name: selectedPetProfile.breed)
+                if self.petSpecies == "강아지" {
+                    row.options = self.DogBreed
+                } else if self.petSpecies == "고양이" {
+                    row.options = self.CatBreed
+                } else {
+                    row.options = self.DogBreed
+                }
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesOnChange
+                }.onCellSelection({ (cell, row) in
+                    if self.petSpecies == "강아지" {
+                        row.options = self.DogBreed
+                    } else if self.petSpecies == "고양이" {
+                        row.options = self.CatBreed
+                    } else {
+                        row.options = self.DogBreed
+                    }
+                })
+            
+            <<< SegmentedRow<String>("gender") {
+                $0.options = [NSLocalizedString("Female", comment: ""), NSLocalizedString("Male", comment: "")]
+                
+                if selectedPetProfile.gender == "Male" {
+                    $0.value = NSLocalizedString("Male", comment: "")
+                } else {
+                    $0.value = NSLocalizedString("Female", comment: "")
+                }
+                $0.add(rule: RuleRequired())
+            }
+            
+            <<< SegmentedRow<String>("neutralized") {
+                // $0.title = NSLocalizedString("Neutralized", comment: "")
+                $0.options = [NSLocalizedString("No Neutralized", comment: ""), NSLocalizedString("Neutralized", comment: "")]
+             
+                if selectedPetProfile.neutralized {
+                    $0.value = NSLocalizedString("Neutralized", comment: "")
+                } else {
+                    $0.value = NSLocalizedString("No Neutralized", comment: "")
+                }
+                
+                $0.add(rule: RuleRequired())
+            }
             
             
             +++ Section("추가 정보 1")
@@ -153,13 +180,6 @@ class PetProfileEditViewController: FormViewController {
                 $0.validationOptions = .validatesOnChange
                 }.cellSetup { cell, _  in
                     cell.textField.keyboardType = .numberPad
-            }
-            
-            <<< CheckRow("neutralized") {
-                $0.title = NSLocalizedString("Neutralized", comment: "")
-                $0.value = selectedPetProfile.neutralized
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChange
             }
             
             <<< AccountRow("registration") {
@@ -227,17 +247,24 @@ class PetProfileEditViewController: FormViewController {
         var temps = datasourceDictionary["Dog"] as! [NSArray]
         
         for temp in temps {
-            dogBreed.append(temp[0] as! String)
+            let breed = AnimalBreed(name: temp[0] as! String)
+            DogBreed.append(breed)
         }
         
-        dogBreed = dogBreed.sorted()
+        DogBreed = DogBreed.sorted(by: { (lhs, rhs) -> Bool in
+            return rhs.name > lhs.name
+        })
         
         temps = datasourceDictionary["Cat"] as! [NSArray]
         
         for temp in temps {
-            catBreed.append(temp[0] as! String)
+            let breed = AnimalBreed(name: temp[0] as! String)
+            CatBreed.append(breed)
         }
-        catBreed = catBreed.sorted()
+        
+        CatBreed = CatBreed.sorted(by: { (lhs, rhs) -> Bool in
+            return rhs.name > lhs.name
+        })
     }
     
     /**
@@ -255,8 +282,8 @@ class PetProfileEditViewController: FormViewController {
             selectedPetProfile.name = tempname
             name = tempname
         }
-        if let breed = valueDictionary["breed"] as? String {
-            selectedPetProfile.breed = breed
+        if let breed = valueDictionary["breed"] as? AnimalBreed {
+            selectedPetProfile.breed = breed.name
         }
         if let vaccination = valueDictionary["vaccination"] as? String {
             selectedPetProfile.vaccination = vaccination
@@ -264,17 +291,22 @@ class PetProfileEditViewController: FormViewController {
         if let sickHistory = valueDictionary["sickHistory"] as? String {
             selectedPetProfile.sickHistory = sickHistory
         }
-        if let neutralized = valueDictionary["neutralized"] as? Bool {
-            print("This is neutralized: \(neutralized)")
-            selectedPetProfile.neutralized = neutralized
+        if let neutralized = valueDictionary["neutralized"] as? String {
+            if neutralized == NSLocalizedString("No Neutralized", comment: "") {
+                selectedPetProfile.neutralized = false
+            } else {
+                selectedPetProfile.neutralized = true
+            }
         }
-        if let gender = valueDictionary["gender"] as? Bool {
-            if gender == true {
+
+        if let gender = valueDictionary["gender"] as? String {
+            if gender == NSLocalizedString("Male", comment: "") {
                 selectedPetProfile.gender = "Male"
             } else {
                 selectedPetProfile.gender = "Female"
             }
         }
+        
         if let weight = valueDictionary["weight"] as? Double {
             selectedPetProfile.weight = weight
         }

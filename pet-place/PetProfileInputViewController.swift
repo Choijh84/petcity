@@ -18,9 +18,10 @@ class PetProfileInputViewController: FormViewController {
     
     var receiver = [NSArray]()
     /// Array of Dog Breed List
-    var dogBreed = [String]()
+    var DogBreed = [AnimalBreed]()
+    
     /// Array of Cat Breed List
-    var catBreed = [String]()
+    var CatBreed = [AnimalBreed]()
     
     /// value of all rows in the form
     var valueDictionary = [String: AnyObject]()
@@ -95,6 +96,7 @@ class PetProfileInputViewController: FormViewController {
                 }
             }
             
+            /*
             <<< SwitchRow("gender") {
                 $0.title = NSLocalizedString("Choose Gender", comment: "")
                 $0.value = false
@@ -109,6 +111,7 @@ class PetProfileInputViewController: FormViewController {
                         row.cell.textLabel?.text = NSLocalizedString("Male", comment: "")
                     }
                 })
+            */
             
             <<< ActionSheetRow<String>("species") {
                 $0.title = NSLocalizedString("Species", comment: "")
@@ -119,9 +122,9 @@ class PetProfileInputViewController: FormViewController {
                 $0.validationOptions = .validatesOnChange
             }.onChange({ (row) in
                 self.petSpecies = row.value!
-                print("This is pet species: \(self.petSpecies)")
             })
             
+            /*
             <<< PushRow<String>("breed") {
                 $0.title = NSLocalizedString("Breed", comment: "")
                 $0.options = dogBreed
@@ -136,15 +139,36 @@ class PetProfileInputViewController: FormViewController {
                     row.options = self.dogBreed
                 }
             })
- 
-            
-            /**
-            <<< ComposableSearchablePushRow<AnimalBreed>("Test") {
-                $0.title = "Test"
-            }.onCellSelection({ (<#PushSelectorCell<ComposableSearchableItem<AnimalBreed>>#>, <#ComposableSearchablePushRow<AnimalBreed>#>) in
-                <#code#>
-            })
             */
+ 
+            <<< SearchablePushRow<AnimalBreed>("breed") { row in
+                row.title = NSLocalizedString("Breed", comment: "")
+                row.options = DogBreed
+                row.add(rule: RuleRequired())
+                row.validationOptions = .validatesOnChange
+            }.onCellSelection({ (cell, row) in
+                if self.petSpecies == "강아지" {
+                    row.options = self.DogBreed
+                } else if self.petSpecies == "고양이" {
+                    row.options = self.CatBreed
+                } else {
+                    row.options = self.DogBreed
+                }
+            })
+            
+            <<< SegmentedRow<String>("gender") {
+                $0.options = [NSLocalizedString("Female", comment: ""), NSLocalizedString("Male", comment: "")]
+                $0.add(rule: RuleRequired())
+            }
+            
+            <<< SegmentedRow<String>("neutralized") {
+                // $0.title = NSLocalizedString("Neutralized", comment: "")
+                
+                $0.options = [NSLocalizedString("No Neutralized", comment: ""), NSLocalizedString("Neutralized", comment: "")]
+                
+                $0.add(rule: RuleRequired())
+            }
+            
             
         +++ Section("추가 정보 1")
     
@@ -153,19 +177,21 @@ class PetProfileInputViewController: FormViewController {
                 $0.value = 3
                 $0.formatter = DecimalFormatter()
                 $0.useFormatterDuringInput = true
-                //$0.useFormatterOnDidBeginEditing = true
-                $0.add(rule: RuleRequired())
+                // $0.useFormatterOnDidBeginEditing = true
+                // $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
             }.cellSetup { cell, _  in
                 cell.textField.keyboardType = .numberPad
             }
-    
+            
+            /*
             <<< CheckRow("neutralized") {
                 $0.title = NSLocalizedString("Neutralized", comment: "")
                 $0.value = false
-                $0.add(rule: RuleRequired())
+                // $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChange
             }
+            */
             
             <<< ImageRow("imagePic"){
                 $0.title = NSLocalizedString("Pet Photo", comment: "")
@@ -201,6 +227,7 @@ class PetProfileInputViewController: FormViewController {
     /**
      Pet List Read - from the property list: PetBreedList.plist
      - current: dogBreed(강아지 종류 - alphabetically sort), catBreed(고양이 종류)
+     AnimalBreed Struct로도 배열을 만들어줘야 함
     */
     func readPetBreedList() {
         let pathList = Bundle.main.path(forResource: "PetBreedList", ofType: "plist")
@@ -210,19 +237,28 @@ class PetProfileInputViewController: FormViewController {
         var temps = datasourceDictionary["Dog"] as! [NSArray]
 
         for temp in temps {
-            dogBreed.append(temp[0] as! String)
+            // dogBreed.append(temp[0] as! String)
+            let breed = AnimalBreed(name: temp[0] as! String)
+            DogBreed.append(breed)
         }
         
-        dogBreed = dogBreed.sorted()
-        // dogBreed = dogBreed.sorted(by: {$0.name > $1.name })
+        // dogBreed = dogBreed.sorted()
+        DogBreed = DogBreed.sorted(by: { (lhs, rhs) -> Bool in
+            return rhs.name > lhs.name
+        })
         
         temps = datasourceDictionary["Cat"] as! [NSArray]
         
         for temp in temps {
-            catBreed.append(temp[0] as! String)
+            // catBreed.append(temp[0] as! String)
+            let breed = AnimalBreed(name: temp[0] as! String)
+            CatBreed.append(breed)
         }
-        catBreed = catBreed.sorted()
-        // catBreed = catBreed.sorted(by: {$0.name > $1.name })
+        
+        // catBreed = catBreed.sorted()
+        CatBreed = CatBreed.sorted(by: { (lhs, rhs) -> Bool in
+            return rhs.name > lhs.name
+        })
         
     }
     
@@ -238,8 +274,8 @@ class PetProfileInputViewController: FormViewController {
             tempPet.name = tempname
             name = tempname
         }
-        if let breed = valueDictionary["breed"] as? String {
-            tempPet.breed = breed
+        if let breed = valueDictionary["breed"] as? AnimalBreed {
+            tempPet.breed = breed.name
         }
         if let vaccination = valueDictionary["vaccination"] as? String {
             tempPet.vaccination = vaccination
@@ -247,12 +283,15 @@ class PetProfileInputViewController: FormViewController {
         if let sickHistory = valueDictionary["sickHistory"] as? String {
             tempPet.sickHistory = sickHistory
         }
-        if let neutralized = valueDictionary["neutralized"] as? Bool {
-            print("This is neutralized: \(neutralized)")
-            tempPet.neutralized = neutralized
+        if let neutralized = valueDictionary["neutralized"] as? String {
+            if neutralized == NSLocalizedString("No Neutralized", comment: "") {
+                tempPet.neutralized = false
+            } else {
+                tempPet.neutralized = true
+            }
         }
-        if let gender = valueDictionary["gender"] as? Bool {
-            if gender == true {
+        if let gender = valueDictionary["gender"] as? String {
+            if gender == NSLocalizedString("Male", comment: "") {
                 tempPet.gender = "Male"
             } else {
                 tempPet.gender = "Female"
@@ -361,4 +400,25 @@ class HeaderImageView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+
+struct AnimalBreed: CustomStringConvertible, Equatable, SearchableItem {
+    var name: String = ""
+    
+    var description: String {
+        return name
+    }
+    
+    init(name: String) {
+        self.name = name
+    }
+    
+    func matchesSearchQuery(_ query: String) -> Bool {
+        return name.contains(query)
+    }
+}
+
+func ==(rhs: AnimalBreed, lhs: AnimalBreed) -> Bool {
+    return rhs.name == lhs.name
 }

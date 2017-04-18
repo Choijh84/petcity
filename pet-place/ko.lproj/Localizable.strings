@@ -28,7 +28,8 @@
 "Species" = "반려동물 종";
 "Breed" = "품종";
 "Weight" = "몸무게";
-"Neutralized" = "중성화 여부";
+"Neutralized" = "중성화 O";
+"No Neutralized" = "중성화 X";
 "Registration" = "등록번호";
 "Pet Photo" = "펫 사진";
 "Birthday" = "생년월일";
