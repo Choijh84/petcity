@@ -63,6 +63,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                 
                 overlayView.displayView(view, text: "리뷰 올리는 중...")
                 
+                // 사진이 없을 때
                 if imageArray.count == 0 {
                     reviewManager.uploadNewReview(text, fileURL: nil, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock: { (success, store, errorMessage) in
                         if success == true {
@@ -74,9 +75,10 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                         }
                     })
                 } else {
-                    reviewManager.uploadPhotos(selectedImages: imageArray) { (success, fileURL, error) in
+                    // 사진이 여러 장
+                    reviewManager.uploadBlobPhotos(selectedImages: imageArray, completionBlock: { (success, fileURL, error) in
                         if error == nil {
-                            print("This is FILEURL: \(fileURL)")
+                            print("This is FILEURL: \(String(describing: fileURL))")
                             self.overlayView.hideView()
                             self.reviewManager.uploadNewReview(text, fileURL: fileURL, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock:
                                 { (success, store, errorMessage) in
@@ -91,7 +93,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                         } else {
                             SCLAlertView().showInfo("사진 업로드 에러", subTitle: "확인 부탁드립니다")
                         }
-                    }
+                    })
                 }
             }
         } else {

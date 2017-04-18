@@ -9,4 +9,5 @@
 #import "BackendlessGeoQuery.h"
 #import <NMapViewerSDK/NMapView.h>
 #import <NMapViewerSDK/NMapLocationManager.h>
+#import <AZSClient/AZSClient.h>
 

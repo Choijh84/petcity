@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AZSClient.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,12 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>45FF4A7AFE5D8E17D01023C53AED87FF</key>
+		<key>3E4A20CBCCE4EAF57B6A8BBBF5A55EF7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>46C7EC92C93E594A642FB0A942B19F46</key>
+		<key>451BBE18BCCA0A44E0061D23BDF463D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>45FF4A7AFE5D8E17D01023C53AED87FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,7 +137,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>739D6301C903EFF622EA42663BAA190B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>95738628D743019FA01AE880F7EA0DD4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -138,11 +158,6 @@
 			<true/>
 		</dict>
 		<key>9EFE4C70245EE2857D336B8B9FA4E825</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B58FAB3B60A281CEB3AF8A85F8AA4E8D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +187,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C736858CE3890F561A72CADE33FD3FBD</key>
+		<key>CA8BC80A3DC6F89108196FF9FBD8F6B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,17 +197,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D7D1D6AA41F169863B86E55FE871410D</key>
+		<key>E060834FF138CAB62F513485F1F47F56</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EC3E3392C8FED1D80470373DD9F6DDCA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FAD03C707C6B1650CD516F9D3B9A174B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

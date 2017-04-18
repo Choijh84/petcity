@@ -81,63 +81,6 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         self.navigationController?.pushViewController(destination, animated: true)
     }
     
-
-    /**
-    @IBOutlet weak var moreButton: UIButton!
-    @IBOutlet weak var announcementButton: UIButton!
-    @IBOutlet weak var eventButton: UIButton!
-    @IBOutlet weak var envSettingButton: UIButton!
-    
-    var announcementButtonCenter: CGPoint!
-    var eventButtonCenter: CGPoint!
-    var envSettingButtonCenter: CGPoint!
-    
-    @IBAction func announcementButtonPressed(_ sender: UIButton) {
-        toggleButton(button: sender, onImage: #imageLiteral(resourceName: "more-black"), offImage: #imageLiteral(resourceName: "more"))
-    }
-    
-    @IBAction func eventButtonPressed(_ sender: UIButton) {
-        toggleButton(button: sender, onImage: #imageLiteral(resourceName: "more-black"), offImage: #imageLiteral(resourceName: "more"))
-    }
-    
-    @IBAction func envButtonPressed(_ sender: UIButton) {
-        toggleButton(button: sender, onImage: #imageLiteral(resourceName: "more-black"), offImage: #imageLiteral(resourceName: "more"))
-    }
-    
-    @IBAction func moreButtonPressed(_ sender: UIButton) {
-        if moreButton.currentImage == #imageLiteral(resourceName: "more") {
-            UIView.animate(withDuration: 0.3, animations: { 
-                self.announcementButton.alpha = 1
-                self.eventButton.alpha = 1
-                self.envSettingButton.alpha = 1
-                
-                self.announcementButton.center = self.announcementButtonCenter
-                self.eventButton.center = self.eventButtonCenter
-                self.envSettingButton.center = self.envSettingButtonCenter
-            })
-        } else {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.announcementButton.alpha = 0
-                self.eventButton.alpha = 0
-                self.envSettingButton.alpha = 0
-                
-                self.announcementButton.center = self.moreButton.center
-                self.eventButton.center = self.moreButton.center
-                self.envSettingButton.center = self.moreButton.center
-            })
-        }
-        toggleButton(button: sender, onImage: #imageLiteral(resourceName: "more-black"), offImage: #imageLiteral(resourceName: "more"))
-    }
-    
-    func toggleButton(button: UIButton, onImage: UIImage, offImage: UIImage) {
-        if button.currentImage == offImage {
-            button.setImage(onImage, for: .normal)
-        } else {
-            button.setImage(offImage, for: .normal)
-        }
-    }
-     */
-    
     var isProfilePictureChanged = false
     
     /// Lazy loader for LoginViewController, cause we might not need to initialize it in the first place
@@ -254,8 +197,9 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                             if url == "<null>" {
                                 print("there is no profile pic")
                             } else {
-                                self.profilePicture.hnk_setImage(from: URL(string: url))
-                                print("This is profileURL1: \(url)")
+                                if let url = URL(string: url) {
+                                    self.profilePicture.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                                }
                             }
                         }
                         
@@ -387,42 +331,24 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         /// First, change the view
         profilePicture.image = selectedImage
         isProfilePictureChanged = true
-        /// Start the image upload
+        
+        /// 이미지 업로드
         DispatchQueue.main.async { 
-            self.imageUploadAsync(image: compressed)
+            // 포토 매니저를 이용해 compress된 이미지를 profile-images 컨테이너에 저장
+            PhotoManager().uploadBlobPhoto(selectedFile: compressed, container: "profile-image", completionBlock: { (success, fileURL, error) in
+                let user = Backendless.sharedInstance().userService.currentUser
+                _ = user?.setProperty("profileURL", object: fileURL)
+                
+                Backendless.sharedInstance().userService.update(user, response: { (updatedUser) in
+                    self.isProfilePictureChanged = false
+                }, error: { (Fault) in
+                    print("Server reported an error to update an user: \(String(describing: Fault?.description))")
+                })
+            })
+            
         }
         
         dismiss(animated: true, completion: nil)
+        
     }
-    
-    func imageUploadAsync(image: UIImage!) {
-        print("\n============ Uploading image with the ASYNC API ============")
-    
-        if let selectedImage = image {
-            let fileName = String(format: "%0.0f.jpeg", Date().timeIntervalSince1970)
-            let filePath = "profileImages/\(fileName)"
-            let content = UIImageJPEGRepresentation(selectedImage, 1.0)
-            
-            Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
-                let fileURL = uploadedFile?.fileURL
-                print(fileURL!)
-                self.profilePicture.hnk_setImage(from: URL(string: fileURL!))
-                print("This is profileURL2: \(fileURL!)")
-                
-                let user = Backendless.sharedInstance().userService.currentUser
-                _ = user?.setProperty("profileURL", object: fileURL)
-                Backendless.sharedInstance().userService.update(user, response: { (updateUser) in
-                    print("Change the profile Image")
-                    self.isProfilePictureChanged = false
-                }, error: { (fault) in
-                    print("Server reported an error (2): \(fault!)")
-                })
-            }, error: { (fault) in
-                print(fault.debugDescription)
-            })
-        } else {
-            print("There is no data")
-        }
-    }
-
 }

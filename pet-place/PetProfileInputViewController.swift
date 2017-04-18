@@ -9,23 +9,8 @@
 import UIKit
 import Eureka
 import SCLAlertView
+import AZSClient
 
-/**
-struct AnimalBreed: CustomStringConvertible, Equatable, SearchableItem {
-    let name: String
-    
-    var description: String {
-        return name
-    }
-    func matchesSearchQuery(_ query: String) -> Bool {
-        return name.contains(query)
-    }
-    
-    static func ==(rhs: AnimalBreed, lhs: AnimalBreed) -> Bool {
-        return rhs.name == lhs.name
-    }
-}
-*/
 
 class PetProfileInputViewController: FormViewController {
 
@@ -240,31 +225,6 @@ class PetProfileInputViewController: FormViewController {
         // catBreed = catBreed.sorted(by: {$0.name > $1.name })
         
     }
-
-    
-    /**
-     Upload photo, compressImage를 활용해서 압축해서 저장할 예정임
-     :param: image
-     :param: name, 파일네임이 name+time 형태로 저장될 예정, 저장 루트: petProfileImages/
-     */
-    func uploadPhoto(image: UIImage!, name: String!, completionHandler: @escaping (_ success: Bool, _ url: String) -> ())   {
-        
-        let compressed = image.compressImage(image)
-        
-        let fileName = String(format: "\(name!)%0.0f.jpeg", Date().timeIntervalSince1970)
-        let filePath = "petProfileImages/\(fileName)"
-        print("This is filePath:\(filePath)")
-        let content = UIImageJPEGRepresentation(compressed, 1.0)
-        
-        Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
-            let fileURL = uploadedFile?.fileURL
-            print("This is fileURL:\(fileURL!)")
-            completionHandler(true, fileURL!)
-        }, error: { (fault) in
-            print(fault?.description ?? "There is an error in uploading pet profile photo")
-            completionHandler(false, (fault?.description)!)
-        })
-    }
     
     func setupPetProfile(completionHandler: @escaping (_ success: Bool) -> ()) {
         
@@ -308,11 +268,13 @@ class PetProfileInputViewController: FormViewController {
             tempPet.registration = registration
         }
         if let image = valueDictionary["imagePic"] as? UIImage {
-            uploadPhoto(image: image, name: name, completionHandler: { (success, fileUrl) in
-                if success == true {
-                    print("This is pet profile url: \(fileUrl)")
-                    tempPet.imagePic = fileUrl
-                    dump(tempPet)
+            
+            // 포토 매니저를 이용해 사진을 업로드
+            PhotoManager().uploadBlobPhoto(selectedFile: image.compressImage(image), container: "pet-profile-images", completionBlock: { (success, fileURL, error) in
+                if success {
+                    print("This is pet profile url: \(String(describing: fileURL))")
+                    tempPet.imagePic = fileURL
+                    
                     self.uploadPetProfile(profile: tempPet, completionHandler: { (success) in
                         if success {
                             completionHandler(true)
@@ -335,6 +297,7 @@ class PetProfileInputViewController: FormViewController {
         }
     }
     
+    /// 펫프로일을 업로드하는 함수
     func uploadPetProfile(profile: PetProfile, completionHandler: @escaping (_ success: Bool) -> ()) {
 
         let user = Backendless.sharedInstance().userService.currentUser
@@ -353,6 +316,32 @@ class PetProfileInputViewController: FormViewController {
             print("There is no user u can save")
         }
     }
+    
+    
+    /**
+     Upload photo, compressImage를 활용해서 압축해서 저장할 예정임, into Backendless
+     :param: image
+     :param: name, 파일네임이 name+time 형태로 저장될 예정, 저장 루트: petProfileImages/
+     */
+    func uploadPhoto(image: UIImage!, name: String!, completionHandler: @escaping (_ success: Bool, _ url: String) -> ())   {
+        
+        let compressed = image.compressImage(image)
+        
+        let fileName = String(format: "\(name!)%0.0f.jpeg", Date().timeIntervalSince1970)
+        let filePath = "petProfileImages/\(fileName)"
+        print("This is filePath:\(filePath)")
+        let content = UIImageJPEGRepresentation(compressed, 1.0)
+        
+        Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
+            let fileURL = uploadedFile?.fileURL
+            print("This is fileURL:\(fileURL!)")
+            completionHandler(true, fileURL!)
+        }, error: { (fault) in
+            print(fault?.description ?? "There is an error in uploading pet profile photo")
+            completionHandler(false, (fault?.description)!)
+        })
+    }
+    
 
 }
 

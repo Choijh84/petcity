@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.4.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - AZSClient (0.2.2)
   - Backendless (3.0.44)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -41,6 +42,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage (~> 3.1)
+  - AZSClient
   - Backendless
   - DKImagePickerController
   - Eureka (~> 2.0)
@@ -62,6 +64,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  AZSClient: 469db5162a0e59cc764715b233794e26ade29736
   Backendless: bd77ad90cbd16fbd85fda03b3659b46a2c8f3179
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   DKImagePickerController: 8db7e76a88a7a66a893ba30e935cc4c9bb7ed335
@@ -81,6 +84,6 @@ SPEC CHECKSUMS:
   SKPhotoBrowser: 3a7c6fc02aa1620ab17253a47a49fafda46536e8
   XLPagerTabStrip: 9be80a66c6b7d60306b2c0a6004965016d68f813
 
-PODFILE CHECKSUM: 16a9027a1baa63c5db0b2c7444b84615f94d7b68
+PODFILE CHECKSUM: 60613f8cf3ff1a2d92bc0eb9bbd7d2252606800a
 
 COCOAPODS: 1.2.0

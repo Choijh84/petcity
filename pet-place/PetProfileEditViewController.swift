@@ -285,11 +285,13 @@ class PetProfileEditViewController: FormViewController {
             selectedPetProfile.registration = registration
         }
         if let image = valueDictionary["imagePic"] as? UIImage {
-            uploadPhoto(image: image, name: name, completionHandler: { (success, fileUrl) in
-                if success == true {
-                    print("This is pet profile url: \(fileUrl)")
-                    self.selectedPetProfile.imagePic = fileUrl
-                 
+            
+            // 포토 매니저를 이용해 사진을 업로드
+            PhotoManager().uploadBlobPhoto(selectedFile: image.compressImage(image), container: "pet-profile-images", completionBlock: { (success, fileURL, error) in
+                if success {
+                    print("This is pet profile url: \(String(describing: fileURL))")
+                    self.selectedPetProfile.imagePic = fileURL
+                    
                     self.uploadPetProfile(profile: self.selectedPetProfile, completionHandler: { (success) in
                         if success {
                             completionHandler(true)
@@ -301,6 +303,7 @@ class PetProfileEditViewController: FormViewController {
                     print("Failure in upload")
                 }
             })
+            
         } else {
             self.uploadPetProfile(profile: selectedPetProfile, completionHandler: { (success) in
                 if success {
@@ -326,7 +329,7 @@ class PetProfileEditViewController: FormViewController {
     }
     
     /**
-     Upload photo, compressImage를 활용해서 압축해서 저장할 예정임
+     Upload photo, compressImage를 활용해서 압축해서 저장할 예정임 - into Backendelss
      :param: image
      :param: name, 파일네임이 name+time 형태로 저장될 예정, 저장 루트: petProfileImages/
      */

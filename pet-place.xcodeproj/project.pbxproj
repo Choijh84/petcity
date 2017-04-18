@@ -36,6 +36,7 @@
 		BE33469B1E31397400E23A88 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469A1E31397400E23A88 /* AddReviewViewController.swift */; };
 		BE33469D1E31440700E23A88 /* StoreDetailActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */; };
 		BE35C05B1E650CAB00270766 /* InfoChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE35C05A1E650CAB00270766 /* InfoChangeViewController.swift */; };
+		BE3BD0A71EA5D86300CDEEED /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3BD0A61EA5D86300CDEEED /* PhotoManager.swift */; };
 		BE3C57721E7B9F88008ECA4E /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C57711E7B9F88008ECA4E /* CommentTableViewCell.swift */; };
 		BE3C57741E7BE8B5008ECA4E /* AddStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */; };
 		BE3E04AD1E471CAA007735DF /* PetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04AC1E471CAA007735DF /* PetProfileViewController.swift */; };
@@ -257,6 +258,7 @@
 		BE33469A1E31397400E23A88 /* AddReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailActionButton.swift; sourceTree = "<group>"; };
 		BE35C05A1E650CAB00270766 /* InfoChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoChangeViewController.swift; sourceTree = "<group>"; };
+		BE3BD0A61EA5D86300CDEEED /* PhotoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
 		BE3C57711E7B9F88008ECA4E /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStoryViewController.swift; sourceTree = "<group>"; };
 		BE3E04AC1E471CAA007735DF /* PetProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetProfileViewController.swift; sourceTree = "<group>"; };
@@ -683,7 +685,6 @@
 			children = (
 				EBB6195B1E194C040061BCEB /* Onboarding */,
 				EBB6195C1E194C120061BCEB /* Home */,
-				EBB6195D1E194C1D0061BCEB /* Stores */,
 				BE3346931E3129C200E23A88 /* Reviews */,
 				BEEDCC911E7845CD007E82AB /* StoryAndReviews */,
 				EBB6195E1E194C230061BCEB /* News */,
@@ -793,6 +794,7 @@
 		EBB6195B1E194C040061BCEB /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				EBB6195D1E194C1D0061BCEB /* Stores */,
 				EBB619641E194EEA0061BCEB /* OnboardingViewController.swift */,
 			);
 			name = Onboarding;
@@ -888,6 +890,7 @@
 				BE3346961E312D9500E23A88 /* ReviewManager.swift */,
 				BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */,
 				BE9C99B71E797A68000838B8 /* StoryDownloadManager.swift */,
+				BE3BD0A61EA5D86300CDEEED /* PhotoManager.swift */,
 			);
 			name = "Download Manager";
 			sourceTree = "<group>";
@@ -1397,6 +1400,7 @@
 				BE3C57741E7BE8B5008ECA4E /* AddStoryViewController.swift in Sources */,
 				BED69DFF1E8BDE6B002DB00F /* PasswordRetrieveViewController.swift in Sources */,
 				BE0B062F1E607DAD00432300 /* PetProfile.swift in Sources */,
+				BE3BD0A71EA5D86300CDEEED /* PhotoManager.swift in Sources */,
 				BEE804101E71C04B0012015F /* SignUpViewController.swift in Sources */,
 				BE33468F1E31252A00E23A88 /* ReviewTableViewCell.swift in Sources */,
 				BE35C05B1E650CAB00270766 /* InfoChangeViewController.swift in Sources */,

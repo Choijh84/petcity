@@ -7,17 +7,56 @@
 //
 
 import UIKit
+import AZSClient
 
 /// Object that helps to download reviews for the selected Shop
 class ReviewManager: NSObject {
     
-    var backendless = Backendless.sharedInstance()
+    var containerName = "review-images"
+    var usingSAS = false
+    
+    // MARK: Azure Properties
+    var blobs = [AZSCloudBlob]()
+    var container : AZSCloudBlobContainer!
+    var continuationToken : AZSContinuationToken?
+    
+    let backendless = Backendless.sharedInstance()
     
     /// Store object that handles downloading of Reviews
     let dataStore = Backendless.sharedInstance().data.of(Review.self)
     
     /// 리뷰의 코멘트 dataStore
     let dataStore2 = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
+    
+    
+    // MARK: Initializer
+    override init() {
+        if !usingSAS {
+            let storageAccount : AZSCloudStorageAccount
+            try! storageAccount = AZSCloudStorageAccount(fromConnectionString: azureConnectionString)
+            
+            let blobClient = storageAccount.getBlobClient()
+            self.container = blobClient?.containerReference(fromName: containerName)
+            
+            let condition = NSCondition()
+            var containerCreated = false
+            
+            self.container.createContainerIfNotExists { (error, created) in
+                condition.lock()
+                containerCreated = true
+                condition.signal()
+                condition.unlock()
+            }
+            
+            condition.lock()
+            while (!containerCreated) {
+                condition.wait()
+            }
+            condition.unlock()
+        }
+        self.continuationToken = nil
+        super.init()
+    }
     
     /**
      Uploads a new review, 단수의 이미지를 업로드하는 함수
@@ -39,9 +78,57 @@ class ReviewManager: NSObject {
             uploadNewReview(text, fileURL: nil, rating: rating, store: store, completionBlock: completionBlock)
         }
     }
+    
     /**
-    리뷰의 사진을 업로드하는 함수, completionBlock을 통해 fileURL 문자열을 return 함
+     Azure Storage에 사진 복수를 업로드하고 그러고 이미지들의 연결한 URL을 completionBlock으로 return
      */
+    func uploadBlobPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ succuess: Bool,_ fileURL: String?,_ errorMessage: String?) -> ()) {
+        var totalFileURL = ""
+        let myGroup = DispatchGroup()
+        let account = try! AZSCloudStorageAccount(fromConnectionString: azureConnectionString)
+        
+        let blobClient : AZSCloudBlobClient = account.getBlobClient()
+        let blobContainer : AZSCloudBlobContainer = blobClient.containerReference(fromName: containerName)
+        
+        if let images = selectedImages {
+            for var i in 0..<images.count {
+                myGroup.enter()
+                blobContainer.createContainerIfNotExists(with: .blob, requestOptions: nil, operationContext: nil) { (error, success) in
+                    // 여기서 이름 정하고
+                    let fileName = String(format: "uploaded_%0.0f\(i).png", Date().timeIntervalSince1970)
+                    let blob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
+                    // 이미지 데이터를 생성
+                    let imageData = UIImagePNGRepresentation(images[i].compressImage(images[i]))
+                    
+                    blob.upload(from: imageData!, completionHandler: { (error) in
+                        if error != nil {
+                            print("Upload Error on \(i): \(error.localizedDescription)")
+                            completionBlock(false, nil, error.localizedDescription)
+                        } else {
+                            print("Upload Success to Azure to Review Blob")
+                            let url = "https://petcity.blob.core.windows.net/review-images/\(fileName),"
+                            totalFileURL.append(url)
+                            i = i+1
+                            print("totalFileURL: \(totalFileURL)")
+                            myGroup.leave()
+                        }
+                    })
+                }
+            }
+            
+            myGroup.notify(queue: DispatchQueue.main, execute: {
+                let finalURL = String(totalFileURL.characters.dropLast())
+                completionBlock(true, finalURL, nil)
+                
+            })
+            
+        }
+    }
+    
+    /**
+     리뷰의 사진을 업로드하는 함수, completionBlock을 통해 fileURL 문자열을 return 함 - Backendless 에
+     현재는 사용 안 함
+ 
     func uploadPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ completion: Bool, _ fileURL: String, _ errorMessage: String?) -> ()) {
         var totalFileURL = ""
         let myGroup = DispatchGroup()
@@ -68,6 +155,7 @@ class ReviewManager: NSObject {
             })
         }
     }
+    */
     
     /**
      Uploads a new review, 파일 url(단수 또는 복수일 수도 있음)

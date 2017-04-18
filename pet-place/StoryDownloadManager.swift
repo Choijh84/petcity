@@ -8,13 +8,53 @@
 //
 
 import UIKit
+import AZSClient
 
 class StoryDownloadManager: NSObject {
 
+    // Azure Settings
+    var containerName = "story-images"
+    var usingSAS = false
+    
+    // MARK: Azure Properties
+    var blobs = [AZSCloudBlob]()
+    var container : AZSCloudBlobContainer!
+    var continuationToken : AZSContinuationToken?
+    
     /// Store object that handles downloading of Story objects
     let dataStore1 = Backendless.sharedInstance().persistenceService.of(Story.self)
     /// Store object that handles downloading of Comment objects
     let dataStore2 = Backendless.sharedInstance().data.of(Comment.self)
+    
+    // MARK: Initializer
+    override init() {
+        if !usingSAS {
+            let storageAccount : AZSCloudStorageAccount
+            try! storageAccount = AZSCloudStorageAccount(fromConnectionString: azureConnectionString)
+            
+            let blobClient = storageAccount.getBlobClient()
+            self.container = blobClient?.containerReference(fromName: containerName)
+            
+            let condition = NSCondition()
+            var containerCreated = false
+            
+            self.container.createContainerIfNotExists { (error, created) in
+                condition.lock()
+                containerCreated = true
+                condition.signal()
+                condition.unlock()
+            }
+            
+            condition.lock()
+            while (!containerCreated) {
+                condition.wait()
+            }
+            condition.unlock()
+        }
+        self.continuationToken = nil
+        super.init()
+    }
+    
     
     /**
        업로드 스토리
@@ -166,6 +206,53 @@ class StoryDownloadManager: NSObject {
         })
     }
     
+    /**
+     Azure Storage에 사진 복수를 업로드하고 그러고 이미지들의 연결한 URL을 completionBlock으로 return
+     */
+    func uploadBlobPhotos(selectedFiles: [UIImage]?, completionBlock: @escaping (_ succuess: Bool,_ fileURL: String?,_ errorMessage: String?) -> ()) {
+        var totalFileURL = ""
+        let myGroup = DispatchGroup()
+        let account = try! AZSCloudStorageAccount(fromConnectionString: azureConnectionString)
+        
+        let blobClient : AZSCloudBlobClient = account.getBlobClient()
+        let blobContainer : AZSCloudBlobContainer = blobClient.containerReference(fromName: containerName)
+        
+        if let images = selectedFiles {
+            for var i in 0..<images.count {
+                myGroup.enter()
+                blobContainer.createContainerIfNotExists(with: .blob, requestOptions: nil, operationContext: nil) { (error, success) in
+                    // 여기서 이름 정하고
+                    let fileName = String(format: "uploaded_%0.0f\(i).png", Date().timeIntervalSince1970)
+                    let blob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
+                    // 이미지 데이터를 생성
+                    let imageData = UIImagePNGRepresentation(images[i].compressImage(images[i]))
+                    
+                    blob.upload(from: imageData!, completionHandler: { (error) in
+                        if error != nil {
+                            print("Upload Error on \(i): \(error.localizedDescription)")
+                            completionBlock(false, nil, error.localizedDescription)
+                        } else {
+                            print("Upload Success to Azure to Story Blob")
+                            let url = "https://petcity.blob.core.windows.net/story-images/\(fileName),"
+                            totalFileURL.append(url)
+                            i = i+1
+                            print("totalFileURL: \(totalFileURL)")
+                            myGroup.leave()
+                        }
+                    })
+                }
+            }
+            
+            myGroup.notify(queue: DispatchQueue.main, execute: {
+                let finalURL = String(totalFileURL.characters.dropLast())
+                completionBlock(true, finalURL, nil)
+                
+            })
+            
+        }
+    }
+    
+    
     /// 백엔드리스에 다수의 이미지를 업로드, 그러고 이미지들의 연결한 URL을 completionBlock으로 return
     func uploadPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ completion: Bool, _ fileURL: String, _ errorMessage: String?) -> ()) {
         var totalFileURL = ""
@@ -193,4 +280,6 @@ class StoryDownloadManager: NSObject {
             })
         }
     }
+    
+    
 }

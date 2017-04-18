@@ -51,11 +51,11 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
             SCLAlertView().showError("스토리 필요", subTitle: "스토리를 입력해주세요")
         } else {
             overlayView.displayView(view, text: "스토리 올리는 중")
-            // 사진부터 업로드하고 url을 return 받아온다
-            StoryDownloadManager().uploadPhotos(selectedImages: imageArray, completionBlock: { (success, fileUrl, error) in
+            // 사진부터 업로드하고 url을 return 받아온다 - 이번에는 블롭으로
+            StoryDownloadManager().uploadBlobPhotos(selectedFiles: imageArray, completionBlock: { (success, fileUrl, error) in
                 if success {
                     // 사진 업로드가 성공하는 경우
-                    print("This is FILEURL: \(fileUrl)")
+                    print("This is FILEURL: \(String(describing: fileUrl))")
                     
                     StoryDownloadManager().uploadNewStory(self.textView.text, fileURL: fileUrl, completionBlock: { (success, error) in
                         if success {

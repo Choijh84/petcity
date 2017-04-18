@@ -22,7 +22,8 @@ target 'pet-place' do
   pod 'XLPagerTabStrip', '~> 7.0'
   pod 'Kingfisher', '~> 3.0'
   pod 'OneSignal', '~> 2.0'
-  pod 'AlamofireImage', '~> 3.1' 
+  pod 'AlamofireImage', '~> 3.1'
+  pod 'AZSClient'
   
 
   # Pods for pet-place
