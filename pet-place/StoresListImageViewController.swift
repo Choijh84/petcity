@@ -220,7 +220,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             }
             print("This is searchRadius: \(searchRadius)")
             
-            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 20, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
                 self.isLoadingItems = false
                 if let error = error { 
                     self.showAlertViewWithRedownloadOption(error)
@@ -255,7 +255,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             radius = NSNumber(integerLiteral: searchRadius)
         }
         
-        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: radius) { (storeObjects, error) in
+        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 20, selectedStoreCategory: selectedStoreCategory, radius: radius) { (storeObjects, error) in
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
             } else {
