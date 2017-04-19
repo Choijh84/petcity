@@ -8,6 +8,7 @@
 
 import UIKit
 import M13Checkbox
+import SCLAlertView
 
  /// ViewController that allows a user to login or signup using either Facebook or credentials
 
@@ -208,12 +209,14 @@ class LoginViewController: UIViewController {
      */
     @IBAction func loginUser() {
         if emailField.text == nil {
-            self.showAlertViewWithErrorMessage("Email is missing")
+            // self.showAlertViewWithErrorMessage("Email is missing")
+            SCLAlertView().showError("입력 오류", subTitle: "이메일 주소를 확인해주세요")
             return
         }
         
         if passwordField.text == nil {
-            self.showAlertViewWithErrorMessage("Password is missing")
+            // self.showAlertViewWithErrorMessage("Password is missing")
+            SCLAlertView().showError("입력 오류", subTitle: "비밀번호를 확인해주세요")
             return
         }
         
@@ -222,7 +225,8 @@ class LoginViewController: UIViewController {
             if successful == true {
                 self.dismissView()
             } else {
-                self.showAlertViewWithErrorMessage(errorMessage!)
+                SCLAlertView().showError("로그인 에러", subTitle: errorMessage!)
+                //self.showAlertViewWithErrorMessage(errorMessage!)
             }
         }
     }

@@ -230,7 +230,7 @@
                                             </imageView>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PlaceCell" id="qID-Dl-Qrd" userLabel="PlaceCell" customClass="StoreCollectionViewCell" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="91.5" y="0.0" width="172" height="172"/>
+                                                    <rect key="frame" x="92" y="0.0" width="172" height="172"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="172"/>
@@ -424,7 +424,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g3i-Ht-iB7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="g3i-Ht-iB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -762,7 +762,7 @@
                                                             <color key="backgroundColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pet Cafe in Gangnam" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LMx-Ko-f3N">
-                                                            <rect key="frame" x="115" y="50" width="145.5" height="24"/>
+                                                            <rect key="frame" x="115.5" y="50" width="145.5" height="24"/>
                                                             <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1009,7 +1009,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subtitle" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-xb-tmP">
                                             <rect key="frame" x="167" y="114" width="42.5" height="13.5"/>
                                             <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="13"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1071,7 +1071,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg5-AF-XZ7">
-                                                    <rect key="frame" x="15" y="10" width="345" height="14"/>
+                                                    <rect key="frame" x="15" y="10" width="345" height="12"/>
                                                     <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="12"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1160,7 +1160,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="scrollView" destination="xIo-se-h7l" id="HOc-as-CJv"/>
-                                            <outlet property="storePhotoImage" destination="bI6-qv-kBT" id="l4d-Sa-zBZ"/>
+                                            <outlet property="storePhotoImage" destination="bI6-qv-kBT" id="5AD-sm-csg"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="googleMapCell" rowHeight="160" id="dx0-xE-zrv" customClass="StoreGoogleMapTableViewCell" customModule="pet_place" customModuleProvider="target">
@@ -1527,7 +1527,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EG7-Sh-hMs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EG7-Sh-hMs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1548,7 +1548,7 @@
         <image name="emptyHeart" width="32" height="32"/>
         <image name="filter icon" width="19" height="18"/>
         <image name="homeIcon" width="24" height="23"/>
-        <image name="imageplaceholder" width="500" height="500"/>
+        <image name="imageplaceholder" width="600" height="360"/>
         <image name="locationsIcon" width="16" height="24"/>
         <image name="mapIcon" width="22" height="22"/>
         <image name="pethotel3" width="420" height="316"/>

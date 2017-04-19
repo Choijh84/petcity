@@ -157,7 +157,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         UserManager.logoutUser { (successful, errorMessage) -> () in
             if successful {
                 self.presentLoginViewController()
-                // self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 // self.navigationController?.popToRootViewController(animated: true)
             } else {
                 // Present error

@@ -9,7 +9,6 @@
 import UIKit
 
 /// Custom UITableView to be able to display custom empty states, or loading indicators inside a tableView anywhere in the app
-// Read more about it at: http://zappdesigntemplates.com/create-a-custom-uitableview-with-loading-indicator/
 
 class LoadingTableView: UITableView {
 

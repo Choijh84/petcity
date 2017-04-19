@@ -102,7 +102,6 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     /// Check the Favorite button pressed
     @IBAction func isFavoritButtonPressed(_ sender: Any) {
         let user = UserManager.currentUser()
-        print(storeToDisplay.favoriteList)
         
         let dataStore = Backendless.sharedInstance().data.of(Store.ofClass())
         
@@ -250,25 +249,34 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     
     /// 사진 브라우저 더블탭하면 런칭
     func showPhoto(recognizer: UIGestureRecognizer) {
-        print("showPhoto is working now")
-        
-        let tapLocation = recognizer.location(in: self.tableView)
-        if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
-            if isExpanded == false {
-                if tapIndexPath == [6,0] {
-                    let browser = SKPhotoBrowser(photos: SKimageArray)
-                    browser.initializePageIndex(0)
-                    self.present(browser, animated: true, completion: nil)
-                }
-            } else {
-                if tapIndexPath == [8,0] {
-                    let browser = SKPhotoBrowser(photos: SKimageArray)
-                    browser.initializePageIndex(0)
-                    self.present(browser, animated: true, completion: nil)
-                }
-            }
+        // 사진이 있는지 없는지 판단해서 보여주기
+        // 사진이 없다면
+        if SKimageArray.count == 0 {
             
+            SCLAlertView().showInfo("죄송합니다", subTitle: "빠른 시일 내에 준비하겠습니다")
+            // 여기에 향후 데이터베이스에 기록해두자 - 몇 번이나 누가 클릭했는지
+            
+        } else {
+            // 사진이 있다면 
+            let tapLocation = recognizer.location(in: self.tableView)
+            if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
+                if isExpanded == false {
+                    if tapIndexPath == [6,0] {
+                        let browser = SKPhotoBrowser(photos: SKimageArray)
+                        browser.initializePageIndex(0)
+                        self.present(browser, animated: true, completion: nil)
+                    }
+                } else {
+                    if tapIndexPath == [8,0] {
+                        let browser = SKPhotoBrowser(photos: SKimageArray)
+                        browser.initializePageIndex(0)
+                        self.present(browser, animated: true, completion: nil)
+                    }
+                }
+                
+            }
         }
+        
     }
     
     /** 
@@ -335,7 +343,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                     if tapIndexPath == [3,0] {
                         callButtonPressed()
                     } else if tapIndexPath == [3,2] {
-                        /// 웹사이트 로딩, 사파리뷰
+                        // 웹사이트 로딩, 사파리뷰
                         if var website = storeToDisplay.website {
                             if website.lowercased().hasPrefix("http") == false {
                                 website = "http://".appending(website)
@@ -684,12 +692,12 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         // 데이터베이스에 저장된 이미지 배열이 있는 경우
         if storeToDisplay.imageArray != nil {
+            
             DispatchQueue.main.async(execute: {
                 // 읽어들여와서
                 if let imageArray = self.storeToDisplay.imageArray {
-                    // 구분을 나눠주고 배열을 만든다 문자열 배열: storePhotos
-                    let storePhotos = imageArray.components(separatedBy: ",").sorted()
-                    print("This is store photos number: \(storePhotos.count)")
+                    // 구분을 나눠주고 배열을 만든다 문자열 배열: storePhotos - 이제 정렬안함
+                    let storePhotos = imageArray.components(separatedBy: ",")
                     
                     // 여기서 뷰어는 한 번 초기화
                     self.SKimageArray.removeAll()
@@ -699,8 +707,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                     for i in 0..<(storePhotos.count) {
                         
                         if let url = URL(string: storePhotos[i].trimmingCharacters(in: .whitespacesAndNewlines)) {
-                            print("This is photo url: \(url)")
-                            
+    
                             DispatchQueue.main.async(execute: {
                                 
                                 let imageView = UIImageView()
@@ -741,8 +748,11 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             })
         } else {
             /// 사진이 없을 때 기본 사진, 향후 사진 준비 중입니다 이미지 준비 필요
-            let imageArray = [#imageLiteral(resourceName: "backgroundImage")]
+            let imageArray = [#imageLiteral(resourceName: "imageplaceholder")]
             for i in 0..<(imageArray.count) {
+                
+                // 여기서 뷰어는 한 번 초기화
+                self.SKimageArray.removeAll()
                 
                 let imageView = UIImageView()
                 imageView.image = imageArray[i]

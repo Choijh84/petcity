@@ -95,6 +95,7 @@
 		BEA79C431E97B8E900D92DA9 /* ApiGatewayMac.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BEA79C3E1E97B8C100D92DA9 /* ApiGatewayMac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BEA79C471E97B94300D92DA9 /* strip-frameworks.sh in Resources */ = {isa = PBXBuildFile; fileRef = BEA79C461E97B94300D92DA9 /* strip-frameworks.sh */; };
 		BEA79C491E97BD4900D92DA9 /* NMapViewResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */; };
+		BEB08C041EA7D4F100D0B3F4 /* Fault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB08C031EA7D4F100D0B3F4 /* Fault.swift */; };
 		BEB0C4341E55925C006791E6 /* ReviewDetailPhotosCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB0C4331E55925C006791E6 /* ReviewDetailPhotosCVC.swift */; };
 		BEB1F8961E6AB877002D273A /* LocationControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */; };
 		BEB74FE21E65696000DF0904 /* InquiryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB74FE11E65696000DF0904 /* InquiryViewController.swift */; };
@@ -317,6 +318,7 @@
 		BEA79C3F1E97B8C100D92DA9 /* NMapViewerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NMapViewerSDK.framework; sourceTree = "<group>"; };
 		BEA79C461E97B94300D92DA9 /* strip-frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "strip-frameworks.sh"; sourceTree = "<group>"; };
 		BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMapViewResources.swift; sourceTree = "<group>"; };
+		BEB08C031EA7D4F100D0B3F4 /* Fault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fault.swift; sourceTree = "<group>"; };
 		BEB0C4331E55925C006791E6 /* ReviewDetailPhotosCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailPhotosCVC.swift; sourceTree = "<group>"; };
 		BEB1F8951E6AB877002D273A /* LocationControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControlViewController.swift; sourceTree = "<group>"; };
 		BEB74FE11E65696000DF0904 /* InquiryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryViewController.swift; sourceTree = "<group>"; };
@@ -684,6 +686,7 @@
 				BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */,
 				BE9C99B31E79612C000838B8 /* Story.swift */,
 				BE9C99B51E796260000838B8 /* Comment.swift */,
+				BEB08C031EA7D4F100D0B3F4 /* Fault.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				EBB6195C1E194C120061BCEB /* Home */,
 				BE3346931E3129C200E23A88 /* Reviews */,
 				BEEDCC911E7845CD007E82AB /* StoryAndReviews */,
+				EBB6195D1E194C1D0061BCEB /* Stores */,
 				EBB6195E1E194C230061BCEB /* News */,
 				EBB6195F1E194C2A0061BCEB /* Account */,
 			);
@@ -802,7 +806,6 @@
 		EBB6195B1E194C040061BCEB /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				EBB6195D1E194C1D0061BCEB /* Stores */,
 				EBB619641E194EEA0061BCEB /* OnboardingViewController.swift */,
 			);
 			name = Onboarding;
@@ -1408,6 +1411,7 @@
 				BE3C57741E7BE8B5008ECA4E /* AddStoryViewController.swift in Sources */,
 				BED69DFF1E8BDE6B002DB00F /* PasswordRetrieveViewController.swift in Sources */,
 				BE0B062F1E607DAD00432300 /* PetProfile.swift in Sources */,
+				BEB08C041EA7D4F100D0B3F4 /* Fault.swift in Sources */,
 				BE3BD0A71EA5D86300CDEEED /* PhotoManager.swift in Sources */,
 				BEE804101E71C04B0012015F /* SignUpViewController.swift in Sources */,
 				BE33468F1E31252A00E23A88 /* ReviewTableViewCell.swift in Sources */,

@@ -45,6 +45,9 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     /// True, if we currently loading new stores
     var isLoadingItems: Bool = false
     
+    /// 검색 반경 설정 변수
+    var searchRadius : Int = 0
+    
     /// View which contains filter
     @IBOutlet weak var filterView: UIView!
     /// Label which shows Filter condition
@@ -56,6 +59,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
      */
     
     override func viewDidLoad() {
+        title = NSLocalizedString(selectedStoreType.name!, comment: "")
         super.viewDidLoad()
         findStoreCategoryByName()
         customizeViews()
@@ -72,22 +76,24 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     func findStoreCategoryByName() {
         
         if selectedStoreType != nil {
-            print("This is selected store type: \(selectedStoreType.name!)")
+            
             let whereClause = "name = '\(selectedStoreType.name!)'"
             let dataQuery = BackendlessDataQuery()
             dataQuery.whereClause = whereClause
             
-            var error: Fault?
             let dataStore = Backendless.sharedInstance().data.of(StoreCategory.ofClass())
-            let bc = dataStore?.find(dataQuery, fault: &error)
-        
-            if error == nil {
-                print("Category has been found: \(bc!.data!)")
-                selectedStoreCategory = (bc!.data as! [StoreCategory]).first
-            }
-            else {
+            
+            let bc = dataStore?.find(dataQuery)
+            selectedStoreCategory = (bc?.data as! [StoreCategory]).first
+            
+            /*
+            dataStore?.find(dataQuery, response: { (collection) in
+                self.selectedStoreCategory = (collection!.data as! [StoreCategory]).first
+            }, error: { (error) in
                 print("Server reported an error: \(String(describing: error?.description))")
-            }
+            })
+            */
+            
         } else {
             print("Error: The Category has not fixed")
         }
@@ -113,6 +119,16 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         } else {
             downloadManager.selectedPetSize = ""
         }
+        if let searchRadius = GlobalVar.filter3 {
+            print("검색반경: \(searchRadius)")
+            let radius = searchRadius.replacingOccurrences(of: "km", with: "")
+            if let radiusInt = Int(radius) {
+                downloadManager.searchRadius = radiusInt
+                self.searchRadius = radiusInt
+            }
+        } else {
+            print("이게 모냥")
+        }
         /**
         if let petType = filterViewVC.selectedSortingOption1?.name {
             SortingPetType = petType
@@ -130,7 +146,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
      Customize View which shows Filter
     */
     func customizeFilterView() {
-        if GlobalVar.filter1 == nil && GlobalVar.filter2 == nil {
+        if GlobalVar.filter1 == nil && GlobalVar.filter2 == nil && GlobalVar.filter3 == nil {
             filterView.isHidden = true
         } else {
             UIView.animate(withDuration: 0.3, animations: { 
@@ -147,6 +163,9 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         }
         if let petSize = GlobalVar.filter2 {
             text = text.appending(" 가능 크기: \(petSize)")
+        }
+        if let radius = GlobalVar.filter3 {
+            text = text.appending(" 검색 반경: \(radius)")
         }
         filterConditionLabel.text = text
     }
@@ -194,10 +213,16 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             
             // Store Category assignmenet
             downloadManager.selectedStoreCategory = selectedStoreCategory
+            // 검색 반경 확인 - 기본 50킬로
+            var radius : NSNumber = 50
+            if searchRadius != 0 {
+                radius = NSNumber(integerLiteral: searchRadius)
+            }
+            print("This is searchRadius: \(searchRadius)")
             
-            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: 20, completionBlock: { (storeObjects, error) in
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
                 self.isLoadingItems = false
-                if let error = error {
+                if let error = error { 
                     self.showAlertViewWithRedownloadOption(error)
                 } else {
                     self.displayStoreObjects(storeObjects)
@@ -224,8 +249,13 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         isLoadingItems = true
         refreshControl.beginRefreshing()
         let temp = objectsArray.count as NSNumber
+        // 검색 반경 확인 - 기본 50킬로
+        var radius : NSNumber = 50
+        if searchRadius != 0 {
+            radius = NSNumber(integerLiteral: searchRadius)
+        }
         
-        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: 20) { (storeObjects, error) in
+        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 10, selectedStoreCategory: selectedStoreCategory, radius: radius) { (storeObjects, error) in
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
             } else {
@@ -309,7 +339,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             }
             
             calculateDistanceBetweenStoreLocationsWithLocation(location)
-            updateTopbarTitleLabelWithLocation(location)
+            // updateTopbarTitleLabelWithLocation(location)
         } else {
             // User가 location을 확정한 경우, 1번만 실행
             if isDownloaded == false {
@@ -391,7 +421,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         storeCell.distanceLabel.text = storeObject.distanceString()
         // 조회수, 평점 보여주기
         let hits = storeObject.hits
-        print("This is review average:\(storeObject.reviewAverage)")
+        // print("This is review average:\(storeObject.reviewAverage)")
         if storeObject.reviewCount != 0 {
             // let reviewAverage = String(format: "%.1f", storeObject.reviewAverage)
             let text = "조회수: \(hits) | 리뷰개수: \(storeObject.reviewCount)"

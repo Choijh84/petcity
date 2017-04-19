@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // 위치 정보 설정 관련
         print("General Setting: \(GeneralSettings.isOnboardingFinished())")
+        
         // 위치정보 동의하면 rootview가 바뀜, homeTabbar
         if GeneralSettings.isOnboardingFinished() == false {
             window?.rootViewController = StoryboardManager.onboardingViewController()
@@ -66,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = StoryboardManager.homeTabbarController()
         }
         
-        //Add this line. Replace '5eb5a37e-b458-11e3-ac11-000c2940e62c' with your OneSignal App ID.
+        // 원시그널 런칭옵션
         OneSignal.initWithLaunchOptions(launchOptions, appId: "7a8dda70-2d90-475b-b707-4c980acf87c9")
         
         // Sync hashed email if you have a login system or collect it.

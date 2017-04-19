@@ -28,6 +28,14 @@ enum SortingKey2: String {
     case big = "대형"
 }
 
+enum SortingKey3: String {
+    case name = "name"
+    case Distance5km = "5km"
+    case Distance10km = "10km"
+    case Distance15km = "15km"
+    case Distance20km = "20km"
+}
+
 /// Sorting option object - BASIC
 class SortingOption: NSObject {
     
@@ -52,7 +60,7 @@ class SortingOption: NSObject {
 }
 
 
-/// Sorting option object - Service Pet
+/// Sorting option object - 서비스하는 반려동물의 종류
 class SortingOption1: NSObject {
     
     /// Name of the sorting option
@@ -76,7 +84,7 @@ class SortingOption1: NSObject {
     
 }
 
-/// Sorting option object - Size of Pet
+/// Sorting option object - 가능한 반려동물의 크기
 class SortingOption2: NSObject {
     
     /// Name of the sorting option
@@ -97,5 +105,28 @@ class SortingOption2: NSObject {
         self.sortingKey = sortingKey
         super.init()
     }
-    
 }
+
+/// Sorting option object - 장소의 반경
+class SortingOption3: NSObject {
+    
+    /// Name of the sorting option
+    var name: String?
+    /// Key for the sorting
+    var sortingKey: SortingKey3?
+    
+    /**
+     Initialises a new SortingOption with name and sortingKey
+     
+     - parameter name: name of the sorting
+     - parameter sortingKey: key of the sorting
+     
+     - returns: SortingObject
+     */
+    init(name: String, sortingKey: SortingKey3) {
+        self.name = name
+        self.sortingKey = sortingKey
+        super.init()
+    }
+}
+

@@ -29,6 +29,9 @@ class LocationsDownloadManager : NSObject {
     /// Store object that handles downloading of Store objects
     let dataStore = Backendless.sharedInstance().persistenceService.of(Store.self)
     
+    /// 검색 반경 설정 변수
+    var searchRadius : Int = 0
+    
     
     /// 리뷰 아이디를 받아서 해당되는 스토어를 찾는 함수
     func findStoreByReview(_ reviewId: String, completionBlock: @escaping (_ store: Store?, _ error: String?) -> ()) {
@@ -63,7 +66,9 @@ class LocationsDownloadManager : NSObject {
         queryOptions.relationsDepth = 1
         
         // 쿼리조건 - 선택된 스토어 카테고리 및 2000km, 향후에 radius도 받아서 조정 가능
-        dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude) < km(2000)"
+        dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude) < km(\(radius))"
+        
+        print(dataQuery.whereClause)
         
         // 반려동물 타입에 관련해서 쿼리 조건 추가
         if (selectedPetType != "" && selectedPetType != nil) {

@@ -26,8 +26,8 @@ class storePhotoTableViewCell: UITableViewCell {
         super.awakeFromNib()
         layoutMargins = UIEdgeInsets.zero
         separatorInset = UIEdgeInsets.zero
-        
-        
+        // 우선 사용할 일이 없음 숨김
+        storePhotoImage.isHidden = true
     }
     
     /**

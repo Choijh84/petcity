@@ -29,7 +29,34 @@ class UserManager: NSObject {
             completionBlock(true, nil)
         }) { (fault) in
             print("Server reported an error: \(String(describing: fault))")
-            completionBlock(false, fault?.description)
+            if let code = fault?.faultCode {
+                switch code {
+                    case "2002":
+                        completionBlock(false, "잘못된 버전입니다")
+                    case "3000":
+                        completionBlock(false, "이 계정은 로그인이 금지되었습니다")
+                    case "3001":
+                        completionBlock(false, "로그인 설정이 잘못되었습니다")
+                    case "3002":
+                        completionBlock(false, "복수 계정으로 로그인이 확인되었습니다")
+                    case "3003":
+                        completionBlock(false, "잘못된 로그인입니다. 아이디와 비밀번호를 확인해주세요")
+                    case "3006":
+                        completionBlock(false, "아이디 또는 비번이 비어있습니다")
+                    case "3034":
+                        completionBlock(false, "로그인이 금지된 계정입니다")
+                    case "3036":
+                        completionBlock(false, "로그인 실패 수를 초과하여 일시정지되었습니다")
+                    case "3038":
+                        completionBlock(false, "잘못된 정보의 로그인입니다")
+                    case "3044":
+                        completionBlock(false, "복수 계정 한도를 초과하였습니다")
+                    case "8000":
+                        completionBlock(false, "글자수 한도를 초과하였습니다")
+                    default:
+                        completionBlock(false, fault?.message)
+                }
+            }
         }
     }
     

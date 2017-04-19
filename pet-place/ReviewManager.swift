@@ -176,7 +176,7 @@ class ReviewManager: NSObject {
         review.store = store
         
         var error: Fault?
-        let result = Backendless.sharedInstance().data.save(store, error: &error) as? Store
+        let result = Backendless.sharedInstance().data.save(store) as? Store
         if error == nil {
             print("Review havs been updated: \(String(describing: result))")
             

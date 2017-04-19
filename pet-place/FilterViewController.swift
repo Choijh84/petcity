@@ -11,6 +11,7 @@ import UIKit
 struct GlobalVar {
     static var filter1: String?
     static var filter2: String?
+    static var filter3: String?
 }
 
 /// The viewcontroller where the user can filter the store objects
@@ -28,6 +29,12 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         SortingOption2(name: "소형", sortingKey: SortingKey2.small),
         SortingOption2(name: "중형", sortingKey: SortingKey2.middle),
         SortingOption2(name: "대형", sortingKey: SortingKey2.big)]
+    
+    var sortingOptions3 = [
+        SortingOption3(name: "5km", sortingKey: SortingKey3.Distance5km),
+        SortingOption3(name: "10km", sortingKey: SortingKey3.Distance10km),
+        SortingOption3(name: "15km", sortingKey: SortingKey3.Distance15km),
+        SortingOption3(name: "20km", sortingKey: SortingKey3.Distance20km)]
     
     /// The selected sorting option
     /// var selectedSortingOption1: SortingOption1?
@@ -50,6 +57,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         /// selectedSortingOption2 = nil
         GlobalVar.filter1 = nil
         GlobalVar.filter2 = nil
+        GlobalVar.filter3 = nil
         
         tableView.reloadData()
         button.isEnabled = false
@@ -57,9 +65,11 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("This is Global Var: \(String(describing: GlobalVar.filter1)) and \(String(describing: GlobalVar.filter2))")
+        // print("This is Global Var: \(String(describing: GlobalVar.filter1)) and \(String(describing: GlobalVar.filter2))")
+        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        if GlobalVar.filter1 != nil || GlobalVar.filter2 != nil {
+        
+        if GlobalVar.filter1 != nil || GlobalVar.filter2 != nil || GlobalVar.filter3 != nil{
             setTrashButtonEmpty(false)
         } else {
             setTrashButtonEmpty(true)
@@ -80,18 +90,26 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if indexPath.section == 0 {
             let sortingOption = sortingOptions1[indexPath.row]
             cell.textLabel?.text = sortingOption.name
-            print("Global filter1: \(String(describing: GlobalVar.filter1)))")
+            // print("Global filter1: \(String(describing: GlobalVar.filter1))")
             if GlobalVar.filter1 == sortingOption.name {
                 cell.accessoryType = .checkmark
                 } else {
                 cell.accessoryType = .none
             }
             
-        } else {
+        } else if indexPath.section == 1  {
             let sortingOption = sortingOptions2[indexPath.row]
             cell.textLabel?.text = sortingOption.name
-            print("Global filter2: \(String(describing: GlobalVar.filter2))")
+            // print("Global filter2: \(String(describing: GlobalVar.filter2))")
             if GlobalVar.filter2 == sortingOption.name {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        } else {
+            let sortingOption = sortingOptions3[indexPath.row]
+            cell.textLabel?.text = sortingOption.name
+            if GlobalVar.filter3 == sortingOption.name {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -101,14 +119,14 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     /**
-     Displaying 2 sections, 1 for servicePet, 1 for sizePet
+     Displaying 3 sections, 반려동물 종류 / 크기 / 검색 반경
      
      :param: tableView An object representing the table view requesting this information.
      
      :returns: number of sections
      */
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     /**
@@ -122,8 +140,10 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "원하시는 반려동물 종류를 선택하세요"
-        } else {
+        } else if section == 1 {
             return "원하시는 반려동물 크기를 선택하세요"
+        } else {
+            return "원하시는 검색 반경을 선택하세요"
         }
     }
     
@@ -163,8 +183,10 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return sortingOptions1.count
-        } else {
+        } else if section == 1 {
             return sortingOptions2.count
+        } else {
+            return sortingOptions3.count
         }
     }
     
@@ -186,8 +208,8 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 /// self.selectedSortingOption1 = sortingOptions1[indexPath.row]
                 GlobalVar.filter1 = sortingOptions1[indexPath.row].name
             }
-            // print("This is GlobalVar.filter1: \(String(describing: GlobalVar.filter1))")
-        } else {
+            
+        } else if indexPath.section == 1 {
             /// let selectedSortingOption2 = sortingOptions2[indexPath.row]
             if GlobalVar.filter2 == sortingOptions2[indexPath.row].name {
                 /// self.selectedSortingOption2 = nil
@@ -196,7 +218,15 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 /// self.selectedSortingOption2 = sortingOptions2[indexPath.row]
                 GlobalVar.filter2 = sortingOptions2[indexPath.row].name
             }
-            // print("This is GlobalVar.filter2: \(String(describing: GlobalVar.filter2))")
+            
+        } else {
+            if GlobalVar.filter3 == sortingOptions3[indexPath.row].name {
+                /// self.selectedSortingOption2 = nil
+                GlobalVar.filter3 = nil
+            } else {
+                /// self.selectedSortingOption2 = sortingOptions2[indexPath.row]
+                GlobalVar.filter3 = sortingOptions3[indexPath.row].name
+            }
         }
         tableView.reloadData()
         setTrashButtonEmpty(false)
