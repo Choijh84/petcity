@@ -87,10 +87,12 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         let stb = UIStoryboard(name: "Walkthrough", bundle: nil)
         let walkthrough = stb.instantiateViewController(withIdentifier: "walk") as! BWWalkthroughViewController
         
-        let page_one = stb.instantiateViewController(withIdentifier: "walk1")
-        let page_two = stb.instantiateViewController(withIdentifier: "walk2")
-        let page_three = stb.instantiateViewController(withIdentifier: "walk3")
-        let page_zero = stb.instantiateViewController(withIdentifier: "walk0")
+        let page_one = stb.instantiateViewController(withIdentifier: "walkHome")
+        let page_two = stb.instantiateViewController(withIdentifier: "categorySelection")
+        let page_three = stb.instantiateViewController(withIdentifier: "storeList")
+        let page_four = stb.instantiateViewController(withIdentifier: "storeDetail1")
+        let page_five = stb.instantiateViewController(withIdentifier: "storeDetail2")
+        let page_six = stb.instantiateViewController(withIdentifier: "myAccount")
         
         // 마스터 페이지에 결합
         walkthrough.delegate = self
@@ -99,7 +101,9 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
         walkthrough.add(viewController:page_one)
         walkthrough.add(viewController:page_two)
         walkthrough.add(viewController:page_three)
-        walkthrough.add(viewController:page_zero)
+        walkthrough.add(viewController:page_four)
+        walkthrough.add(viewController:page_five)
+        walkthrough.add(viewController:page_six)
         
         // 보여주기
         self.present(walkthrough, animated: true, completion: nil)

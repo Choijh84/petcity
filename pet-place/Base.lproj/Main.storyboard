@@ -230,7 +230,7 @@
                                             </imageView>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="PlaceCell" id="qID-Dl-Qrd" userLabel="PlaceCell" customClass="StoreCollectionViewCell" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="92" y="0.0" width="172" height="172"/>
+                                                    <rect key="frame" x="91.5" y="0.0" width="172" height="172"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="172"/>
@@ -400,7 +400,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Lue-dU-vyM">
-                        <barButtonItem key="leftBarButtonItem" title="Push" id="7Mg-Bn-Z2T"/>
+                        <barButtonItem key="leftBarButtonItem" image="alarm" id="7Mg-Bn-Z2T"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="IF1-3f-Sik">
                             <connections>
                                 <action selector="wantToSearch:" destination="yfQ-YV-8Io" id="2rN-Fx-5pS"/>
@@ -424,7 +424,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="g3i-Ht-iB7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g3i-Ht-iB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1527,7 +1527,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EG7-Sh-hMs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EG7-Sh-hMs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1544,6 +1544,7 @@
     <resources>
         <image name="Background2" width="768" height="1024"/>
         <image name="Mark" width="80" height="70"/>
+        <image name="alarm" width="25" height="25"/>
         <image name="backButton" width="10" height="18"/>
         <image name="emptyHeart" width="32" height="32"/>
         <image name="filter icon" width="19" height="18"/>
