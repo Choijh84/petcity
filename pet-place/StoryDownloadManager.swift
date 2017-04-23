@@ -225,7 +225,7 @@ class StoryDownloadManager: NSObject {
                     let fileName = String(format: "uploaded_%0.0f\(i).png", Date().timeIntervalSince1970)
                     let blob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
                     // 이미지 데이터를 생성
-                    let imageData = UIImagePNGRepresentation(images[i].compressImage(images[i]))
+                    let imageData = UIImagePNGRepresentation(images[i].compressMore(images[i]))
                     
                     blob.upload(from: imageData!, completionHandler: { (error) in
                         if error != nil {

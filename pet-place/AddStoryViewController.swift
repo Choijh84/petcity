@@ -62,9 +62,10 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
                             // 업로드 성공하고 나면 뒤로 돌아가야지요?
                             self.overlayView.hideView()
                             SCLAlertView().showSuccess("완료", subTitle: "업로드 되었습니다")
-                            _ = self.navigationController?.popViewController(animated: true)
                             
-                            // 현재 리로드가 안됨
+                            // 현재 리로드가 안됨 - Notification 활용 필요
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "uploaded"), object: nil)
+                            _ = self.navigationController?.popViewController(animated: true)
                         } else {
                             // 업로드 실패입니다 ㅠ 다시 시도
                             SCLAlertView().showError("에러", subTitle: "다시 시도해주세요")

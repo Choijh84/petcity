@@ -11,16 +11,11 @@ import SCLAlertView
 import SKPhotoBrowser
 import Kingfisher
 
-protocol StoryTableViewCellProtocol: class {
-    func actionTapped(tag: Int)
-}
-
-class StoryTableViewCell: UITableViewCell {
-
+/*
+class StoryTableViewCell_1: UITableViewCell {
+    
     /// 사진의 URL들을 모아놓은 리스트
     var photoList = [String]()
-    
-    var singlePhotoURL : String? 
     
     /// 테이블뷰에 해당되는 스토리
     var selectedStory = Story()
@@ -33,6 +28,8 @@ class StoryTableViewCell: UITableViewCell {
     @IBOutlet weak var nicknameLabel: UILabel!
     
     @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var imageCollection: UICollectionView!
     
     @IBOutlet weak var likeButton: UIButton!
     
@@ -48,11 +45,7 @@ class StoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var commentNumberLabel: UILabel!
     
-    @IBOutlet weak var singleImage: UIImageView!
-    
-    @IBOutlet weak var readMoreButton: UIButton!
-    
-    @IBOutlet weak var morePhotoButton: UIButton!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     
     // 라이크버튼 눌렀을 때
@@ -68,7 +61,7 @@ class StoryTableViewCell: UITableViewCell {
                 sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
             }, completion: nil)
         } else {
-        // 좋아요를 취소할 때 
+            // 좋아요를 취소할 때
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
             }, completion: nil)
@@ -103,20 +96,24 @@ class StoryTableViewCell: UITableViewCell {
         alertView.showWarning("신고하기", subTitle: "이 게시물을 위법/위해 게시물로 신고하시겠습니까?")
     }
     
-    @IBAction func readMoreButtonClicked(_ sender: Any) {
-        print("Read More Button Clicked: \(readMoreButton.tag)")
-        delegate?.actionTapped(tag: readMoreButton.tag)
-    }
-    
-    
     /// 초기화
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        // Initialization
+        imageCollection.delegate = self
+        imageCollection.dataSource = self
+        // 우선 보류
+        // imageCollection.prefetchDataSource = self
+        
+        // 페이지컨트롤 한개의 사진이면 안 보이게
+        pageControl.hidesForSinglePage = true
+        pageControl.layer.cornerRadius = 10.0
+        
         // 이미지뷰 원형 모양으로
         profileImageView.layer.cornerRadius = profileImageView.layer.frame.width/2
         
-        // 라벨에 gesture 부여 
+        // 라벨에 gesture 부여
         // tap1 - IBAction
         // tap2 - IBACtion
         // tap3 - IBAction
@@ -130,10 +127,12 @@ class StoryTableViewCell: UITableViewCell {
         let tap5 = UITapGestureRecognizer(target: self, action: #selector(StoryTableViewCell.showComments(_:)))
         commentNumberLabel.isUserInteractionEnabled = true
         commentNumberLabel.addGestureRecognizer(tap5)
-
-        // 더보기와 추가 사진 버튼은 숨기고 시작
-        readMoreButton.isHidden = true
-        morePhotoButton.isHidden = true
+        
+        let tap6 = UITapGestureRecognizer(target: self, action: #selector(StoryTableViewCell.showPhotos(_:)))
+        tap6.numberOfTapsRequired = 2
+        imageCollection.isUserInteractionEnabled = true
+        imageCollection.addGestureRecognizer(tap6)
+        
     }
     
     func showPhotos(_ sender: UITapGestureRecognizer) {
@@ -162,11 +161,81 @@ class StoryTableViewCell: UITableViewCell {
         likeNumberLabel.text = ""
         commentNumberLabel.text = ""
         bodyTextLabel.text = ""
-        singleImage.image = nil
-        readMoreButton.isHidden = true
         
         super.prepareForReuse()
         
     }
 }
 
+/*
+ 
+extension StoryTableViewCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    
+    // MARK: Collectionview Method
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.pageControl.numberOfPages = photoList.count
+        return photoList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath) as! StoryPhotoCollectionViewCell
+        
+        let imageURL = photoList[indexPath.row]
+        let url = URL(string: imageURL)
+        
+        // 로딩하는 동한 액티비티 보여주기
+        cell.imageView.kf.indicatorType = .activity
+        
+        // 킹피셔 활용
+        DispatchQueue.global(qos: .userInteractive).async {
+            cell.imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = UIScreen.main.bounds.size.width
+        return CGSize(width: width, height: width)
+    }
+}
+*/
+ 
+*/
+
+// prefetch 부분, 아직 구현 안함
+/*
+ extension StoryTableViewCell: UICollectionViewDataSourcePrefetching {
+ 
+ func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+ // 미리 url 배열을 만들어두자, 어떻게 만들지?
+ var urls = [URL]()
+ for indexPath in indexPaths {
+ let imageURL = photoList[indexPath.row]
+ if let url = URL(string: imageURL) {
+ urls.append(url)
+ }
+ }
+ print("Prefetch Start")
+ ImagePrefetcher(urls: urls).start()
+ }
+ 
+ /**
+ func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+ // 만약에 cell이 안 보이면 다운로드 캔슬
+ let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath) as! StoryPhotoCollectionViewCell
+ cell.imageView.kf.cancelDownloadTask()
+ print("다운로드 캔슬")
+ }
+ */
+ }
+ */

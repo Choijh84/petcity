@@ -14,6 +14,6 @@ class StoryPhotoCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageView.image = #imageLiteral(resourceName: "imageplaceholder")
+        imageView.image = nil
     }
 }

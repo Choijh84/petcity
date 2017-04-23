@@ -106,7 +106,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         
-        tableView.reloadData()
         // 기존에 봤던 자리로 원위치
         tableView.setContentOffset(CGPoint(x: 0, y: lastContentOffset), animated: false)
         super.viewWillAppear(animated)
@@ -134,11 +133,11 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                     self.ReviewArray.append(contentsOf: reviews)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        self.tableView.hideLoadingIndicator()
                     }
                 }
             }
         }
-        self.tableView.hideLoadingIndicator()
     }
     
     func downloadMoreReviews(_ location: String?) {
@@ -173,19 +172,20 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         }
         
         // 지역 선택하는 뷰를 스크롤 방향에 따라 보였다 숨겼다 하기 - 뷰 높이 조절이 안되서 아직 미구현
-        /**
-        if (self.lastContentOffset < scrollView.contentOffset.y) {
-            print("Hide")
-            UIView.animate(withDuration: 0.5, animations: {
-                self.locationView.isHidden = true
-            })
-        } else {
+        // 스택뷰에 넣어서 숨김
+        if (self.lastContentOffset > scrollView.contentOffset.y) && self.lastContentOffset < (scrollView.contentSize.height - scrollView.frame.height) {
             UIView.animate(withDuration: 0.5, animations: {
                 self.locationView.isHidden = false
             })
+        } else if (self.lastContentOffset < scrollView.contentOffset.y && scrollView.contentOffset.y > 0) {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.locationView.isHidden = true
+            })
         }
+        
+        // 최근 스크롤 뷰 기억
         self.lastContentOffset = scrollView.contentOffset.y
-        */
+        
     }
     
     /**
@@ -263,7 +263,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                     cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
                 } else {
                     let url = URL(string: profileURL as! String)
-                    cell.profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    cell.profileImage.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                 }
             }
         } else {

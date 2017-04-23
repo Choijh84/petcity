@@ -106,9 +106,10 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         let dataStore = Backendless.sharedInstance().data.of(Store.ofClass())
         
         if isFavorited == false {
+            // 향후에 프로필 체크 등을 통해서 변경 할 수도 있음
             let randomNum : UInt32 = arc4random_uniform(2)
             if randomNum == 0 {
-                isFavorite.setImage(#imageLiteral(resourceName: "redHeart"), for: .normal)
+                isFavorite.setImage(#imageLiteral(resourceName: "pawprint"), for: .normal)
             } else {
                 isFavorite.setImage(#imageLiteral(resourceName: "pawprint"), for: .normal)
             }
@@ -207,7 +208,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         self.storeRatingView.value = CGFloat(storeToDisplay.reviewAverage)
         
         if let imageURL = storeToDisplay.imageURL {
-            storeImageView.kf.setImage(with: URL(string: imageURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+            storeImageView.kf.setImage(with: URL(string: imageURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
         }
         
         setupHeaderView()
@@ -511,9 +512,10 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             cell.layoutMargins = UIEdgeInsets.zero
             cell.separatorInset = UIEdgeInsets.zero
             
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 self.configureNaverMapCell(cell)
-            })
+            }
+            
         }) {
             print("This is naver map")
         }
@@ -711,7 +713,10 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                             DispatchQueue.main.async(execute: {
                                 
                                 let imageView = UIImageView()
-                                imageView.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, returnedUrl) in
+                                
+                                imageView.kf.indicatorType = .activity
+                                
+                                imageView.kf.setImage(with: url, placeholder: nil, options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: { (image, error, cacheType, returnedUrl) in
                                     if error != nil {
                                         print("there is an error on fetching store photos")
                                     } else {
@@ -783,6 +788,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
      */
     func configureGoogleMapCell(_ cell: StoreGoogleMapTableViewCell) {
         cell.zoomMapToStoreLocation(storeToDisplay)
+        
     }
     
     /**
@@ -821,7 +827,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         dataStore?.findID(userId, response: { (response) in
             let user = response as! BackendlessUser
             if let imageURL = user.getProperty("profileURL") {
-                cell.profileImageView.kf.setImage(with: URL(string: imageURL as! String), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                cell.profileImageView.kf.setImage(with: URL(string: imageURL as! String), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
             }
             cell.nameLabel.text = user.name! as String
         }, error: { (Fault) in
@@ -848,9 +854,9 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             let imageArray = fileURL.components(separatedBy: ",").sorted()
             // 사진이 1개만 있는 경우, 추가로 뷰를 붙이지 않는다
             if imageArray.count == 1 {
-                cell.reviewImageView.kf.setImage(with: URL(string: fileURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                cell.reviewImageView.kf.setImage(with: URL(string: fileURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
             } else {
-                cell.reviewImageView.kf.setImage(with: URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                cell.reviewImageView.kf.setImage(with: URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
                 
                 // 추가로 몇 개의 사진이 더 있는지 '+1'의 형태로 보여주는 뷰
                 let myLabel = UILabel(frame: CGRect(x: cell.reviewImageView.frame.width-30, y: cell.reviewImageView.frame.height-30, width: 30, height: 30))
