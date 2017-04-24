@@ -155,7 +155,21 @@ class UserManager: NSObject {
     }
     
     /**
-        Download all user's pet profiles 
+        Find user by objectId
      */
+    class func findUserById(_ userID: String, _ completionBlock: @escaping (_ successful: Bool, _ user: BackendlessUser?, _ errorMessage: String?) -> ()) {
+
+        let dataStore = Backendless.sharedInstance().data.of(Users.ofClass())
+        
+        dataStore?.findID(userID, response: { (user) in
+            let user = user as! BackendlessUser
+            completionBlock(true, user, nil)
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+            completionBlock(false, nil, Fault?.description)
+        })
+        
+
+    }
 
 }

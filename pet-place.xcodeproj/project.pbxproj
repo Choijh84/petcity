@@ -27,6 +27,7 @@
 		BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */; };
 		BE270FBD1E3CB13D00DE1DF5 /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBC1E3CB13D00DE1DF5 /* NewsListViewController.swift */; };
 		BE270FBF1E3CB45D00DE1DF5 /* NewsDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */; };
+		BE2C86CA1EADD4F200C81421 /* StoryComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2C86C91EADD4F200C81421 /* StoryComment.swift */; };
 		BE2EA9EB1E8979E300E0FCA8 /* SignUpTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */; };
 		BE33468F1E31252A00E23A88 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33468D1E31252A00E23A88 /* ReviewTableViewCell.swift */; };
 		BE3346901E31252A00E23A88 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE33468E1E31252A00E23A88 /* ReviewTableViewCell.xib */; };
@@ -254,6 +255,7 @@
 		BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsNavigationController.swift; sourceTree = "<group>"; };
 		BE270FBC1E3CB13D00DE1DF5 /* NewsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
 		BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDownloader.swift; sourceTree = "<group>"; };
+		BE2C86C91EADD4F200C81421 /* StoryComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryComment.swift; sourceTree = "<group>"; };
 		BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTypeViewController.swift; sourceTree = "<group>"; };
 		BE33468D1E31252A00E23A88 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		BE33468E1E31252A00E23A88 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
@@ -309,8 +311,8 @@
 		BE7A22971E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreNaverMapTableViewCell.swift; sourceTree = "<group>"; };
 		BE8123BD1EAA114F004656D0 /* StoryLikes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryLikes.swift; sourceTree = "<group>"; };
 		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
-		BE8570991EAC97F0003C1CE7 /* StoryViewController_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewController_1.swift; sourceTree = "<group>"; };
-		BE85709B1EAC9A35003C1CE7 /* StoryTableViewCell_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTableViewCell_1.swift; sourceTree = "<group>"; };
+		BE8570991EAC97F0003C1CE7 /* StoryViewController_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryViewController_1.swift; path = "pet-place/StoryViewController_1.swift"; sourceTree = "<group>"; };
+		BE85709B1EAC9A35003C1CE7 /* StoryTableViewCell_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryTableViewCell_1.swift; path = "pet-place/StoryTableViewCell_1.swift"; sourceTree = "<group>"; };
 		BE85709D1EACCDEE003C1CE7 /* StoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDetailViewController.swift; sourceTree = "<group>"; };
 		BE8EC45B1E9A206E00FE1A5E /* PerformSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformSearchViewController.swift; sourceTree = "<group>"; };
 		BE91C4A61E6D59CB00B4C8B5 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
@@ -524,6 +526,15 @@
 			name = "From News List to Detail View";
 			sourceTree = "<group>";
 		};
+		BE2C86C81EADD44B00C81421 /* Archives */ = {
+			isa = PBXGroup;
+			children = (
+				BE8570991EAC97F0003C1CE7 /* StoryViewController_1.swift */,
+				BE85709B1EAC9A35003C1CE7 /* StoryTableViewCell_1.swift */,
+			);
+			name = Archives;
+			sourceTree = "<group>";
+		};
 		BE3346931E3129C200E23A88 /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,7 +588,6 @@
 			isa = PBXGroup;
 			children = (
 				BEBF03091E790AA500484B81 /* StoryTableViewCell.swift */,
-				BE85709B1EAC9A35003C1CE7 /* StoryTableViewCell_1.swift */,
 				BE9C99B11E7954A6000838B8 /* StoryPhotoCollectionVIewCell.swift */,
 				BE3C57711E7B9F88008ECA4E /* CommentTableViewCell.swift */,
 				BE4279831E824E1E00A4DDFC /* StoryReviewTableViewCell.swift */,
@@ -593,7 +603,6 @@
 				BEEDCC921E784635007E82AB /* StoryAndReviewViewController.swift */,
 				BEEDCC941E7848B2007E82AB /* StoryViewController.swift */,
 				BE85709D1EACCDEE003C1CE7 /* StoryDetailViewController.swift */,
-				BE8570991EAC97F0003C1CE7 /* StoryViewController_1.swift */,
 				BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */,
 				BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */,
 				BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */,
@@ -696,6 +705,7 @@
 				BE0B062E1E607DAD00432300 /* PetProfile.swift */,
 				BE0CA8E61E73BD6A0040A6F3 /* SMSVerification.swift */,
 				BE9C99B31E79612C000838B8 /* Story.swift */,
+				BE2C86C91EADD4F200C81421 /* StoryComment.swift */,
 				BE9C99B51E796260000838B8 /* Comment.swift */,
 				BEB08C031EA7D4F100D0B3F4 /* Fault.swift */,
 				BE8123BD1EAA114F004656D0 /* StoryLikes.swift */,
@@ -769,6 +779,7 @@
 		EB2956F71E16DA1C0024E3E3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BE2C86C81EADD44B00C81421 /* Archives */,
 				EBB619771E196DEC0061BCEB /* custom fonts */,
 				EB2956CF1E16D4E00024E3E3 /* Info.plist */,
 				EB2956C71E16D4E00024E3E3 /* pet_place.xcdatamodeld */,
@@ -1460,6 +1471,7 @@
 				BE8123BE1EAA114F004656D0 /* StoryLikes.swift in Sources */,
 				EB2956C91E16D4E00024E3E3 /* pet_place.xcdatamodeld in Sources */,
 				EB71A69A1E1D4A7300948F41 /* StoreDetailRowDatasource.swift in Sources */,
+				BE2C86CA1EADD4F200C81421 /* StoryComment.swift in Sources */,
 				BE2EA9EB1E8979E300E0FCA8 /* SignUpTypeViewController.swift in Sources */,
 				EBD482241E1AAECC00F2B8D5 /* LocationsDownloadManager.swift in Sources */,
 				BEF2BE411E1BB4A70044203E /* StoreListImageTableViewCell.swift in Sources */,

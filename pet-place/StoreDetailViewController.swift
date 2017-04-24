@@ -605,6 +605,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
      */
     func configureDescriptionCell(_ cell: DescriptionTableViewCell) {
         cell.descriptionLabel.text = storeToDisplay.storeDescription
+        cell.descriptionLabel.setLineHeight(lineHeight: 1.8)
     }
     
     /**

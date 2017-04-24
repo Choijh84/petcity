@@ -57,21 +57,26 @@ class StoryTableViewCell: UITableViewCell {
     
     // 라이크버튼 눌렀을 때
     @IBAction func likeButtonClicked(_ sender: UIButton) {
-        print("Like Button Clicked: \(likeButton.tag)")
+        // 버튼 너무 빨리 못 누르게 막아놓기
+        likeButton.isUserInteractionEnabled = false
         
         delegate?.actionTapped(tag: likeButton.tag)
         // 좋아하는 스토리인지 아닌지를 구분
         // 버튼의 이미지 변경 - 클릭하면 이미지 바뀌게
         // 좋아요를 눌렀을 때
         if sender.image(for: .normal) == #imageLiteral(resourceName: "like_bw") {
+            self.likeTap()
+            // 리로드되는 것만 체크해서 시간에 맞춰주자
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
             }, completion: nil)
+            self.likeButton.isUserInteractionEnabled = true
         } else {
         // 좋아요를 취소할 때 
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
             }, completion: nil)
+            self.likeButton.isUserInteractionEnabled = true
         }
     }
     
@@ -152,6 +157,32 @@ class StoryTableViewCell: UITableViewCell {
         print("Show Comments: \(String(describing: sender.view?.tag))")
         guard let row = sender.view?.tag else { return }
         delegate?.actionTapped(tag: row)
+    }
+    
+    func likeTap() {
+        
+        // 이미지 생성 안 보이게
+        let likePic = UIImageView(image: #imageLiteral(resourceName: "animatePetCity"))
+        likePic.frame.size.width = (singleImage.frame.size.width / 1.5)
+        likePic.frame.size.height = (singleImage.frame.size.width / 1.5)
+        likePic.center = singleImage.center
+        likePic.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        likePic.alpha = 0.2
+        likePic.contentMode = .scaleAspectFit
+        self.addSubview(likePic)
+        self.bringSubview(toFront: likePic)
+        
+        // 크기를 키우고 0.6초 동안 키우고 0.2초 동안 숨김
+        DispatchQueue.main.async(execute: {
+            UIView.animate(withDuration: 1, animations: {
+                likePic.alpha = 0.8
+                likePic.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }) { (success) in
+                UIView.animate(withDuration: 0.4) {
+                    likePic.fadeOut()
+                }
+            }
+        })
     }
     
     // 재사용시 초기화 함수

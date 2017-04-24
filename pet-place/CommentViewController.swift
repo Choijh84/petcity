@@ -14,11 +14,13 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var selectedStory = Story()
     
-    var commentArray = [Comment]()
+    var commentArray = [StoryComment]()
     
     @IBOutlet weak var commentTextField: UITextField!
     
     @IBOutlet weak var tableView: LoadingTableView!
+    
+    let dataStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
     
     /// 코멘트 저장
     @IBAction func saveComment(_ sender: Any) {
@@ -62,15 +64,19 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func setUpCommentArray() {
         tableView.showLoadingIndicator()
-
-        commentArray = selectedStory.comments
-        // 생성 시간으로 정렬
-        commentArray = commentArray.sorted { (left, right) -> Bool in
-            return left.created < right.created
-        }
         
-        tableView.reloadData()
-        tableView.hideLoadingIndicator()
+        // 코멘트 다운로드 받아서 정렬하기
+        StoryDownloadManager().downloadComments(selectedStory) { (comments, error) in
+            self.commentArray = comments!
+            
+            // 생성 시간으로 정렬
+            self.commentArray = self.commentArray.sorted { (left, right) -> Bool in
+                return left.created < right.created
+            }
+            
+            self.tableView.reloadData()
+            self.tableView.hideLoadingIndicator()
+        }
     }
     
     /**
@@ -122,16 +128,24 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let comment = commentArray[indexPath.row]
         // Profile image
-        if let profile = comment.writer.getProperty("profileURL") as? String {
-            let url = URL(string: profile)
-            DispatchQueue.main.async(execute: {
-                cell.profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
-            })
-        } else {
-            cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
+        let userId = comment.by!
+        
+        UserManager.findUserById(userId) { (success, user, error) in
+            if success {
+                if let profile = user?.getProperty("profileURL") {
+                    let url = URL(string: profile as! String)
+                    DispatchQueue.main.async( execute: {
+                        cell.profileImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+                    })
+                }
+                // 이름 배정
+                cell.nameLabel.text = user?.getProperty("nickname") as? String
+                
+            } else {
+                cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
+            }
         }
-        // name
-        cell.nameLabel.text = comment.writer.name as String?
+        
         // comment 
         cell.commentLabel.text = comment.bodyText
         // 시간은 그냥 작성된 시간 기준으로 - 편집 기능은 없앨 수도.... 
@@ -145,7 +159,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.deleteButton.tag = indexPath.row
         
         // 편집 및 삭제 버튼, 아이디가 일치하면 보여주기
-        if comment.writer.objectId != Backendless.sharedInstance().userService.currentUser.objectId {
+        if userId == String(Backendless.sharedInstance().userService.currentUser.objectId) {
             cell.editButton.isHidden = true
             cell.deleteButton.isHidden = true
         }

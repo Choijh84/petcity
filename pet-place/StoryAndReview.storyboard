@@ -285,18 +285,18 @@
                                                     <rect key="frame" x="8" y="73" width="359" height="42"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="본문" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-tV-oFe">
-                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="22"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="12"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFF-8L-TKt">
-                                                            <rect key="frame" x="309" y="22" width="50" height="20"/>
+                                                            <rect key="frame" x="309" y="12" width="50" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="aKR-l8-T1J"/>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="bEp-cc-MZ9"/>
-                                                                <constraint firstAttribute="height" constant="20" id="ijp-qa-Eeh"/>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="j5k-sc-wqF"/>
+                                                                <constraint firstAttribute="height" constant="30" id="ijp-qa-Eeh"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="j5k-sc-wqF"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                                             <state key="normal" title="더 보기">
@@ -323,7 +323,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageplaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="CHs-b3-wXJ">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CHs-b3-wXJ">
                                                     <rect key="frame" x="8" y="125" width="359" height="239"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="CHs-b3-wXJ" secondAttribute="height" multiplier="3:2" id="rLH-im-nlh"/>
@@ -677,16 +677,16 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="73"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="sSf-4o-Auc">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="270" height="18"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="270" height="14"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nameLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="OPv-6g-OBZ">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="18"/>
-                                                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="13"/>
-                                                                                    <nil key="textColor"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="157.5" height="14"/>
+                                                                                    <fontDescription key="fontDescription" name="YiSunShinDotumB" family="YiSunShin Dotum B" pointSize="13"/>
+                                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="timeLabel" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="2eG-zg-gKs">
-                                                                                    <rect key="frame" x="160" y="0.0" width="110" height="18"/>
+                                                                                    <rect key="frame" x="157.5" y="0.0" width="112.5" height="14"/>
                                                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="10"/>
                                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
@@ -701,10 +701,10 @@
                                                                                 <constraint firstItem="2eG-zg-gKs" firstAttribute="top" secondItem="sSf-4o-Auc" secondAttribute="top" id="meZ-3g-Vqv"/>
                                                                             </constraints>
                                                                         </stackView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commentLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="ba3-3I-NcN">
-                                                                            <rect key="frame" x="0.0" y="23" width="270" height="50"/>
-                                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
-                                                                            <nil key="textColor"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commentLabel" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ba3-3I-NcN">
+                                                                            <rect key="frame" x="0.0" y="19" width="270" height="54"/>
+                                                                            <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
+                                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>

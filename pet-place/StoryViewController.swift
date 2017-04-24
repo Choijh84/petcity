@@ -155,7 +155,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         let temp = StoryArray.count as NSNumber
         print("This is temp: \(temp)")
         
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInitiated).async {
             StoryDownloadManager().downloadStoryByPage(skippingNumberOfObjects: temp, limit: 10, user: nil) { (stories, error) in
                 self.isLoadingItems = false
                 if let error = error {
@@ -297,10 +297,10 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                     }
                     
                 }, error: { (Fault) in
-                    print("라이크 불러오기에서 에러: \(Fault?.description)")
+                    print("라이크 불러오기에서 에러: \(String(describing: Fault?.description))")
                 })
+                
             }
-            
             
             // 좋아요 개수 세기
             let countQuery = BackendlessDataQuery()
@@ -331,7 +331,26 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             }
         }
         
-        cell.commentNumberLabel.text = String(story.commentNumbers) + "개의 리플"
+        DispatchQueue.global(qos: .userInteractive).async {
+            // 댓글수 찾기
+            let tempStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
+            
+            let storyId = story.objectId!
+            let dataQuery = BackendlessDataQuery()
+            // 이 스토리에 달린 댓글 모두 몇 개인지 찾기 
+            dataQuery.whereClause = "to = '\(storyId)'"
+            
+            DispatchQueue.main.async {
+                tempStore?.find(dataQuery, response: { (collection) in
+                    let comments = collection?.data as! [StoryComment]
+                    
+                        cell.commentNumberLabel.text = String(comments.count) + "개의 이야기"
+                    
+                }, error: { (Fault) in
+                    print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
+                })
+            }
+        }
         
         DispatchQueue.global(qos: .userInteractive).async {
             if let photoList = (story.imageArray?.components(separatedBy: ",")) {
@@ -340,7 +359,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 let url = URL(string: singleImageURL)
                 
                 DispatchQueue.main.async {
-                    cell.singleImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
+                    cell.singleImage.kf.setImage(with: url, placeholder: nil, options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
                 }
                 
                 if photoList.count > 1 {
@@ -404,6 +423,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                         })
                     }
                 })
+                
+            
             case 2:
                 print("Comment Button Clicked")
                 // 코멘트 액션
@@ -528,13 +549,10 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 // NotificationCenter.default.post(name: Notification.Name(rawValue: "liked"), object: nil)
                 
                 // 우선 해당 테이블 row만 refresh해보자
-                DispatchQueue.global(qos: .userInteractive).async(execute: {
+                //DispatchQueue.main.async(execute: {
                     let indexPath = IndexPath(row: row, section: 0)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
-                    }
-                    
-                })
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                //})
                 
             }, error: { (Fault) in
                 print("스토리를 저장하는데 에러: \(String(describing: Fault?.description))")
@@ -564,11 +582,9 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                     // NotificationCenter.default.post(name: Notification.Name(rawValue: "liked"), object: nil)
                     
                     // 우선 해당 테이블 row만 refresh해보자
-                    DispatchQueue.global(qos: .userInteractive).async(execute: {
+                    DispatchQueue.main.async(execute: {
                         let indexPath = IndexPath(row: row, section: 0)
-                        DispatchQueue.main.async {
-                            self.tableView.reloadRows(at: [indexPath], with: .none)
-                        }
+                        self.tableView.reloadRows(at: [indexPath], with: .none)
                     })
                     
                 }, error: { (Fault) in
@@ -622,7 +638,6 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             destinationVC.selectedStory = StoryArray[index]
         }
     }
-    
     
     // MARK: - IndicatorInfoProvider
     

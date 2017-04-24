@@ -26,6 +26,8 @@ class StoryDownloadManager: NSObject {
     /// Store object that handles downloading of Comment objects
     let dataStore2 = Backendless.sharedInstance().data.of(Comment.self)
     
+    let dataStore3 = Backendless.sharedInstance().data.of(StoryComment.ofClass())
+    
     // MARK: Initializer
     override init() {
         if !usingSAS {
@@ -142,6 +144,23 @@ class StoryDownloadManager: NSObject {
      */
     
     func uploadNewComment(_ text: String, _ story: Story, completionBlock: @escaping (_ completed: Bool, _ errorMessage: String?) -> ()) {
+        
+        // 새로운 코멘트 생성
+        let newStoryComment = StoryComment()
+        newStoryComment.bodyText = text
+        newStoryComment.by = UserManager.currentUser()!.objectId! as String!
+        newStoryComment.to = story.objectId!
+        
+        // 코멘트 클래스 - dataStore3
+        dataStore3?.save(newStoryComment, response: { (response) in
+            print("Comment has beed added: \(String(describing: response))")
+            completionBlock(true, nil)
+        }, error: { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+            completionBlock(false, Fault?.description)
+        })
+        
+        /*
         // 새로운 코멘트 생성
         let newComment = Comment()
         newComment.bodyText = text
@@ -171,15 +190,26 @@ class StoryDownloadManager: NSObject {
             print("Server reported an error: \(String(describing: Fault?.description))")
             completionBlock(false, Fault?.description)
         })
+        */
     }
     
     /// 코멘트를 삭제하는 함수
-    func deleteComment(_ comment: Comment!, completionBlock: @escaping (_ completed: Bool, _ errorMessage: String?) -> ()) {
+    func deleteComment(_ comment: StoryComment!, completionBlock: @escaping (_ completed: Bool, _ errorMessage: String?) -> ()) {
+        
+        dataStore3?.remove(comment, response: { (response) in
+            completionBlock(true, nil)
+        }, error: { (Fault) in
+            completionBlock(false, Fault?.description)
+        })
+        
+        /*
+         // comment 클래스를 바꿈
         dataStore2?.remove(comment, response: { (response) in
             completionBlock(true, nil)
         }, error: { (Fault) in
             completionBlock(false, Fault?.description)
         })
+        */
     }
     
     /**
@@ -190,7 +220,27 @@ class StoryDownloadManager: NSObject {
      :param: errorMessage errorMessage to return if any
      */
     
-    func downloadComments(_ story: Story!, _ completionBlock: @escaping (_ response: [Comment]?, _ errorMessage: NSString?) -> Void )  {
+    func downloadComments(_ story: Story!, _ completionBlock: @escaping (_ response: [StoryComment]?, _ errorMessage: NSString?) -> Void )  {
+        
+        let storyID = story.objectId!
+        
+        let dataQuery = BackendlessDataQuery()
+        dataQuery.whereClause = "to = '\(storyID)'"
+        
+        let queryOptions = QueryOptions()
+        queryOptions.sortBy = ["created desc"]
+        dataQuery.queryOptions = queryOptions
+        
+        dataStore3?.find(dataQuery, response: { (collection) in
+            let commentArray = collection?.data as! [StoryComment]
+            completionBlock(commentArray, nil)
+        }, error: { (Fault) in
+            completionBlock(nil, Fault?.description as NSString?)
+        })
+        
+        
+        // response class change, from Comment to StoryComment
+        /*
         let dataquery = BackendlessDataQuery()
     
         // sort option = 만들어진 시간 순 - 향후 업데이트 순으로 바꿔야할 수도....
@@ -204,6 +254,7 @@ class StoryDownloadManager: NSObject {
         }, error: { (Fault) in
             completionBlock(nil, Fault?.description as NSString?)
         })
+        */
     }
     
     /**
