@@ -240,7 +240,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4O-x2-9ZD">
-                                                                <rect key="frame" x="8" y="143" width="156" height="16"/>
+                                                                <rect key="frame" x="8" y="143" width="156" height="19"/>
                                                                 <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -295,16 +295,16 @@
                                             <rect key="frame" x="18" y="18" width="339" height="213"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Iev-Ui-kbX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="27"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="29"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(주)프레스에스" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfy-zy-W8I">
-                                                            <rect key="frame" x="0.0" y="0.0" width="81.5" height="27"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="29"/>
                                                             <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pt-bY-cKM">
-                                                            <rect key="frame" x="263" y="0.0" width="76" height="27"/>
+                                                            <rect key="frame" x="260" y="0.0" width="79" height="29"/>
                                                             <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                                             <state key="normal" title="사업자정보 ▲">
                                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -313,10 +313,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G2W-EY-aKs">
-                                                    <rect key="frame" x="0.0" y="80.5" width="339" height="36.5"/>
+                                                    <rect key="frame" x="0.0" y="76.5" width="339" height="42"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대표이사: 최정훈 | 사업자등록번호: 371-88-00609 통신판매업: 서울 강남-03976호  주소: 서울시 강남구 강남대로 342, 5층(역삼동, 역삼빌딩)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9f-F8-asm">
-                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="36.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="42"/>
                                                             <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -324,10 +324,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="sA8-Eb-dmj">
-                                                    <rect key="frame" x="0.0" y="170" width="339" height="43"/>
+                                                    <rect key="frame" x="0.0" y="166" width="339" height="47"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-Nx-abL">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="43"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="47"/>
                                                             <color key="backgroundColor" red="0.92090009367203751" green="0.93001791638166165" blue="0.93001791638166165" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="yFa-Dm-xRK"/>
@@ -338,7 +338,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="MQ0-3e-HiL">
-                                                            <rect key="frame" x="129.5" y="0.0" width="80" height="43"/>
+                                                            <rect key="frame" x="129.5" y="0.0" width="80" height="47"/>
                                                             <color key="backgroundColor" red="0.92090009367203751" green="0.93001791638166165" blue="0.93001791638166165" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="NG0-fq-xvA"/>
@@ -351,7 +351,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uZB-Nv-E8x">
-                                                            <rect key="frame" x="259" y="0.0" width="80" height="43"/>
+                                                            <rect key="frame" x="259" y="0.0" width="80" height="47"/>
                                                             <color key="backgroundColor" red="0.92090009367203751" green="0.93001791638166165" blue="0.93001791638166165" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="jUl-qY-msL"/>
@@ -421,7 +421,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="g3i-Ht-iB7">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g3i-Ht-iB7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -512,13 +512,13 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location :" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJl-hK-die">
-                                        <rect key="frame" x="10" y="8" width="65.5" height="15.5"/>
+                                        <rect key="frame" x="10" y="7" width="66.5" height="17.5"/>
                                         <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="5bd-y3-Rzg">
-                                        <rect key="frame" x="80.5" y="8.5" width="150" height="13.5"/>
+                                        <rect key="frame" x="81.5" y="7.5" width="150" height="15.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="Wwb-EP-Bs9"/>
                                         </constraints>
@@ -527,7 +527,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xxd-gw-hLb">
-                                        <rect key="frame" x="325" y="2" width="50" height="27"/>
+                                        <rect key="frame" x="325" y="1" width="50" height="29"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="efv-lU-lKg"/>
@@ -720,7 +720,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="yvT-MT-o7q">
-                                                <rect key="frame" x="61" y="8.5" width="250" height="14.5"/>
+                                                <rect key="frame" x="61" y="7.5" width="250" height="16.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="250" id="e2d-jr-OPW"/>
                                                 </constraints>
@@ -759,13 +759,13 @@
                                                             <color key="backgroundColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pet Cafe in Gangnam" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LMx-Ko-f3N">
-                                                            <rect key="frame" x="115" y="50" width="145.5" height="24"/>
+                                                            <rect key="frame" x="106.5" y="50" width="163" height="24"/>
                                                             <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="17"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gangnam Station in Korea" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uDl-wI-4ZE">
-                                                            <rect key="frame" x="114" y="76" width="147" height="15"/>
+                                                            <rect key="frame" x="105" y="76" width="165" height="15"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="15" id="OoL-aK-uHs"/>
                                                             </constraints>
@@ -774,10 +774,10 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpr-Dd-Hls">
-                                                            <rect key="frame" x="324" y="130" width="36" height="20"/>
+                                                            <rect key="frame" x="319.5" y="130" width="40.5" height="20"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2,1 km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="blH-bx-heN">
-                                                                    <rect key="frame" x="5" y="0.0" width="26" height="20"/>
+                                                                    <rect key="frame" x="5" y="0.0" width="30.5" height="20"/>
                                                                     <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="10"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -1068,7 +1068,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg5-AF-XZ7">
-                                                    <rect key="frame" x="15" y="10" width="345" height="15"/>
+                                                    <rect key="frame" x="15" y="10" width="345" height="17.5"/>
                                                     <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="15"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1524,7 +1524,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EG7-Sh-hMs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EG7-Sh-hMs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

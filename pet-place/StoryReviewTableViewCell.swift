@@ -133,10 +133,13 @@ class StoryReviewTableViewCell: UITableViewCell {
         // 이미지뷰 원형 모양으로
         profileImage.layer.cornerRadius = profileImage.layer.frame.width/2
         
+        // 사진 보여주기 기능 설정
+        /*
         let tap = UITapGestureRecognizer(target: self, action: #selector(StoryTableViewCell.showPhotos(_:)))
         tap.numberOfTapsRequired = 2
         collectionView.isUserInteractionEnabled = true
         collectionView.addGestureRecognizer(tap)
+        */
     }
     
     func showPhotos(_ sender: UITapGestureRecognizer) {

@@ -6,7 +6,7 @@
 //  Copyright © 2017년 press.S. All rights reserved.
 //
 
-
+/*
 import UIKit
 import XLPagerTabStrip
 import SCLAlertView
@@ -28,6 +28,15 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     /// 스토리를 다운로드하고 있으면 true
     var isLoadingItems: Bool = false
     
+    var heightAtIndexPath = NSMutableDictionary()
+    
+    /// Lazy getter for the dateformatter that formats the date property of each review to the desired format
+    lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        return dateFormatter
+    }()
+    
     /// Lazy loader for LoginViewController, cause we might not need to initialize it in the first place
     lazy var loginViewController: LoginViewController = {
         let loginViewController = StoryboardManager.loginViewController()
@@ -46,8 +55,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     // 처음에 메모리에 뷰가 없을 때에만 보여주는 함수
     override func viewDidLoad() {
         
-        // height setting
-        tableView.estimatedRowHeight = 450
+        // height setting 
+        tableView.estimatedRowHeight = 650
         tableView.rowHeight = UITableViewAutomaticDimension
         
         customizeViews()
@@ -125,7 +134,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             StoryDownloadManager().downloadStoryByPage(skippingNumberOfObjects: 0, limit: 10, user: nil) { (stories, error) in
                 self.isLoadingItems = false
                 if let error = error {
-                    SCLAlertView().showError("에러 발생", subTitle: error)
+                    self.showAlertViewWithRedownloadOption(error)
                 } else {
                     if let stories = stories {
                         self.StoryArray.append(contentsOf: stories)
@@ -151,7 +160,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             StoryDownloadManager().downloadStoryByPage(skippingNumberOfObjects: temp, limit: 10, user: nil) { (stories, error) in
                 self.isLoadingItems = false
                 if let error = error {
-                    SCLAlertView().showError("에러 발생", subTitle: error)
+                    self.showAlertViewWithRedownloadOption(error)
                 } else {
                     if let stories = stories {
                         self.StoryArray.append(contentsOf: stories)
@@ -182,13 +191,28 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     }
     
     /**
+     다운로드에 문제가 있다는 것을 알려주는 함수
+     */
+    func showAlertViewWithRedownloadOption(_ error: String) {
+        let alert = SCLAlertView()
+        alert.addButton("확인") {
+            print("확인 완료")
+        }
+        alert.addButton("다시 시도") {
+            self.downloadStory()
+        }
+        alert.showError("에러 발생", subTitle: "다운로드에 문제가 있습니다")
+    }
+    
+    /**
      Customize the tableview's look and feel
      */
     func customizeViews() {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.separatorColor = .separatorLineColor()
+        
     }
-    
+
     // MARK: - UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -207,12 +231,44 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         // 프로토콜 delegate 설정
         cell.delegate = self
         
-        // tag 설정
-        // 라이크 버튼 - 태그 1, 사진 이미지 - 태그 2
+        // tag 설정 
+        // 프로필 이름 및 이미지 - 태그 0 
+        // 라이크 버튼 - 태그 1, 코멘트 버튼 - 태그 2, 공유 버튼 - 태그 3
+        // 라이크 개수 - 태그 4, 코멘트 개수 - 태그 5
+        // 사진 콜렉션 - 태그 6
+        // 추가 버튼 - 태그 7, 더 보기 버튼 - 태그 8
         // indexPath.row + 태그 숫자로 숫자를 조합 0,1,2,3,4,5 / 10,11,12,13,14,15 / 20,21,22,23,24,25 등
         
+        cell.nicknameLabel.tag = (indexPath.row*10)+0
+        cell.profileImageView.tag = (indexPath.row*10)+0
+        
         cell.likeButton.tag = (indexPath.row*10)+01
-        cell.singleImage?.tag = (indexPath.row*10)+02
+        cell.commentButton.tag = (indexPath.row*10)+02
+        cell.shareButton.tag = (indexPath.row*10)+03
+        cell.likeNumberLabel.tag = (indexPath.row*10)+04
+        cell.commentNumberLabel.tag = (indexPath.row*10)+05
+        cell.singleImage?.tag = (indexPath.row*10)+06
+        cell.moreButton.tag = (indexPath.row*10)+07
+        cell.readMoreButton.tag = (indexPath.row*10)+08
+        
+        // 프로필 이미지랑 닉네임 설정
+        if let user = story.writer {
+            let nickname = user.getProperty("nickname") as! String
+            cell.nicknameLabel.text = nickname
+            
+            if let profileURL = user.getProperty("profileURL") {
+                if profileURL is NSNull {
+                    cell.profileImageView.image = #imageLiteral(resourceName: "user_profile")
+                } else {
+                    let url = URL(string: profileURL as! String)
+                    cell.profileImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                }
+            }
+        } else {
+            //  삭제된 유저의 경우
+            cell.nicknameLabel.text = "탈퇴 유저"
+            cell.profileImageView.image = #imageLiteral(resourceName: "user_profile")
+        }
         
         // 라이크버튼 설정 - 라이크 모양은 여기서 컨트롤, delegate에서 user 라이크 컨트롤
         // checklike를 하지 말고 우선 이미지 모양에 따라 바꿔주자
@@ -262,21 +318,14 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             let likeNumbers = matchingLikes?.totalObjects
             
             DispatchQueue.main.async {
-                if likeNumbers == 0 {
-                    cell.likeNumberLabel.isHidden = true
-                } else {
-                    cell.likeNumberLabel.text = String(describing: likeNumbers!)
-                }
+                cell.likeNumberLabel.text = String(describing: likeNumbers!) + "개의 좋아요"
             }
             
         }
-    
         
         cell.bodyTextLabel.text = story.bodyText
         cell.bodyTextLabel.setLineHeight(lineHeight: 2)
         
-        // 더 보기 버튼 세팅하기 
-        /*
         if let textheight = cell.bodyTextLabel.text?.height(withConstrainedWidth: cell.bodyTextLabel.frame.width, font: cell.bodyTextLabel.font) {
             if cell.bodyTextLabel.intrinsicContentSize.height < textheight {
                 cell.readMoreButton.isHidden = false
@@ -284,7 +333,27 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 cell.readMoreButton.isHidden = true
             }
         }
-        */
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            // 댓글수 찾기
+            let tempStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
+            
+            let storyId = story.objectId!
+            let dataQuery = BackendlessDataQuery()
+            // 이 스토리에 달린 댓글 모두 몇 개인지 찾기 
+            dataQuery.whereClause = "to = '\(storyId)'"
+            
+            DispatchQueue.main.async {
+                tempStore?.find(dataQuery, response: { (collection) in
+                    let comments = collection?.data as! [StoryComment]
+                    
+                        cell.commentNumberLabel.text = String(comments.count) + "개의 이야기"
+                    
+                }, error: { (Fault) in
+                    print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
+                })
+            }
+        }
         
         DispatchQueue.global(qos: .userInteractive).async {
             if let photoList = (story.imageArray?.components(separatedBy: ",")) {
@@ -298,7 +367,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 
                 if photoList.count > 1 {
                     cell.morePhotoButton.isHidden = false
-                    // cell.readMoreButton.isHidden = false
+                    cell.readMoreButton.isHidden = false
                 } else {
                     cell.morePhotoButton.isHidden = true
                 }
@@ -307,48 +376,51 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             
         }
         
+        cell.timeLabel.text = dateFormatter.string(from: story.created! as Date)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let height = NSNumber(value: Float(cell.frame.size.height))
+        heightAtIndexPath.setObject(height, forKey: indexPath as NSCopying)
         
         if let postCell = cell as? StoryTableViewCell {
             postCell.alpha = 0
-            let transform = CATransform3DTranslate(CATransform3DIdentity, 0, 20, 0)
-            cell.layer.transform = transform
             
-            UIView.animate(withDuration: 1.5, animations: {
+            UIView.animate(withDuration: 1.5, animations: { 
                 postCell.alpha = 1
-                cell.layer.transform = CATransform3DIdentity
             })
         }
         
         /*
-         // 1. 초기 상태 정의
-         cell.alpha = 0
-         let transform = CATransform3DTranslate(CATransform3DIdentity, -250, 20, 0)
-         cell.layer.transform = transform
-         
-         // 2. 애니메이션
-         UIView.animate(withDuration: 1.5) {
-         cell.alpha = 1.0
-         cell.layer.transform = CATransform3DIdentity
-         }
-         */
-    }
-
-    // 사진 하나당 높이는 너비로
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let width = UIScreen.main.bounds.width
-        return width
+        // 1. 초기 상태 정의
+        cell.alpha = 0
+        let transform = CATransform3DTranslate(CATransform3DIdentity, -250, 20, 0)
+        cell.layer.transform = transform
+        
+        // 2. 애니메이션
+        UIView.animate(withDuration: 1.5) {
+            cell.alpha = 1.0
+            cell.layer.transform = CATransform3DIdentity
+        }
+        */
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetail", sender: indexPath.row)
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let height = heightAtIndexPath.object(forKey: indexPath) as? NSNumber {
+            return CGFloat(height.floatValue)
+        } else {
+            return UITableViewAutomaticDimension
+        }
     }
     
     // MARK: - Interation Handling
-    // 라이크 버튼 - 태그 1, 사진 이미지 - 태그 2
+    // 프로필 이름 및 이미지 - 태그 0
+    // 라이크 버튼 - 태그 1, 코멘트 버튼 - 태그 2, 공유 버튼 - 태그 3
+    // 라이크 개수 - 태그 4, 코멘트 개수 - 태그 5
+    // 사진 - 태그 6
+    // moreButton - 태그 7 (신고), readMoreButton - 태그 8
     // indexPath.row + 태그 숫자로 숫자를 조합, 10으로 나눈 숫자가 indexPath.row / 나머지가 태그
     
     func actionTapped(tag: Int) {
@@ -356,30 +428,54 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         let realTag = tag%10
         
         switch realTag {
-        case 1:
-            print("Like Button Clicked")
-            // 라이크 변경 함수 콜 - changeLike
-            self.checkLike(row, completionHandler: { (success) in
-                print("체크 라이크 결과: \(success)")
-                if success {
-                    // 이미 있을 때 - 삭제
-                    self.changeLike(row, true, completionHandler: { (success) in
-                        print(success)
-                    })
-                } else {
-                    // 아직 없을 때 - 추가
-                    self.changeLike(row, false, completionHandler: { (success) in
-                        print(success)
-                    })
-                }
-            })
+            case 0:
+                print("Move to Profile View")
+            case 1:
+                print("Like Button Clicked")
+                // 라이크 변경 함수 콜 - changeLike
+                self.checkLike(row, completionHandler: { (success) in
+                    print("체크 라이크 결과: \(success)")
+                    if success {
+                        // 이미 있을 때 - 삭제
+                        self.changeLike(row, true, completionHandler: { (success) in
+                            print(success)
+                        })
+                    } else {
+                        // 아직 없을 때 - 추가
+                        self.changeLike(row, false, completionHandler: { (success) in
+                            print(success)
+                        })
+                    }
+                })
+                
             
-        case 2:
-            performSegue(withIdentifier: "showDetail", sender: row)
-            verticalContentOffset = tableView.contentOffset.y
-            
-        default:
-            print("Some other action")
+            case 2:
+                print("Comment Button Clicked")
+                // 코멘트 액션
+                performSegue(withIdentifier: "showComments", sender: row)
+                verticalContentOffset = tableView.contentOffset.y
+            case 3:
+                print("Share Button Clicked")
+                // 공유 액션
+                self.shareButtonPressed(row)
+            case 4:
+                print("Show Like Users: \(row)")
+                // 좋아하는 유저들 보여주기
+            case 5:
+                print("Show Comments: \(row)")
+                performSegue(withIdentifier: "showComments", sender: row)
+                verticalContentOffset = tableView.contentOffset.y
+            case 6:
+                print("Show Photos: \(row)")
+                // self.showPhoto(row)
+            case 7:
+                print("Show Report: \(row)")
+                self.sendEmail(row)
+            case 8:
+                performSegue(withIdentifier: "showDetail", sender: row)
+                verticalContentOffset = tableView.contentOffset.y
+            default:
+                print("Some other action")
         }
     }
     
@@ -412,7 +508,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
     
     // 라이크가 체크되어있는지를 확인
     func checkLike(_ row: Int, completionHandler: @escaping (_ success: Bool) -> Void) {
-        
+
         let userID = Backendless.sharedInstance().userService.currentUser.objectId
         let selectedStoryID = StoryArray[row].objectId
         // 기본은 라이크가 체크되어 있지 않다
@@ -437,15 +533,15 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         }, error: { (Fault) in
             print("에러: \(String(describing: Fault?.description))")
         })
-        
+
     }
     
-    /**
-     라이크를 변경, 현재 상태를 확인하고 라이크 개수 변경
+    /** 
+       라이크를 변경, 현재 상태를 확인하고 라이크 개수 변경
      : param: row 어떤 스토리인지 확인이 가능하고 나중에 reload를 위한 parameter
      : param: completionHandler
-     */
-    
+    */
+
     func changeLike(_ row: Int, _ nowLike: Bool, completionHandler: @escaping (_ success: Bool) -> Void) {
         print("Change like")
         let selectedStory = StoryArray[row]
@@ -478,8 +574,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 
                 // 우선 해당 테이블 row만 refresh해보자
                 //DispatchQueue.main.async(execute: {
-                let indexPath = IndexPath(row: row, section: 0)
-                self.tableView.reloadRows(at: [indexPath], with: .none)
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
                 //})
                 
             }, error: { (Fault) in
@@ -525,8 +621,36 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         }
     }
     
+    // 신고 이메일 현재 수신인: ourpro.choi@gmail.com
+    func sendEmail(_ row: Int) {
+        let userEmail = Backendless.sharedInstance().userService.currentUser.email
+        let selectedStory = StoryArray[row]
+        
+        let subject = "스토리 게시물 신고 이메일"
+        let body = "신고 사용자: \(userEmail!).\n 신고한 게시물은 이 게시물입니다. ID: \(String(describing: selectedStory.objectId!))"
+        let recipient = "ourpro.choi@gmail.com"
+        Backendless.sharedInstance().messagingService.sendHTMLEmail(subject, body: body, to: [recipient], response: { (response) in
+            SCLAlertView().showSuccess("신고 완료", subTitle: "제출되었습니다")
+        }) { (Fault) in
+            print("Server reported an error: \(String(describing: Fault?.description))")
+        }
+    }
     
-    // MARK: - Segue
+    /// 공유를 위한 함수
+    func shareButtonPressed(_ row: Int) {
+        let selectedStory = StoryArray[row]
+        
+        let shareText = "이 스토리를 펫시티에서 같이 봐주세요!"
+        if let bodyText = selectedStory.bodyText {
+            let activityViewController = UIActivityViewController(activityItems: [ shareText, bodyText ], applicationActivities: nil)
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            let activityViewController = UIActivityViewController(activityItems: [ shareText ], applicationActivities: nil)
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Segue 
     override func prepare(for segue: UIStoryboardSegue, sender: Any? ) {
         if segue.identifier == "showComments" {
             let index = sender as! Int
@@ -556,3 +680,4 @@ extension Array where Element: Equatable {
     }
 }
 
+*/

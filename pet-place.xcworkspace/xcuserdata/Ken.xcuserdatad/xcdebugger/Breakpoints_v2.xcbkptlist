@@ -2296,14 +2296,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "pet-place/StoryTableViewCell.swift"
-            timestampString = "512474762.877197"
+            filePath = "pet-place/StoryViewController.swift"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "StoryTableViewCell"
-            landmarkType = "3">
+            startingLineNumber = "1031"
+            endingLineNumber = "1031">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2313,29 +2311,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
-            landmarkName = "StoryViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "477"
-            endingLineNumber = "477"
-            landmarkName = "showPhoto(_:)"
-            landmarkType = "7">
+            startingLineNumber = "1023"
+            endingLineNumber = "1023">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -2377,13 +2357,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "535"
-            endingLineNumber = "535"
-            landmarkName = "changeLike(_:_:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "1081"
+            endingLineNumber = "1081">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2393,13 +2371,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
-            landmarkName = "StoryViewController"
-            landmarkType = "3">
+            startingLineNumber = "1063"
+            endingLineNumber = "1063">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2409,13 +2385,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
-            landmarkName = "StoryViewController"
-            landmarkType = "3">
+            startingLineNumber = "1062"
+            endingLineNumber = "1062">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2425,13 +2399,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "486"
-            endingLineNumber = "486"
-            landmarkName = "checkLike(_:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "1032"
+            endingLineNumber = "1032">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2441,13 +2413,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
-            landmarkName = "changeLike(_:_:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "1067"
+            endingLineNumber = "1067">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2457,13 +2427,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
-            landmarkName = "changeLike(_:_:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "1069"
+            endingLineNumber = "1069">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2873,13 +2841,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514643185.61333"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "downloadStory()"
-            landmarkType = "7">
+            startingLineNumber = "649"
+            endingLineNumber = "649">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3113,13 +3079,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
-            landmarkName = "checkLike(_:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "1039"
+            endingLineNumber = "1039">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3129,13 +3093,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "466"
-            endingLineNumber = "466"
-            landmarkName = "showPhoto(_:)"
-            landmarkType = "7">
+            startingLineNumber = "1012"
+            endingLineNumber = "1012">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3337,13 +3299,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
-            landmarkName = "shareButtonPressed(_:)"
-            landmarkType = "7">
+            startingLineNumber = "1168"
+            endingLineNumber = "1168">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4408,13 +4368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514643185.61333"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "presentLoginViewController()"
-            landmarkType = "7">
+            startingLineNumber = "632"
+            endingLineNumber = "632">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4424,13 +4382,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514643185.61333"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "presentLoginViewController()"
-            landmarkType = "7">
+            startingLineNumber = "634"
+            endingLineNumber = "634">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5026,13 +4982,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514722428.129914"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
-            landmarkName = "changeLike(_:_:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "1089"
+            endingLineNumber = "1089">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5090,13 +5044,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514713076.879193"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "826"
+            endingLineNumber = "826">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -5138,13 +5090,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/StoryViewController.swift"
-            timestampString = "514713666.87297"
+            timestampString = "514834413.336111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "864"
+            endingLineNumber = "864">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
