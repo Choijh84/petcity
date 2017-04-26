@@ -132,4 +132,29 @@ class PhotoManager: NSObject {
             
         }
     }
+    
+    /**
+     Azure Storage에 지정된 파일 url을 삭제하는 함수
+     */
+    
+    func deleteStoryFile(selectedUrl: String, completionblock: @escaping (_ success: Bool, _ errorMessage: String?) -> ()) {
+        let account = try! AZSCloudStorageAccount(fromConnectionString: azureConnectionString)
+        
+        let blobClient : AZSCloudBlobClient = account.getBlobClient()
+        let blobContainer : AZSCloudBlobContainer = blobClient.containerReference(fromName: "story-images")
+        
+        // 컨테이너 이름까지는 필요없음
+        let fileName = selectedUrl.replacingOccurrences(of: "https://petcity.blob.core.windows.net/story-images/", with: "")
+        print("지울 파일 경로: \(selectedUrl)")
+        print("지울 파일 이름: \(fileName)")
+        let blockBlob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
+        
+        blockBlob.delete { (error) in
+            if error != nil {
+                print("Error in delete blob: \(String(describing: error?.localizedDescription))")
+            } else {
+                print("Delete success")
+            }
+        }
+    }
 }

@@ -42,7 +42,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "코멘트"
+        title = "수다들"
         
         // height setting
         tableView.estimatedRowHeight = 90

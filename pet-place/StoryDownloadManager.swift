@@ -72,9 +72,6 @@ class StoryDownloadManager: NSObject {
         newStory.writer = UserManager.currentUser()
         newStory.imageArray = fileURL
         
-        newStory.likeNumbers = 0
-        newStory.commentNumbers = 0
-        
         dataStore1?.save(newStory, response: { (response) in
             print("Story has beed added: \(String(describing: response))")
             completionBlock(true, nil)
@@ -133,6 +130,41 @@ class StoryDownloadManager: NSObject {
         }, error: { (Fault) in
             completionBlock(nil, Fault?.description)
         })
+    }
+    
+    /// 스토리 삭제하기 - param: storyID
+    func deleteStory(_ storyID: String, completionBlock: @escaping (_ success: Bool, _ errorMessage: String?) -> ()) {
+        
+        dataStore1?.findID(storyID, response: { (response) in
+            let responseStory = response as! Story
+            if let imageArray = responseStory.imageArray?.components(separatedBy: ",") {
+                
+                for image in imageArray {
+                    // 관련 사진 지우기
+                    PhotoManager().deleteStoryFile(selectedUrl: image, completionblock: { (success, error) in
+                        if success {
+                            
+                        } else {
+                            print("사진 삭제 에러: \(String(describing: error?.description))")
+                        }
+                    })
+                }
+                
+                // 스토리 삭제하기
+                self.dataStore1?.removeID(storyID, response: { (success) in
+                    print("스토리 삭제 완료 \(String(describing: success))")
+                    completionBlock(true, nil)
+                }, error: { (Fault) in
+                    print("스토리 삭제에 문제가 있습니다: \(String(describing: Fault?.description))")
+                    completionBlock(false, Fault?.description)
+                })
+            }
+            
+        }, error: { (Fault) in
+            print("스토리 로딩에 문제가 있습니다: \(String(describing: Fault?.description))")
+            completionBlock(false, Fault?.description)
+        })
+        
     }
     
     /**

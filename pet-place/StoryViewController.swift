@@ -50,6 +50,9 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         tableView.estimatedRowHeight = 450
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        // 스크롤뷰 
+        tableView.decelerationRate = UIScrollViewDecelerationRateFast
+        
         customizeViews()
         
         let user = Backendless.sharedInstance().userService.currentUser
@@ -71,6 +74,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         
         // 업로드가 된걸 노티 받으면 바로 refresh
         NotificationCenter.default.addObserver(self, selector: #selector(StoryViewController.refresh), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
+        // 삭제된걸 노티 받으면 refresh
+        NotificationCenter.default.addObserver(self, selector: #selector(StoryViewController.refresh), name: NSNotification.Name(rawValue: "changed"), object: nil)
         
         super.viewDidLoad()
     }
@@ -203,7 +208,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! StoryTableViewCell
         
         let story = StoryArray[indexPath.row]
-        story.commentNumbers = story.comments.count
+
         // 프로토콜 delegate 설정
         cell.delegate = self
         
@@ -258,19 +263,22 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             queryOptions.pageSize = 1
             countQuery.queryOptions = queryOptions
             
-            let matchingLikes = likeStore?.find(countQuery)
-            let likeNumbers = matchingLikes?.totalObjects
-            
-            DispatchQueue.main.async {
-                if likeNumbers == 0 {
-                    cell.likeNumberLabel.isHidden = true
-                } else {
-                    cell.likeNumberLabel.text = String(describing: likeNumbers!)
+            DispatchQueue.global(qos: .userInteractive).async {
+                let matchingLikes = likeStore?.find(countQuery)
+                let likeNumbers = matchingLikes?.totalObjects
+                
+                DispatchQueue.main.async {
+                    if likeNumbers == 0 {
+                        UIView.animate(withDuration: 0.3, animations: { 
+                            cell.likeNumberLabel.isHidden = true
+                            cell.layoutIfNeeded()
+                        })
+                    } else {
+                        cell.likeNumberLabel.text = String(describing: likeNumbers!)
+                    }
                 }
             }
-            
         }
-    
         
         cell.bodyTextLabel.text = story.bodyText
         cell.bodyTextLabel.setLineHeight(lineHeight: 2)
@@ -314,12 +322,12 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         
         if let postCell = cell as? StoryTableViewCell {
             postCell.alpha = 0
-            let transform = CATransform3DTranslate(CATransform3DIdentity, 0, 20, 0)
-            cell.layer.transform = transform
+            // let transform = CATransform3DTranslate(CATransform3DIdentity, 0, 40, 0)
+            // cell.layer.transform = transform
             
-            UIView.animate(withDuration: 1.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 postCell.alpha = 1
-                cell.layer.transform = CATransform3DIdentity
+                // cell.layer.transform = CATransform3DIdentity
             })
         }
         

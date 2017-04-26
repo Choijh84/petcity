@@ -22,25 +22,7 @@ class Story: NSObject {
     var writer: BackendlessUser!
     
     /// 이미지 링크 배열
-    var imageArray: String? 
-    
-    /// 라이크 누른 사람
-    /// 라이크 개수
-    var likeNumbers = 0
-    var likeUsers: [BackendlessUser] = [] {
-        didSet {
-            self.likeNumbers = Int((likeUsers.count as NSNumber?)!)
-        }
-    }
-    
-    /// 달린 리플
-    /// 리플 개수
-    var commentNumbers = 0
-    var comments: [Comment] = [] {
-        didSet {
-            self.commentNumbers = Int(comments.count)
-        }
-    }
+    var imageArray: String?
     
     /// time when the Story was created
     var created: Date!
