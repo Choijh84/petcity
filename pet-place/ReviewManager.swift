@@ -90,12 +90,15 @@ class ReviewManager: NSObject {
         let blobClient : AZSCloudBlobClient = account.getBlobClient()
         let blobContainer : AZSCloudBlobContainer = blobClient.containerReference(fromName: containerName)
         
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId!
+        let partOfID = objectID.substring(to: 8)
+        
         if let images = selectedImages {
             for var i in 0..<images.count {
                 myGroup.enter()
                 blobContainer.createContainerIfNotExists(with: .blob, requestOptions: nil, operationContext: nil) { (error, success) in
                     // 여기서 이름 정하고
-                    let fileName = String(format: "uploaded_%0.0f\(i).png", Date().timeIntervalSince1970)
+                    let fileName = String(format: "\(String(describing: partOfID))__%0.0f\(i).png", Date().timeIntervalSince1970)
                     let blob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
                     // 이미지 데이터를 생성
                     let imageData = UIImagePNGRepresentation(images[i].compressImage(images[i]))
@@ -343,14 +346,9 @@ class ReviewManager: NSObject {
         // 새로운 리뷰 코멘트 생성
         let newComment = ReviewComment()
         newComment.bodyText = text
-        newComment.writer = UserManager.currentUser()
-        
-        // 리뷰코멘트의 프로퍼티에도 배당
-        newComment.review = review
+        newComment.by = UserManager.currentUser()!.objectId as String!
+        newComment.to = review.objectId!
         newComment.created = Date()
-        
-        // 리뷰의 코멘트 배열에도 추가
-        review.comments.append(newComment)
         
         dataStore2?.save(newComment, response: { (response) in
             print("ReviewComment has beed added: \(String(describing: response))")

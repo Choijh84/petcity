@@ -28,6 +28,7 @@ class CommentTableViewCell: UITableViewCell {
     
     // 생략하자
     @IBOutlet weak var likeButton: UIButton!
+    
     // 편집과 삭제 버튼은 본인의 스토리에만 노출되게
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!

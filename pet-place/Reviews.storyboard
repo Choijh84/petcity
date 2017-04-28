@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="D6s-xI-gKh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="D6s-xI-gKh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -131,22 +131,6 @@
                                 <color key="textColor" red="0.078431372550000003" green="0.01176470588" blue="0.20000000000000001" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxB-TB-ONj">
-                                <rect key="frame" x="87" y="348.5" width="200" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="4oc-YI-ygD"/>
-                                    <constraint firstAttribute="width" constant="200" id="RFB-bg-HXq"/>
-                                    <constraint firstAttribute="height" constant="50" id="cHb-22-hxY"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="zdo-Cf-ChI"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
-                                <state key="normal" title="+ 사진 고르기">
-                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="addImageButtonPressed" destination="DMM-K5-PTO" eventType="touchUpInside" id="Y5a-WO-5RB"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="상세한 리뷰는 다른 분께 큰 도움이 됩니다!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Qd-AK-vE8">
                                 <rect key="frame" x="15" y="108.5" width="345" height="120"/>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -154,14 +138,14 @@
                                     <constraint firstAttribute="height" constant="120" id="PQ9-hz-DKx"/>
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                 <connections>
                                     <outlet property="delegate" destination="DMM-K5-PTO" id="68X-Kb-acB"/>
                                 </connections>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q3G-cF-kbs">
-                                <rect key="frame" x="15" y="238.5" width="345" height="100"/>
+                                <rect key="frame" x="15" y="298" width="345" height="100"/>
                                 <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="0.37264554794520549" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="PDS-EO-Aw5"/>
@@ -208,6 +192,20 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxB-TB-ONj">
+                                <rect key="frame" x="88" y="238.5" width="200" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="RFB-bg-HXq"/>
+                                    <constraint firstAttribute="height" constant="50" id="cHb-22-hxY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
+                                <state key="normal" title="+ 사진 고르기">
+                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="addImageButtonPressed" destination="DMM-K5-PTO" eventType="touchUpInside" id="Y5a-WO-5RB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -217,13 +215,13 @@
                             <constraint firstItem="gfg-HS-GuF" firstAttribute="top" secondItem="oTJ-vx-aNp" secondAttribute="bottom" constant="20" id="Acp-jp-XhA"/>
                             <constraint firstItem="oTJ-vx-aNp" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="AkN-r2-96J"/>
                             <constraint firstItem="5Qd-AK-vE8" firstAttribute="leading" secondItem="kqB-vk-cuq" secondAttribute="leading" constant="15" id="QPM-pe-Fak"/>
-                            <constraint firstItem="FxB-TB-ONj" firstAttribute="top" secondItem="Q3G-cF-kbs" secondAttribute="bottom" constant="10" id="TCJ-iv-x58"/>
                             <constraint firstItem="Q3G-cF-kbs" firstAttribute="leading" secondItem="kqB-vk-cuq" secondAttribute="leading" constant="15" id="UlE-9z-Emx"/>
                             <constraint firstItem="5Qd-AK-vE8" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="Xt5-kI-EQI"/>
+                            <constraint firstItem="FxB-TB-ONj" firstAttribute="top" secondItem="5Qd-AK-vE8" secondAttribute="bottom" constant="10" id="aEg-xS-Abo"/>
+                            <constraint firstItem="Q3G-cF-kbs" firstAttribute="top" secondItem="FxB-TB-ONj" secondAttribute="bottom" constant="10" id="eHK-nW-Ujg"/>
                             <constraint firstItem="gfg-HS-GuF" firstAttribute="centerY" secondItem="zEs-xB-0eI" secondAttribute="centerY" id="fYk-jv-OLZ"/>
                             <constraint firstAttribute="trailing" secondItem="5Qd-AK-vE8" secondAttribute="trailing" constant="15" id="lyT-UT-L7v"/>
                             <constraint firstItem="FxB-TB-ONj" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="vva-RY-qjj"/>
-                            <constraint firstItem="Q3G-cF-kbs" firstAttribute="top" secondItem="5Qd-AK-vE8" secondAttribute="bottom" constant="10" id="yOA-fm-Rlt"/>
                             <constraint firstAttribute="trailing" secondItem="Q3G-cF-kbs" secondAttribute="trailing" constant="15" id="ycK-Ly-fwf"/>
                             <constraint firstItem="gfg-HS-GuF" firstAttribute="centerX" secondItem="kqB-vk-cuq" secondAttribute="centerX" id="z48-Vm-lnf"/>
                         </constraints>

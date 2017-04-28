@@ -17,12 +17,16 @@ class PerformSearchViewController: UIViewController, UITableViewDelegate, UITabl
     var filteredStoreArray = [Store]()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         title = "장소 검색"
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        super.viewDidLoad()
+        
+        tableView.hideLoadingIndicator()
         // Do any additional setup after loading the view.
-        downloadStoreList()
-        searchBarSetup()
+        // downloadStoreList()
+        // searchBarSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +34,7 @@ class PerformSearchViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    /*
     func searchBarSetup() {
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 70))
         
@@ -81,8 +86,10 @@ class PerformSearchViewController: UIViewController, UITableViewDelegate, UITabl
             })
         }
     }
-
+    */
+    
     // MARK: - Tableview method
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -94,7 +101,18 @@ class PerformSearchViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        cell.textLabel!.text = filteredStoreArray[indexPath.row].name
+        let store = filteredStoreArray[indexPath.row]
+        
+        if let name = store.name {
+            cell.textLabel?.text = name
+        } else {
+            cell.textLabel?.text = "장소 이름 입력 필요"
+        }
+        if let address = store.address {
+            cell.detailTextLabel?.text = address
+        } else {
+            cell.detailTextLabel?.text = "주소 입력 필요"
+        }
         
         return cell
     }

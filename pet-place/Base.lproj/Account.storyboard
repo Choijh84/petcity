@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -1095,7 +1095,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="petcity@petcity.com" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S1W-uT-oXm">
-                                <rect key="frame" x="16" y="108.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="109" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rmf-NH-3gq"/>
                                 </constraints>
@@ -1104,7 +1104,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iP-I7-rpe">
-                                <rect key="frame" x="112" y="188" width="150" height="45"/>
+                                <rect key="frame" x="112" y="188.5" width="150" height="45"/>
                                 <color key="backgroundColor" red="0.83153553299492389" green="0.83153553299492389" blue="0.83153553299492389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="BEt-Uj-k4Z"/>
@@ -1118,7 +1118,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-9s-DxL">
-                                <rect key="frame" x="254" y="59.5" width="45" height="24"/>
+                                <rect key="frame" x="254" y="60" width="45" height="24"/>
                                 <color key="backgroundColor" red="0.83153553300000005" green="0.83153553300000005" blue="0.83153553300000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="dLL-CY-5iK"/>
@@ -1531,7 +1531,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휴대폰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-CX-ieC">
-                                <rect key="frame" x="16" y="304.5" width="38" height="15.5"/>
+                                <rect key="frame" x="16" y="305" width="38" height="15.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1555,7 +1555,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94g-jW-IdP">
-                                <rect key="frame" x="138" y="127.5" width="77" height="12.5"/>
+                                <rect key="frame" x="138" y="127" width="77" height="12.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1588,7 +1588,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UY7-Fj-ewp">
-                                <rect key="frame" x="16" y="340" width="278" height="30"/>
+                                <rect key="frame" x="16" y="340.5" width="278" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="14"/>
@@ -1620,7 +1620,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oP6-D3-yLc">
-                                <rect key="frame" x="313" y="341.5" width="46" height="27"/>
+                                <rect key="frame" x="313" y="342" width="46" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                 <state key="normal" title="인증">
@@ -2300,7 +2300,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="2Ga-Md-e5z">
-                                <rect key="frame" x="26" y="101.5" width="323" height="351"/>
+                                <rect key="frame" x="26" y="102" width="323" height="351"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="haY-es-nDx">
                                         <rect key="frame" x="91.5" y="0.0" width="140" height="120"/>
@@ -2359,17 +2359,17 @@
                                         <rect key="frame" x="0.0" y="150" width="323" height="85.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="neu-01-JSy">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="85.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="64.5" height="85.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gv-cn-PU0" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="65.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="64.5" height="65.5"/>
                                                         <state key="normal" image="pet-footprint1"/>
                                                         <connections>
                                                             <action selector="petProfileButtonPressed:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="D2c-8f-Iu0"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="펫 프로필" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZZm-0Y-1Mh">
-                                                        <rect key="frame" x="0.0" y="70.5" width="65.5" height="15"/>
+                                                        <rect key="frame" x="0.0" y="70.5" width="64.5" height="15"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="e0a-eC-0Tm"/>
                                                         </constraints>
@@ -2380,7 +2380,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pHe-hH-7i8">
-                                                <rect key="frame" x="126.5" y="0.0" width="71.5" height="85.5"/>
+                                                <rect key="frame" x="126" y="0.0" width="71.5" height="85.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlj-sT-TXD" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="71.5" height="64"/>
@@ -3190,7 +3190,7 @@
         <image name="favorite-heart1" width="64" height="64"/>
         <image name="help1" width="64" height="64"/>
         <image name="id-card1" width="32" height="32"/>
-        <image name="imageplaceholder" width="500" height="500"/>
+        <image name="imageplaceholder" width="600" height="360"/>
         <image name="male-and-female1" width="32" height="32"/>
         <image name="medical-records1" width="32" height="32"/>
         <image name="myProfile" width="21" height="26"/>

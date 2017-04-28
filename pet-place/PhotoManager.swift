@@ -61,13 +61,17 @@ class PhotoManager: NSObject {
         
         let blobClient : AZSCloudBlobClient = account.getBlobClient()
         let blobContainer : AZSCloudBlobContainer = blobClient.containerReference(fromName: container)
+        
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId!
+        let partOfID = objectID.substring(to: 8)
+        
         blobContainer.createContainerIfNotExists(with: .blob, requestOptions: nil, operationContext: nil) { (error, success) in
             if error != nil {
                 print("There is an error in creating container")
                 completionBlock(false, nil, error?.localizedDescription)
             } else {
                 // 여기서 이름 정하고
-                let fileName = String(format: "uploaded_%0.0f.png", Date().timeIntervalSince1970)
+                let fileName = String(format: "\(String(describing: partOfID))_uploaded_%0.0f.png", Date().timeIntervalSince1970)
                 let blob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
                 // 이미지 데이터를 생성
                 let imageData = UIImagePNGRepresentation(selectedFile.compressImage(selectedFile))
@@ -80,6 +84,7 @@ class PhotoManager: NSObject {
                     } else {
                         print("Upload Success to Azure")
                         let url = "https://petcity.blob.core.windows.net/\(container)/\(fileName)"
+                        print("This is uploaded photo url: \(url)")
                         completionBlock(true, url, nil)
                     }
                 })

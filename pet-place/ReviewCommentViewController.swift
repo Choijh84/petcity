@@ -11,6 +11,7 @@ import SCLAlertView
 
 class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentTableViewCellProtocol  {
 
+    // 어떤 리뷰인지 ReviewVC로부터 받아옴
     var selectedReview = Review()
     
     var commentArray = [ReviewComment]()
@@ -28,6 +29,9 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
                     self.commentTextField.resignFirstResponder()
                     self.commentTextField.text = ""
                     self.setUpCommentArray()
+                    
+                    // Notification 활용해서 코멘트 달린걸 알림
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewCommentChanged"), object: nil)
                 } else {
                     SCLAlertView().showWarning("에러 발생", subTitle: "확인해주세요")
                 }
@@ -49,9 +53,10 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         // tableView 아래 빈 셀들 separator 줄 안 보이게
         customizeViews()
         
-        // setUpCommentArray()
+        // 댓글 데이터 받아오기
+        setUpCommentArray()
         
-        //Looks for single or multiple taps.
+        // Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ReviewCommentViewController.dismissKeyboard))
         
         //Uncomment the line below if you want the tap not interfere and cancel other interactions.
@@ -64,35 +69,30 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        setUpCommentArray()
-        tableView.reloadData()
     }
     
     func setUpCommentArray() {
         tableView.showLoadingIndicator()
         commentArray.removeAll()
         
-        // 리뷰에서 코멘트를 다시 받음 - 다시 정보 갱신하는데 문제가 있어서 서버에서 아이디를 통해 다시 리뷰의 코멘트 정보를 받아 옴
-        let reviewId = selectedReview.objectId
+        // ReviewCommentdㅔ서 받아오기
+        let reviewId = selectedReview.objectId!
         
-        let dataStore = Backendless.sharedInstance().data.of(Review.ofClass())
-        dataStore?.findID(reviewId, response: { (response) in
-            let review = response as! Review
-            self.commentArray = review.comments
-            
-            // 생성 시간으로 정렬
-            self.commentArray = self.commentArray.sorted { (left, right) -> Bool in
-                return left.created < right.created
-            }
+        let dataStore = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
+        let dataQuery = BackendlessDataQuery()
+        dataQuery.whereClause = "to = '\(reviewId)'"
+        
+        dataStore?.find(dataQuery, response: { (collection) in
+            let comments = collection?.data as! [ReviewComment]
+            self.commentArray = comments
             
             self.tableView.reloadData()
             self.tableView.hideLoadingIndicator()
+            
         }, error: { (Fault) in
-            print("Server reported error: \(String(describing: Fault?.description))")
+            print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
             self.tableView.hideLoadingIndicator()
         })
-
-        
     }
     
     /**
@@ -118,6 +118,7 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         }, error: { (Fault) in
             print("Server reported an error to delete Review Comment: \(String(describing: Fault?.description))")
         })
+        
     }
     
     /// Calls this function when the tap is recognized.
@@ -142,19 +143,34 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         cell.delegate = self
         
         let comment = commentArray[indexPath.row]
-        // Profile image
-        if let profile = comment.writer.getProperty("profileURL") as? String {
-            let url = URL(string: profile)
-            DispatchQueue.main.async(execute: {
-                cell.profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
-            })
-        } else {
-            cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
-        }
-        // name
-        cell.nameLabel.text = comment.writer.name as String?
+        
+        // 코멘트 by 유저 찾아오기 
+        let userID = comment.by
+        let userStore = Backendless.sharedInstance().data.of(Users.ofClass())
+        
+        // 유저 찾은 이후 프로필 이미지와 이름 붙이기
+        userStore?.findID(userID, response: { (returnUser) in
+            let user = returnUser as! BackendlessUser
+            
+            // Profile 이미지 읽어오기
+            if let profile = user.getProperty("profileURL") as? String {
+                let url = URL(string: profile)
+                DispatchQueue.main.async(execute: {
+                    cell.profileImage.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                })
+            } else {
+                cell.profileImage.image = #imageLiteral(resourceName: "user_profile")
+            }
+            // 이름 붙이기
+            cell.nameLabel.text = user.name! as String?
+            
+        }, error: { (Fault) in
+            print("유저 못 찾음: \(String(describing: Fault?.description))")
+        })
+        
         // comment
         cell.commentLabel.text = comment.bodyText
+        
         // 시간은 그냥 작성된 시간 기준으로 - 편집 기능은 없앨 수도....
         let time = comment.created
         print("This is created time: \(String(describing: time))")
@@ -166,13 +182,10 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         cell.deleteButton.tag = indexPath.row
         
         // 편집 및 삭제 버튼, 아이디가 일치하면 보여주기
-        if comment.writer.objectId != Backendless.sharedInstance().userService.currentUser.objectId {
-            cell.editButton.isHidden = true
-            cell.deleteButton.isHidden = true
+        if userID != String(Backendless.sharedInstance().userService.currentUser.objectId) {
+            cell.editButton.isHidden = false
+            cell.deleteButton.isHidden = false
         }
-        
-        // editButton - 생략, 아직 구현 안함
-        cell.editButton.isHidden = true
         
         // likeButton - 생략, 아직 구현 안함
         cell.likeButton.isHidden = true
@@ -220,6 +233,4 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         }
         return returnString
     }
-
-
 }

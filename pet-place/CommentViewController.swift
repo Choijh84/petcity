@@ -159,9 +159,10 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.deleteButton.tag = indexPath.row
         
         // 편집 및 삭제 버튼, 아이디가 일치하면 보여주기
-        if userId == String(Backendless.sharedInstance().userService.currentUser.objectId) {
-            cell.editButton.isHidden = true
-            cell.deleteButton.isHidden = true
+        print("userId and objectId: \(userId) & \(String(Backendless.sharedInstance().userService.currentUser.objectId!))")
+        if userId == String(Backendless.sharedInstance().userService.currentUser.objectId!) {
+            cell.editButton.isHidden = false
+            cell.deleteButton.isHidden = false
         }
         
         // editButton - 생략, 아직 구현 안함

@@ -70,16 +70,22 @@ class StoryReviewTableViewCell: UITableViewCell {
     // 라이크버튼 누르면 액션 실행, 태그 6
     @IBAction func likeButtonClicked(_ sender: UIButton) {
         print("Like Button Clicked: \(likeButton.tag)")
+        // 버튼 너무 빨리 연속으로 못 누르게 막아놓기
+        likeButton.isUserInteractionEnabled = false
+        
         delegate?.actionTapped(tag: likeButton.tag)
+        
         // 우선 이미지 바꿔주기
         if sender.image(for: .normal) == #imageLiteral(resourceName: "like_bw") {
-            UIView.transition(with: sender, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
             }, completion: nil)
+            self.likeButton.isUserInteractionEnabled = true
         } else {
-            UIView.transition(with: sender, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
             }, completion: nil)
+            self.likeButton.isUserInteractionEnabled = true
         }
     }
     
@@ -170,7 +176,7 @@ extension StoryReviewTableViewCell : UICollectionViewDataSource, UICollectionVie
             let imageURL = self.photoList[indexPath.row]
             let url = URL(string: imageURL)
             DispatchQueue.main.async {
-                cell.imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                cell.imageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
             }
         }
         return cell
@@ -193,13 +199,13 @@ extension StoryReviewTableViewCell : UICollectionViewDataSource, UICollectionVie
         super.prepareForReuse()
         profileName.text = nil
         profileImage.image = #imageLiteral(resourceName: "user_profile")
-        storeName.text = "가게 이름"
+        storeName.text = "장소 이름"
         timeLabel.text = ""
-        reviewBody.text = "로딩 필요"
+        reviewBody.text = ""
         collectionView.isHidden = false
         pageControl.numberOfPages = 1
         likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
-        likeLabel.text = "좋아요"
-        replyLabel.text = "댓글"
+        likeLabel.text = ""
+        replyLabel.text = ""
     }
 }

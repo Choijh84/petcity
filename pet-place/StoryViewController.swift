@@ -50,7 +50,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         tableView.estimatedRowHeight = 450
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        // 스크롤뷰 
+        // 스크롤뷰 속도 조절
         tableView.decelerationRate = UIScrollViewDecelerationRateFast
         
         customizeViews()
@@ -72,8 +72,6 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             }
         }
         
-        // 업로드가 된걸 노티 받으면 바로 refresh
-        NotificationCenter.default.addObserver(self, selector: #selector(StoryViewController.refresh), name: NSNotification.Name(rawValue: "uploaded"), object: nil)
         // 삭제된걸 노티 받으면 refresh
         NotificationCenter.default.addObserver(self, selector: #selector(StoryViewController.refresh), name: NSNotification.Name(rawValue: "changed"), object: nil)
         
@@ -485,10 +483,10 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 // NotificationCenter.default.post(name: Notification.Name(rawValue: "liked"), object: nil)
                 
                 // 우선 해당 테이블 row만 refresh해보자
-                //DispatchQueue.main.async(execute: {
-                let indexPath = IndexPath(row: row, section: 0)
-                self.tableView.reloadRows(at: [indexPath], with: .none)
-                //})
+                DispatchQueue.main.async {
+                    let indexPath = IndexPath(row: row, section: 0)
+                    self.tableView.reloadRows(at: [indexPath], with: .none)
+                }
                 
             }, error: { (Fault) in
                 print("스토리를 저장하는데 에러: \(String(describing: Fault?.description))")

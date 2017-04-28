@@ -10,10 +10,11 @@ import UIKit
 import DKImagePickerController
 import SKPhotoBrowser
 import SCLAlertView
+import Kingfisher
 
 // Viewcontroller 스토리 추가할 때
 class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate, UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
     // 글 입력하는 텍스트뷰
     @IBOutlet weak var textView: UITextView!
     // 텍스트뷰의 플레이스홀더
@@ -24,6 +25,7 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
     
     /// Imagepicker by DKImagePickerController
     var pickerController: DKImagePickerController!
+    
     /// 이미지 픽업된 이후 저장하는 배열
     var assets: [DKAsset]?
     var imageArray = [UIImage]()
@@ -79,6 +81,7 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
                 }
             })
         }
+        
     }
     
     // MARK: image picker
@@ -112,6 +115,7 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
         
         // 텍스트뷰 플레이스 홀더 작업
         textView.delegate = self
+        
         placeholderLabel = UILabel()
         placeholderLabel.text = "스토리를 입력해주세요"
         placeholderLabel.font = UIFont(name: "Avernir Next", size: 10)
@@ -120,10 +124,9 @@ class AddStoryViewController: UIViewController, UIImagePickerControllerDelegate,
         placeholderLabel.frame.origin = CGPoint(x: 5, y: (textView.font?.pointSize)! / 2)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !textView.text.isEmpty
-        
+                
         selectImageButton.layer.cornerRadius = 4.0
         pickerController = DKImagePickerController()
-        
     }
     
     // MARK: DKIMAGE PICKER

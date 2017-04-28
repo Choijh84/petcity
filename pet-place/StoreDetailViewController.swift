@@ -209,6 +209,8 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         if let imageURL = storeToDisplay.imageURL {
             storeImageView.kf.setImage(with: URL(string: imageURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
+        } else {
+            storeImageView.image = #imageLiteral(resourceName: "imageplaceholder")
         }
         
         setupHeaderView()
@@ -216,8 +218,6 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         // Hide the navigation Bar
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-//        self.navigationController?.hidesBarsOnTap = true
-        
         
         /// Favorite List Check 
         let user = UserManager.currentUser()

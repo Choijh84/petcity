@@ -16,6 +16,7 @@ class StoryDetailViewController: UIViewController {
     var selectedStory: Story!
     
     var photoList = [String]()
+    var photoArrray = [UIImage]()
     
     @IBOutlet weak var profileImage: LoadingImageView!
     @IBOutlet weak var profileNickname: UILabel!
@@ -122,10 +123,14 @@ class StoryDetailViewController: UIViewController {
         if selectedStory.writer.objectId == UserManager.currentUser()?.objectId {
             alertView.addButton("스토리 수정") {
                 // 스토리 입력하는 곳으로
+                let storyBoard = UIStoryboard(name: "StoryAndReview", bundle: nil)
+                let destinationVC = storyBoard.instantiateViewController(withIdentifier: "EditStoryViewController") as! EditStoryViewController
+                destinationVC.selectedStory = self.selectedStory
                 
+                self.navigationController?.pushViewController(destinationVC, animated: true)
             }
             alertView.addButton("스토리 삭제") {
-                // 한 번 더 물어보기
+                // 삭제하기 전에 한 번 더 물어보기
                 let appearance = SCLAlertView.SCLAppearance(
                     showCloseButton: false
                 )
@@ -206,7 +211,6 @@ class StoryDetailViewController: UIViewController {
         bodyTextLabel.text = selectedStory.bodyText
         bodyTextLabel.setLineHeight(lineHeight: 2)
         
-        
         // 시간 설정
         timeLabel.text = dateFormatter.string(from: selectedStory.created! as Date)
         
@@ -223,7 +227,7 @@ class StoryDetailViewController: UIViewController {
         imageCollection.isUserInteractionEnabled = true
         imageCollection.addGestureRecognizer(tap)
         
-        // 코멘트 개수 - 작동 안함
+        // 코멘트 개수
         DispatchQueue.global(qos: .userInteractive).async {
             // 댓글수 찾기
             let tempStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
@@ -385,13 +389,11 @@ extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     // uicollection - UICollectionViewDelegateFlowLayout
-    // 너비 설정, 너비:높이 = 1:1, 스토리보드에서 설정함
-    /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width-10, height: width-10)
+        return CGSize(width: width, height: width)
     }
-    */
+    
 }
 
 class StoryDetailCollectionViewCell: UICollectionViewCell {

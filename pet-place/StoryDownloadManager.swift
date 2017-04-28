@@ -24,7 +24,7 @@ class StoryDownloadManager: NSObject {
     /// Store object that handles downloading of Story objects
     let dataStore1 = Backendless.sharedInstance().persistenceService.of(Story.self)
     /// Store object that handles downloading of Comment objects
-    let dataStore2 = Backendless.sharedInstance().data.of(Comment.self)
+    // let dataStore2 = Backendless.sharedInstance().data.of(Comment.self)
     
     let dataStore3 = Backendless.sharedInstance().data.of(StoryComment.ofClass())
     
@@ -300,12 +300,15 @@ class StoryDownloadManager: NSObject {
         let blobClient : AZSCloudBlobClient = account.getBlobClient()
         let blobContainer : AZSCloudBlobContainer = blobClient.containerReference(fromName: containerName)
         
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId!
+        let partOfID = objectID.substring(to: 8)
+        
         if let images = selectedFiles {
             for var i in 0..<images.count {
                 myGroup.enter()
                 blobContainer.createContainerIfNotExists(with: .blob, requestOptions: nil, operationContext: nil) { (error, success) in
                     // 여기서 이름 정하고
-                    let fileName = String(format: "uploaded_%0.0f\(i).png", Date().timeIntervalSince1970)
+                    let fileName = String(format: "\(String(describing: partOfID))_%0.0f\(i).png", Date().timeIntervalSince1970)
                     let blob : AZSCloudBlockBlob = blobContainer.blockBlobReference(fromName: fileName)
                     // 이미지 데이터를 생성
                     let imageData = UIImagePNGRepresentation(images[i].compressMore(images[i]))
@@ -337,16 +340,21 @@ class StoryDownloadManager: NSObject {
     
     
     /// 백엔드리스에 다수의 이미지를 업로드, 그러고 이미지들의 연결한 URL을 completionBlock으로 return
+    /// 이제 더 이상 사용하지 않음
     func uploadPhotos(selectedImages: [UIImage]?, completionBlock: @escaping (_ completion: Bool, _ fileURL: String, _ errorMessage: String?) -> ()) {
         var totalFileURL = ""
+        
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId!
+        let partOfID = objectID.substring(to: 8)
+        
         let myGroup = DispatchGroup()
         
         if let images = selectedImages {
             for var i in 0..<images.count {
                 myGroup.enter()
-                let fileName = String(format: "%0.0f\(i).jpeg", Date().timeIntervalSince1970)
+                let fileName = String(format: "\(String(describing: partOfID))_%0.0f\(i).png", Date().timeIntervalSince1970)
                 let filePath = "storyImages/\(fileName)"
-                let content = UIImageJPEGRepresentation(images[i].compressImage(images[i]), 1.0)
+                let content = UIImagePNGRepresentation(images[i].compressMore(images[i]))
                 
                 Backendless.sharedInstance().fileService.saveFile(filePath, content: content, response: { (uploadedFile) in
                     let fileURL = uploadedFile?.fileURL

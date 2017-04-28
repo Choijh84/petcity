@@ -346,13 +346,9 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
             PhotoManager().uploadBlobPhoto(selectedFile: compressed, container: "profile-image", completionBlock: { (success, fileURL, error) in
                 let user = Backendless.sharedInstance().userService.currentUser
                 _ = user?.setProperty("profileURL", object: fileURL)
-                
-                Backendless.sharedInstance().userService.update(user, response: { (updatedUser) in
-                    print("프로필 사진 바뀜")
-                    self.isProfilePictureChanged = false
-                }, error: { (Fault) in
-                    print("Server reported an error to update an user: \(String(describing: Fault?.description))")
-                })
+                self.isProfilePictureChanged = false
+                Backendless.sharedInstance().userService.update(user)
+                self.displayAlertView("완료", title: "프로필 사진 변경")
             })
             
         }

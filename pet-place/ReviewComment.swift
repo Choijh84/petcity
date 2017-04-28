@@ -15,16 +15,17 @@ class ReviewComment: NSObject {
     /// 본문
     var bodyText: String?
     
-    /// 어떤 스토리에 썼는지
-    var review: Review!
+    /// 어떤 리뷰에 썼는지, objectId를 저장
+    var to: String!
     
-    /// 글 쓴 사람
-    var writer: BackendlessUser!
+    /// 글 쓴 사람, objectId를 저장
+    var by: String!
     
     /// time when the comment was created
     var created: Date!
     
     /// time when the comment was updated
     var updated: Date?
+
     
 }
