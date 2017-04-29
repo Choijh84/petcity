@@ -848,7 +848,7 @@
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="A25-fC-YeO">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="45.5"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_profile" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-wv-kFb">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_profile" translatesAutoresizingMaskIntoConstraints="NO" id="OYg-wv-kFb">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="45" height="45.5"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="45" id="ZHg-kJ-4q2"/>
@@ -1273,7 +1273,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="5am-pC-o4R">
                                                     <rect key="frame" x="13" y="13" width="349" height="93"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_profile" translatesAutoresizingMaskIntoConstraints="NO" id="xug-1l-LcZ" customClass="LoadingImageView" customModule="pet_place" customModuleProvider="target">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_profile" translatesAutoresizingMaskIntoConstraints="NO" id="xug-1l-LcZ" customClass="LoadingImageView" customModule="pet_place" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="29" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="35" id="8uR-FE-VXW"/>

@@ -49,7 +49,9 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     }
     
     override func viewDidLoad() {
+        
         title = "펫시티 홈"
+        
         downloadBoth()
         super.viewDidLoad()
         

@@ -18,13 +18,16 @@ class CustomizeAppearance: NSObject {
     class func globalCustomization () {
         UINavigationBar.appearance().tintColor = UIColor.navigationTitleColor()
         UINavigationBar.appearance().barTintColor = UIColor.navigationBarColor()
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "AvenirNext-Medium", size: 16)!]    
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 18)!]
 
         UITabBar.appearance().tintColor = .globalTintColor()
         UITabBar.appearance().barTintColor = .white
 
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.tabBarTitleNormalColor(), NSFontAttributeName: UIFont.systemFont(ofSize: 10.0)], for: UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.tabBarTitleNormalColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 10)!], for: UIControlState())
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.globalTintColor()], for: .selected)
+        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName : UIFont(name: "YiSunShinDotumM", size: 12)!], for: .normal)
+
     }
 }
 

@@ -20,13 +20,14 @@ extension UIColor {
         return UIColor.rgbColor(red: gray, green: gray, blue: gray)
     }
 
-    // global colors
+    // global colors - #FFC107, Amber 500
     class func globalTintColor() -> UIColor {
-        return UIColor.rgbColor(red: 54.0, green: 54.0, blue: 54.0)
+        // return UIColor.rgbColor(red: 54.0, green: 54.0, blue: 54.0)
+        return UIColor.rgbColor(red: 255.0, green: 160.0, blue: 0.0)
     }
 
     class func navigationBarColor() -> UIColor {
-        return UIColor.globalTintColor().withAlphaComponent(0.6)
+        return UIColor.globalTintColor().withAlphaComponent(0.8)
     }
 
     class func navigationTitleColor() -> UIColor {

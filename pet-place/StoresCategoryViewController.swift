@@ -170,7 +170,6 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
      :param: sender The object that initiated the segue.
      */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /// segue name: findPlaces
         
         if segue.identifier == "findPlaces" {
             let destinationVC  = segue.destination as! StoresListImageViewController
@@ -178,17 +177,14 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
                 
                 if ((sender as AnyObject) is IndexPath) {
                     let indexPath:IndexPath = sender as! IndexPath
-                    print("This is selected store type: \(allStoreCategories[indexPath.row])")
                     destinationVC.selectedStoreType = allStoreCategories[indexPath.row]
                 } else if (sender as AnyObject).isKind(of: StoreCategory.self) {
                     let indexPath:IndexPath = sender as! IndexPath
-                    print("This is selected store type: \(allStoreCategories[indexPath.row])")
                     destinationVC.selectedStoreType = allStoreCategories[indexPath.row]
                 } else if (sender as AnyObject).isKind(of: StoreCategoryListTableViewCell.self) {
                     /// 여기서 핸들링됨
                     let cell = sender as! StoreCategoryListTableViewCell
                     let indexPath = tableView.indexPath(for: cell)
-                    print("This is selected store type: \(allStoreCategories[(indexPath?.row)!])")
                     destinationVC.selectedStoreType = allStoreCategories[(indexPath?.row)!]
                     if isConfirmedLocation == true {
                         destinationVC.pickedLocation = CLLocation(latitude: selectedLocation.latitude, longitude: selectedLocation.longitude)
@@ -201,7 +197,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     /**
-     Downloads all the Category objects
+     카테고리를 데이터베이스에서 다운로드하는 함수
      */
     func downloadStoreCategories() {
         self.tableView.showLoadingIndicator()
@@ -220,10 +216,23 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
                     if let categories = categories {
                         self.allStoreCategories = categories
                     }
+                    self.changeOrder()
                     self.tableView.reloadData()
                     self.tableView.hideLoadingIndicator()
                 }
             })
+        }
+    }
+    
+    /// 데이터베이스에 카테고리 앞에 숫자를 명기, 그 숫자대로 서버에서 받아온 이후에 숫자만 string에서 잘라낸 이후 보여주기
+    /// 예시: 01. Pet Friendly Restaurant
+    
+    func changeOrder() {
+        for allStoreCategory in allStoreCategories {
+            let name = allStoreCategory.name!
+            let cutIndex = name.index(name.startIndex, offsetBy: 4)
+            allStoreCategory.name = name.substring(from: cutIndex)
+            // print("이게 이제 카테고리 이름임: \(name.substring(from: cutIndex)) 와 index: \(index)")
         }
     }
     

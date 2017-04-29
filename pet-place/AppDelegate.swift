@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
-        
         CustomizeAppearance.globalCustomization()
         window?.tintColor = UIColor.globalTintColor()
         
@@ -129,6 +128,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Will be used to reach the user at the most optimal time of day.
         // OneSignal.syncHashedEmail(userEmail)
 
+        // 폰트 이름 체크
+        /*
+        for name in UIFont.familyNames {
+            print(name)
+            if let nameString = name as? String
+            {
+                print(UIFont.fontNames(forFamilyName: nameString))
+            }
+        }
+        */
+        
         return true
     }
     

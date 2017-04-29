@@ -695,8 +695,8 @@
 			children = (
 				EB2956FC1E16DABC0024E3E3 /* AppFonts.swift */,
 				EB2956FD1E16DABC0024E3E3 /* AppColors.swift */,
-				BED547311EA21D9200D6A2F6 /* CustomHelper.swift */,
 				EBB619921E1993C80061BCEB /* CustomizeAppearance.swift */,
+				BED547311EA21D9200D6A2F6 /* CustomHelper.swift */,
 				BEA79C481E97BD4900D92DA9 /* NMapViewResources.swift */,
 				EB2956CA1E16D4E00024E3E3 /* Assets.xcassets */,
 			);

@@ -77,7 +77,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         
         if selectedStoreType != nil {
             
-            let whereClause = "name = '\(selectedStoreType.name!)'"
+            let whereClause = "name LIKE '%%\(selectedStoreType.name!)'"
             let dataQuery = BackendlessDataQuery()
             dataQuery.whereClause = whereClause
             

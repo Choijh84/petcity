@@ -396,7 +396,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             }
         }
         
-        // 사진URL이 유효한지 체크
+        // 사진URL이 유효한지 체크, 사진이 없으면 photoStackview를 숨기자
         if let string = review.fileURL {
             cell.photoList = string.components(separatedBy: ",").sorted()
             cell.photoStackview.isHidden = false
@@ -405,9 +405,10 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         } else {
             print("There is no fileURL: \(review.text)")
             // cell.collectionView.isHidden = true
-            cell.photoStackview.isHidden = true
-            cell.pageControl.isHidden = true
-            cell.collectionView.reloadData()
+            UIView.animate(withDuration: 0.1, animations: { 
+                cell.photoStackview.isHidden = true
+                cell.pageControl.isHidden = true
+            })
         }
         
         cell.timeLabel.text = dateFormatter.string(from: review.created! as Date)
