@@ -13,7 +13,8 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
 
     @IBOutlet weak var tableView: LoadingTableView!
     
-    /// Categories that needs to be displayed
+    /// 카테고리들이 나눠서 표시되게 할려는 섹션
+    /// 현재는 섹션을 하나만 운영함
     let section = ["펫플레이스 카테고리 선택하기"]
     
     /// A handler object that responsible for getting the user's location
@@ -236,7 +237,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func cancelToCategory (segue: UIStoryboardSegue) {
-        print("Cencelled")
+        print("Cancelled")
     }
     
     @IBAction func confirmLocation (segue: UIStoryboardSegue) {
@@ -259,12 +260,12 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
         return self.section[section]
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return section.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -274,8 +275,8 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StoreCategoryListTableViewCell
         
-        // Configure the cell
         let serviceName = allStoreCategories[indexPath.row]
+        
         if let name = serviceName.name {
             cell.nameLabel.text = NSLocalizedString(name, comment: "StoreCategoryName")
         } else {
@@ -286,7 +287,7 @@ class StoresCategoryViewController: UIViewController, UITableViewDelegate, UITab
             // default image file if there is no matched image file
             cell.categoryImage.image = #imageLiteral(resourceName: "pethotel2")
         } else {
-            // Load the category image with the same name image file
+            // 카테고리 이미지는 xcode에 저장된 것으로 카테고리 명과 동일한 것으로 설정되어 있음
             // Maybe try to load the image file from the server later
             
             cell.categoryImage.image = UIImage(named: serviceName.name!)

@@ -67,16 +67,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = StoryboardManager.homeTabbarController()
         }
         
+        // 푸쉬 관련 설정 - OneSignal
+        let notificationReceivedBlock: OSHandleNotificationReceivedBlock = { notification in
+            print("Received Notification: \(notification!.payload.notificationID)")
+        }
+        
+        let notificationOpenedBlock: OSHandleNotificationActionBlock = { result in
+            // This block gets called when the user reacts to a notification received
+            let payload: OSNotificationPayload = result!.notification.payload
+            
+            var fullMessage = payload.body
+            print("Message = \(String(describing: fullMessage))")
+            
+            if payload.additionalData != nil {
+                if payload.title != nil {
+                    let messageTitle = payload.title
+                    print("Message Title = \(messageTitle!)")
+                }
+                
+                let additionalData = payload.additionalData
+                if additionalData?["actionSelected"] != nil {
+                    fullMessage = fullMessage! + "\nPressed ButtonID: \(String(describing: additionalData!["actionSelected"]))"
+                }
+            }
+        }
+        
+        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false,
+                                     kOSSettingsKeyInAppLaunchURL: true]
+        
+        OneSignal.initWithLaunchOptions(launchOptions,
+                                        appId: "7a8dda70-2d90-475b-b707-4c980acf87c9",
+                                        handleNotificationReceived: notificationReceivedBlock,
+                                        handleNotificationAction: notificationOpenedBlock,
+                                        settings: onesignalInitSettings)
+        
+        OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
+        
+        let status: OSPermissionSubscriptionState = OneSignal.getPermissionSubscriptionState()
+        
+        // 사용자 설정 편집
+        let userDefaults = UserDefaults.standard
+        
+        // userSetting에서 저장되었는지 한 번 확인하고 그 값이 false이면 데이터베이스에 저장한다
+        if !userDefaults.bool(forKey: "OneSignalIdSaved") {
+            if let userID = status.subscriptionStatus.userId {
+                if let user = UserManager.currentUser() {
+                    user.setProperty("OneSignalID", object: userID)
+                    _ = Backendless.sharedInstance().userService.update(user)
+                    
+                    userDefaults.set(true, forKey: "OneSignalIdSaved")
+                    userDefaults.synchronize()
+                    print("OneSignalID has saved: \(userID)")
+                }
+            }
+        }
+        
         // 원시그널 런칭옵션
-        OneSignal.initWithLaunchOptions(launchOptions, appId: "7a8dda70-2d90-475b-b707-4c980acf87c9")
+        // OneSignal.initWithLaunchOptions(launchOptions, appId: "7a8dda70-2d90-475b-b707-4c980acf87c9")
         
         // Sync hashed email if you have a login system or collect it.
         // Will be used to reach the user at the most optimal time of day.
         // OneSignal.syncHashedEmail(userEmail)
-        
-        // 푸쉬 관련 설정
-        
-        
+
         return true
     }
     

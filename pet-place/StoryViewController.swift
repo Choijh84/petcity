@@ -72,7 +72,8 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             }
         }
         
-        // 삭제된걸 노티 받으면 refresh
+        // 변경된걸 노티 받으면 refresh - storyUploaded(업로드), 삭제(changed)
+        NotificationCenter.default.addObserver(self, selector: #selector(StoryViewController.refresh), name: NSNotification.Name(rawValue: "storyUploaded"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StoryViewController.refresh), name: NSNotification.Name(rawValue: "changed"), object: nil)
         
         super.viewDidLoad()
