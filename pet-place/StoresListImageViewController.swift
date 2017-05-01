@@ -218,7 +218,7 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             if searchRadius != 0 {
                 radius = NSNumber(integerLiteral: searchRadius)
             }
-            print("This is searchRadius: \(searchRadius)")
+            // print("This is searchRadius: \(searchRadius)")
             
             downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 20, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
                 self.isLoadingItems = false

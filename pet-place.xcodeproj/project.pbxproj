@@ -36,7 +36,6 @@
 		BE3346951E3129FD00E23A88 /* ReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3346941E3129FD00E23A88 /* ReviewsViewController.swift */; };
 		BE3346971E312D9500E23A88 /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3346961E312D9500E23A88 /* ReviewManager.swift */; };
 		BE3346991E3138A500E23A88 /* ReviewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3346981E3138A500E23A88 /* ReviewsDetailViewController.swift */; };
-		BE33469B1E31397400E23A88 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469A1E31397400E23A88 /* AddReviewViewController.swift */; };
 		BE33469D1E31440700E23A88 /* StoreDetailActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */; };
 		BE35C05B1E650CAB00270766 /* InfoChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE35C05A1E650CAB00270766 /* InfoChangeViewController.swift */; };
 		BE3BD0A71EA5D86300CDEEED /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3BD0A61EA5D86300CDEEED /* PhotoManager.swift */; };
@@ -49,6 +48,9 @@
 		BE3E04B71E47BEB3007735DF /* PlaceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04B61E47BEB3007735DF /* PlaceRow.swift */; };
 		BE3E04B91E47C3D7007735DF /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04B81E47C3D7007735DF /* PhotoCollectionViewCell.swift */; };
 		BE3E04BB1E47CBEE007735DF /* StoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3E04BA1E47CBEE007735DF /* StoreCollectionViewCell.swift */; };
+		BE4147241EB74020001E51BF /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4147231EB74020001E51BF /* AddReviewViewController.swift */; };
+		BE4147261EB7407E001E51BF /* ReviewAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4147251EB7407E001E51BF /* ReviewAddViewController.swift */; };
+		BE4147281EB748F3001E51BF /* AddReviewShopListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4147271EB748F3001E51BF /* AddReviewShopListTableViewCell.swift */; };
 		BE4165521E7FCD1100B42DDF /* 이순신Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BE4165501E7FCD1100B42DDF /* 이순신Bold.otf */; };
 		BE4165531E7FCD1200B42DDF /* 이순신Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BE4165511E7FCD1100B42DDF /* 이순신Regular.otf */; };
 		BE4165571E7FCD1A00B42DDF /* 이순신돋움체B.otf in Resources */ = {isa = PBXBuildFile; fileRef = BE4165541E7FCD1A00B42DDF /* 이순신돋움체B.otf */; };
@@ -268,7 +270,6 @@
 		BE3346941E3129FD00E23A88 /* ReviewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsViewController.swift; sourceTree = "<group>"; };
 		BE3346961E312D9500E23A88 /* ReviewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		BE3346981E3138A500E23A88 /* ReviewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDetailViewController.swift; sourceTree = "<group>"; };
-		BE33469A1E31397400E23A88 /* AddReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		BE33469C1E31440700E23A88 /* StoreDetailActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreDetailActionButton.swift; sourceTree = "<group>"; };
 		BE35C05A1E650CAB00270766 /* InfoChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoChangeViewController.swift; sourceTree = "<group>"; };
 		BE3BD0A61EA5D86300CDEEED /* PhotoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
@@ -282,6 +283,9 @@
 		BE3E04B81E47C3D7007735DF /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE3E04BA1E47CBEE007735DF /* StoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		BE3EF7D41EA46EB5008D6773 /* pet-place.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "pet-place.entitlements"; sourceTree = "<group>"; };
+		BE4147231EB74020001E51BF /* AddReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
+		BE4147251EB7407E001E51BF /* ReviewAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewAddViewController.swift; sourceTree = "<group>"; };
+		BE4147271EB748F3001E51BF /* AddReviewShopListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddReviewShopListTableViewCell.swift; sourceTree = "<group>"; };
 		BE4165501E7FCD1100B42DDF /* 이순신Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "이순신Bold.otf"; sourceTree = "<group>"; };
 		BE4165511E7FCD1100B42DDF /* 이순신Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "이순신Regular.otf"; sourceTree = "<group>"; };
 		BE4165541E7FCD1A00B42DDF /* 이순신돋움체B.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "이순신돋움체B.otf"; sourceTree = "<group>"; };
@@ -550,7 +554,7 @@
 			children = (
 				BE3346941E3129FD00E23A88 /* ReviewsViewController.swift */,
 				BE3346981E3138A500E23A88 /* ReviewsDetailViewController.swift */,
-				BE33469A1E31397400E23A88 /* AddReviewViewController.swift */,
+				BE4147231EB74020001E51BF /* AddReviewViewController.swift */,
 			);
 			name = Reviews;
 			sourceTree = "<group>";
@@ -603,6 +607,7 @@
 				BE4279831E824E1E00A4DDFC /* StoryReviewTableViewCell.swift */,
 				BE4279851E82542600A4DDFC /* StoryReviewPhotoCollectionViewCell.swift */,
 				BE519E301E83DF410018EB44 /* ReviewLocationCollectionViewCell.swift */,
+				BE4147271EB748F3001E51BF /* AddReviewShopListTableViewCell.swift */,
 			);
 			name = "Story Views";
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */,
 				BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */,
 				BEDCE0591E91690000E564DD /* ReviewCommentViewController.swift */,
+				BE4147251EB7407E001E51BF /* ReviewAddViewController.swift */,
 			);
 			name = StoryAndReviews;
 			sourceTree = "<group>";
@@ -1375,6 +1381,7 @@
 				BE0001921E684E7000ED7B86 /* FavoriteListCollectionViewCell.swift in Sources */,
 				BE0CA8E71E73BD6A0040A6F3 /* SMSVerification.swift in Sources */,
 				BE9C99B41E79612C000838B8 /* Story.swift in Sources */,
+				BE4147281EB748F3001E51BF /* AddReviewShopListTableViewCell.swift in Sources */,
 				BEEDCC971E7848BA007E82AB /* ReviewViewController.swift in Sources */,
 				EB2956FE1E16DABC0024E3E3 /* AppFonts.swift in Sources */,
 				BE4F9E411E87A42F00AAD55B /* Users.swift in Sources */,
@@ -1402,6 +1409,8 @@
 				EBB619961E1996060061BCEB /* OverlayView.swift in Sources */,
 				EB71A68B1E1CF54400948F41 /* StoreMapTableViewCell.swift in Sources */,
 				BE3346921E31272800E23A88 /* ReviewOptionsTableViewCell.swift in Sources */,
+				BE4147241EB74020001E51BF /* AddReviewViewController.swift in Sources */,
+				BE4147261EB7407E001E51BF /* ReviewAddViewController.swift in Sources */,
 				BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */,
 				BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */,
 				EBB6194E1E1944390061BCEB /* Store.swift in Sources */,
@@ -1443,7 +1452,6 @@
 				BE543D5B1E63F9410047B921 /* PetProfileEditViewController.swift in Sources */,
 				EBB619861E197AE60061BCEB /* ReviewPresentManager.swift in Sources */,
 				BE0B06321E61446B00432300 /* PetProfileCollectionViewCell.swift in Sources */,
-				BE33469B1E31397400E23A88 /* AddReviewViewController.swift in Sources */,
 				BE3346971E312D9500E23A88 /* ReviewManager.swift in Sources */,
 				BECD06DB1E8E32A700E72EB8 /* PetProfilePopUpViewController.swift in Sources */,
 				BE3C57741E7BE8B5008ECA4E /* AddStoryViewController.swift in Sources */,

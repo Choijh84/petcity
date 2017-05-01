@@ -49,6 +49,33 @@ class LocationsDownloadManager : NSObject {
     }
     
     /**
+     스토어 카테고리에 상관없이 주변의 스토어를 다운로드하는 함수
+    */
+    func downloadStoresWithoutCategory(skippingNumberOfObjects skip: NSNumber, limit: NSNumber,  radius: NSNumber, completionBlock: @escaping (_ storeObjects: [Store]?, _ error: String?) -> ()) {
+        
+        let dataQuery = BackendlessDataQuery()
+        
+        let queryOptions = QueryOptions()
+        queryOptions.relationsDepth = 1
+        
+        // 쿼리조건 - 2000km, 향후에 radius도 받아서 조정 가능
+        dataQuery.whereClause = "distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude) < km(\(radius))"
+        
+        queryOptions.related = ["location"]
+        queryOptions.pageSize = limit
+        queryOptions.offset = skip
+        dataQuery.queryOptions = queryOptions
+        
+        dataStore?.find(dataQuery, response: { (collection) in
+            let sortedObjects = self.sortObjectsManuallyByDistance(collection?.data as! [Store])
+            completionBlock(sortedObjects, nil)
+        }, error: { (fault) in
+            print(fault ?? "There is an error dowloading store list")
+            completionBlock(nil, fault?.description)
+        })
+    }
+    
+    /**
      스토어 카테고리에 맞춰서 스토어 객체를 다운로드하는 함수
      - parameter skip                   : 이미 그 전에 로딩이 끝나서 스킵한 객체의 수
      - parameter limit                  : 한 번에 쿼리로 불러오는 객체의 수
@@ -65,10 +92,8 @@ class LocationsDownloadManager : NSObject {
         let queryOptions = QueryOptions()
         queryOptions.relationsDepth = 1
         
-        // 쿼리조건 - 선택된 스토어 카테고리 및 2000km, 향후에 radius도 받아서 조정 가능
+        // 쿼리조건 - 선택된 스토어 카테고리 및 50km로 초기 설정, 향후에 radius도 받아서 조정 가능
         dataQuery.whereClause = "StoreCategory[stores].objectId = \'\(selectedStoreCategory.objectId!)\' AND distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude) < km(\(radius))"
-        
-        print(dataQuery.whereClause)
         
         // 반려동물 타입에 관련해서 쿼리 조건 추가
         if (selectedPetType != "" && selectedPetType != nil) {
@@ -84,8 +109,6 @@ class LocationsDownloadManager : NSObject {
         queryOptions.pageSize = limit
         queryOptions.offset = skip
         dataQuery.queryOptions = queryOptions
-        
-        print("First Clause: \(dataQuery.whereClause!)")
         
         dataStore?.find(dataQuery, response: { (collection) in
             let sortedObjects = self.sortObjectsManuallyByDistance(collection?.data as! [Store])

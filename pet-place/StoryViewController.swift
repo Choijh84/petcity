@@ -12,6 +12,7 @@ import XLPagerTabStrip
 import SCLAlertView
 import SKPhotoBrowser
 import Kingfisher
+import OneSignal
 
 class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, StoryTableViewCellProtocol {
     
@@ -300,7 +301,7 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 let url = URL(string: singleImageURL)
                 
                 DispatchQueue.main.async {
-                    cell.singleImage.kf.setImage(with: url, placeholder: nil, options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
+                    cell.singleImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.processor(DefaultImageProcessor.default)], progressBlock: nil, completionHandler: nil)
                 }
                 
                 if photoList.count > 1 {
@@ -371,12 +372,14 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 if success {
                     // 이미 있을 때 - 삭제
                     self.changeLike(row, true, completionHandler: { (success) in
-                        print(success)
+                        // print(success)
+                    
                     })
                 } else {
                     // 아직 없을 때 - 추가
                     self.changeLike(row, false, completionHandler: { (success) in
-                        print(success)
+                        // print(success)
+                        
                     })
                 }
             })
@@ -492,6 +495,14 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             }, error: { (Fault) in
                 print("스토리를 저장하는데 에러: \(String(describing: Fault?.description))")
             })
+            
+            // 스토리를 쓴 사람에게 Notification 날리기
+            if let oneSignalId = selectedStory.writer.getProperty("OneSignalID") {
+                if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                    let data = ["contents" : ["en" : "\(userName) likes your Story!", "ko" : "\(userName)가 당신의 스토리를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                    OneSignal.postNotification(data)
+                }
+            }
             
         } else {
             // 좋아요 취소

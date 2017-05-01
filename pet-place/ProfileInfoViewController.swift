@@ -203,7 +203,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
                                 } else {
                                     if let url = URL(string: url) {
                                         // print("이게 프로필 url: \(url)")
-                                        self.profilePicture.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                                        self.profilePicture.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                                     }
                                 }
                             }

@@ -46,6 +46,8 @@ class CommentTableViewCell: UITableViewCell {
         alertView.addButton("삭제") { 
             print("This is deleteButton tag: \(self.deleteButton.tag)")
             self.delegate?.actionTapped(row: self.deleteButton.tag)
+            // 스토리디테일뷰에 Notification 주기
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "StoryCommentDeleted"), object: nil)
         }
         alertView.addButton("취소") { 
             print("취소되었습니다")
@@ -54,7 +56,7 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     
-    // 라이크버튼 눌렀을 때 - 생략하자
+    // 라이크버튼 눌렀을 때 - 생략하자, 현재 숨김 상태
     @IBAction func likeButtonClicked(_ sender: UIButton) {
         // print("Like Button Clicked: \(likeButton.tag)")
         

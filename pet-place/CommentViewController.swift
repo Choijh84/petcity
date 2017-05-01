@@ -9,6 +9,7 @@
 import UIKit
 import SCLAlertView
 import Kingfisher
+import OneSignal
 
 class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentTableViewCellProtocol {
 
@@ -31,6 +32,18 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.commentTextField.resignFirstResponder()
                     self.commentTextField.text = ""
                     self.setUpCommentArray()
+                    
+                    // 스토리를 쓴 사람에게 Notification 날리기
+                    if let oneSignalId = self.selectedStory.writer.getProperty("OneSignalID") {
+                        if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                            let data = ["contents" : ["en" : "\(userName) makes comment on your Story!", "ko" : "\(userName)가 당신의 스토리에 댓글을 달았네요!"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                            OneSignal.postNotification(data)
+                        }
+                    }
+                    
+                    // 스토리디테일뷰에 Notification 주기
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "StoryCommentAdded"), object: nil)
+                    
                 } else {
                     SCLAlertView().showWarning("에러 발생", subTitle: "확인해주세요")
                 }
@@ -135,7 +148,7 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let profile = user?.getProperty("profileURL") {
                     let url = URL(string: profile as! String)
                     DispatchQueue.main.async( execute: {
-                        cell.profileImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+                        cell.profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: nil, progressBlock: nil, completionHandler: nil)
                     })
                 }
                 // 이름 배정

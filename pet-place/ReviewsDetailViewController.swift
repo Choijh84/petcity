@@ -86,7 +86,7 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
                 let url = URL(string: profile)
                 DispatchQueue.main.async(execute: {
                     
-                    self.creatorProfileImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    self.creatorProfileImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                     
                 })
             } else {
@@ -153,7 +153,7 @@ class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource,
         
         print("This is IMAGEURL: \(imageURL[indexPath.row])")
         if let url = URL(string: imageURL[indexPath.row]) {
-            cell.reviewPhotos.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil) { (image, error, cacheType, returnedUrl) in
+            cell.reviewPhotos.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil) { (image, error, cacheType, returnedUrl) in
                 if error == nil {
                     cell.reviewPhotos.image = image
                 } else {

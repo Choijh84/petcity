@@ -176,7 +176,7 @@ extension StoryReviewTableViewCell : UICollectionViewDataSource, UICollectionVie
             let imageURL = self.photoList[indexPath.row]
             let url = URL(string: imageURL)
             DispatchQueue.main.async {
-                cell.imageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                cell.imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
             }
         }
         return cell

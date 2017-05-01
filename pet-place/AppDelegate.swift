@@ -67,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // 푸쉬 관련 설정 - OneSignal
+        /*
         let notificationReceivedBlock: OSHandleNotificationReceivedBlock = { notification in
             print("Received Notification: \(notification!.payload.notificationID)")
         }
@@ -90,15 +91,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+ 
         
-        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: false,
+        let onesignalInitSettings = [kOSSettingsKeyAutoPrompt: true,
                                      kOSSettingsKeyInAppLaunchURL: true]
+        */
         
         OneSignal.initWithLaunchOptions(launchOptions,
-                                        appId: "7a8dda70-2d90-475b-b707-4c980acf87c9",
-                                        handleNotificationReceived: notificationReceivedBlock,
-                                        handleNotificationAction: notificationOpenedBlock,
-                                        settings: onesignalInitSettings)
+                                        appId: "7a8dda70-2d90-475b-b707-4c980acf87c9"
+                                        )
         
         OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
         

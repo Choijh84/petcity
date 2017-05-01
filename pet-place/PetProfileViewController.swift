@@ -211,7 +211,7 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         if !(petArray[indexPath.row].imagePic?.isEmpty)! {
             let url = URL(string: petArray[indexPath.row].imagePic!)
             DispatchQueue.main.async(execute: {
-                cell.petProfileImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                cell.petProfileImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
             })
         } else {
             cell.petProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")

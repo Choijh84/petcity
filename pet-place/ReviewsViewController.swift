@@ -234,7 +234,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
             dataStore?.findID(userId, response: { (response) in
                 let user = response as! BackendlessUser
                 if let imageURL = user.getProperty("profileURL") {
-                    reviewCell.profileImageView.kf.setImage(with: URL(string: imageURL as! String), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    reviewCell.profileImageView.kf.setImage(with: URL(string: imageURL as! String), placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                 }
                 reviewCell.nameLabel.text = user.name! as String
             }, error: { (Fault) in
@@ -332,14 +332,14 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                 
                 // 이미지가 1개인 경우
                 DispatchQueue.main.async(execute: { 
-                    reviewCell.reviewImageView.kf.setImage(with: URL(string: fileURL), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    reviewCell.reviewImageView.kf.setImage(with: URL(string: fileURL), placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                 })
                 
                 
             } else {
                 // 이미지가 여러개인 경우 한개만 우선 앞에 보이기
                 DispatchQueue.main.async(execute: { 
-                    reviewCell.reviewImageView.kf.setImage(with:  URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    reviewCell.reviewImageView.kf.setImage(with:  URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                 })
                 
                 // Add UIView which can explain the number of photos behind

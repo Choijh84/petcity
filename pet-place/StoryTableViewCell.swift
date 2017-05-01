@@ -10,7 +10,6 @@ import UIKit
 import SCLAlertView
 import SKPhotoBrowser
 import Kingfisher
-import OneSignal
 
 protocol StoryTableViewCellProtocol: class {
     func actionTapped(tag: Int)
@@ -55,14 +54,6 @@ class StoryTableViewCell: UITableViewCell {
                 sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
             }, completion: nil)
             self.likeButton.isUserInteractionEnabled = true
-            
-            // 스토리를 쓴 사람에게 Notification 날리기
-            if let oneSignalId = selectedStory.writer.getProperty("OneSignalID") {
-                if let userName = UserManager.currentUser()!.getProperty("nickname") {
-                    OneSignal.postNotification(["contents" : ["kr" : "\(userName)이 당신의 스토리를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"])
-                }
-            }
-            
             
         } else {
             // 좋아요를 취소할 때

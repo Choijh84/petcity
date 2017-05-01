@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import SCLAlertView
 import SKPhotoBrowser
+import OneSignal
 
 class StoryDetailViewController: UIViewController {
 
@@ -35,6 +36,9 @@ class StoryDetailViewController: UIViewController {
     
     @IBOutlet weak var likeNumberLabel: UILabel!
     @IBOutlet weak var commentNumberLabel: UILabel!
+    
+    var likeNumber: Int = 0
+    var commentNumber: Int = 0
     
     /// Lazy getter for the dateformatter that formats the date property of each review to the desired format
     lazy var dateFormatter: DateFormatter = {
@@ -82,6 +86,16 @@ class StoryDetailViewController: UIViewController {
                 SCLAlertView().showError("에러", subTitle: "라이크를 추가하는데 에러 발생함")
                 print("라이크를 추가하는데 에러: \(String(describing: Fault?.description))")
             })
+            
+            // 스토리를 쓴 사람에게 Notification 날리기
+            if let oneSignalId = selectedStory.writer.getProperty("OneSignalID") {
+                if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                    let data = ["contents" : ["en" : "\(userName) likes your Story!", "ko" : "\(userName)가 당신의 스토리를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                    OneSignal.postNotification(data)
+                }
+            }
+            self.likeNumber = likeNumber + 1
+            self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
            
         } else {
             // 좋아요 취소
@@ -90,8 +104,12 @@ class StoryDetailViewController: UIViewController {
             
             dataStore?.find(dataQuery, response: { (collection) in
                 let like = (collection?.data as! [StoryLikes]).first
+                
                 // 좋아요 삭제
                 _ = dataStore?.remove(like)
+                
+                self.likeNumber = self.likeNumber - 1
+                self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
                 
             }, error: { (Fault) in
                 SCLAlertView().showError("에러", subTitle: "라이크를 삭제하는데 에러 발생함")
@@ -198,7 +216,7 @@ class StoryDetailViewController: UIViewController {
                 } else {
                     let url = URL(string: profileURL as! String)
                     profileImage.kf.indicatorType = .activity
-                    profileImage.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+                    profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
         } else {
@@ -240,8 +258,9 @@ class StoryDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 tempStore?.find(dataQuery, response: { (collection) in
                     let comments = collection?.data as! [StoryComment]
+                    self.commentNumber = comments.count
                     
-                    self.commentNumberLabel.text = String(comments.count) + "개의 수다들"
+                    self.commentNumberLabel.text = String(self.commentNumber) + "개의 수다들"
                     
                 }, error: { (Fault) in
                     print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
@@ -249,6 +268,34 @@ class StoryDetailViewController: UIViewController {
             }
         }
         
+        // 코멘트 등록 및 삭제에 대한 Notification
+        NotificationCenter.default.addObserver(self, selector: #selector(StoryDetailViewController.commentChanged), name: NSNotification.Name(rawValue: "StoryCommentAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StoryDetailViewController.commentChanged), name: NSNotification.Name(rawValue: "StoryCommentDeleted"), object: nil)
+        
+    }
+    
+    func commentChanged() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            // 댓글수 찾기
+            let tempStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
+            
+            let storyId = self.selectedStory.objectId!
+            let dataQuery = BackendlessDataQuery()
+            // 이 스토리에 달린 댓글 모두 몇 개인지 찾기
+            dataQuery.whereClause = "to = '\(storyId)'"
+            
+            DispatchQueue.main.async {
+                tempStore?.find(dataQuery, response: { (collection) in
+                    let comments = collection?.data as! [StoryComment]
+                    self.commentNumber = comments.count
+                    
+                    self.commentNumberLabel.text = String(self.commentNumber) + "개의 수다들"
+                    
+                }, error: { (Fault) in
+                    print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
+                })
+            }
+        }
     }
     
     func likeCheck() {
@@ -292,10 +339,10 @@ class StoryDetailViewController: UIViewController {
         countQuery.queryOptions = queryOptions
         
         let matchingLikes = likeStore?.find(countQuery)
-        let likeNumbers = matchingLikes?.totalObjects
+        self.likeNumber = matchingLikes?.totalObjects as! Int
         
         DispatchQueue.main.async {
-            self.likeNumberLabel.text = String(describing: likeNumbers!) + "개의 좋아요"
+            self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
         }
     }
     
@@ -379,7 +426,7 @@ extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewD
         cell.imageView.kf.indicatorType = .activity
         let url = URL(string: photoList[indexPath.row])
         
-        cell.imageView.kf.setImage(with: url, placeholder: nil, options: nil, progressBlock: nil, completionHandler: nil)
+        cell.imageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: nil, progressBlock: nil, completionHandler: nil)
         
         return cell
     }

@@ -10,11 +10,18 @@ import UIKit
 import SCLAlertView
 import XLPagerTabStrip
 
-class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
+class StoryAndReviewViewController: ButtonBarPagerTabStripViewController, reviewAddDelegate {
 
+    // 새로운 스토리 추가
     @IBAction func addNewStory(_ sender: Any) {
         performSegue(withIdentifier: "newStory", sender: nil)
     }
+    
+    // 새로운 리뷰 추가
+    @IBAction func addNewReview(_ sender: Any) {
+        performSegue(withIdentifier: "AddReview", sender: nil)
+    }
+    
     
     let blueInstagramColor = UIColor(red: 37/255.0, green: 111/255.0, blue: 206/255.0, alpha: 1.0)
     
@@ -109,4 +116,29 @@ class StoryAndReviewViewController: ButtonBarPagerTabStripViewController {
         }
     }
     
+    /// ReviewAddViewController에서 선택 구현을 하기 위한 delegate 통신
+    func dismissViewController(_ controller: UIViewController, selectedStore: Store) {
+        controller.dismiss(animated: true) {
+            let storyboard = UIStoryboard(name: "Reviews", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "AddReviewViewController") as! AddReviewViewController
+            destinationVC.selectedStore = selectedStore
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+    }
+    
+    /// 장소 등록하기를 누르면 장소 추천으로 이동하기!
+    func placeRecommend(_ controller: UIViewController) {
+        controller.dismiss(animated: true) { 
+            let storyboard = UIStoryboard(name: "Account", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "PlaceRegisterViewController") as! PlaceRegisterViewController
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddReview" {
+            let destinationVC = segue.destination as! ReviewAddViewController
+            destinationVC.delegate = self
+        }
+    }
 }

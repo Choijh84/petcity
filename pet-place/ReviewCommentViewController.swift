@@ -8,6 +8,7 @@
 
 import UIKit
 import SCLAlertView
+import OneSignal
 
 class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CommentTableViewCellProtocol  {
 
@@ -32,6 +33,15 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
                     
                     // Notification 활용해서 코멘트 달린걸 알림
                     NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewCommentChanged"), object: nil)
+                    
+                    // 스토리를 쓴 사람에게 Notification 날리기
+                    if let oneSignalId = self.selectedReview.creator?.getProperty("OneSignalID") {
+                        if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                            let data = ["contents" : ["en" : "\(userName) makes comment on your Review!", "ko" : "\(userName)가 당신의 리뷰에 댓글을 달았네요!"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                            OneSignal.postNotification(data)
+                        }
+                    }
+                    
                 } else {
                     SCLAlertView().showWarning("에러 발생", subTitle: "확인해주세요")
                 }
@@ -156,7 +166,7 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
             if let profile = user.getProperty("profileURL") as? String {
                 let url = URL(string: profile)
                 DispatchQueue.main.async(execute: {
-                    cell.profileImage.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    cell.profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                 })
             } else {
                 cell.profileImage.image = #imageLiteral(resourceName: "user_profile")

@@ -13,10 +13,13 @@ class LoadStoreViewController: UIViewController {
     
     var storeList = [Store]()
     
+    // 검색할 정보를 입력하는 텍스트 필드
     @IBOutlet weak var inputField: UITextField!
-    
+    // 불러오기 버튼
     @IBOutlet weak var loadButton: UIButton!
     
+    
+    // 불러오기
     @IBAction func tapShowResult(_ sender: Any) {
         
         inputField.resignFirstResponder()

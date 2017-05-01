@@ -5,16 +5,15 @@
 //  Created by Ken Choi on 2017. 1. 20..
 //  Copyright © 2017년 press.S. All rights reserved.
 //
-
 import UIKit
 import HCSStarRatingView
 import DKImagePickerController
 import SKPhotoBrowser
 import SCLAlertView
 
- /// ViewController that allows a user to leave a review for a selected Store
+/// ViewController that allows a user to leave a review for a selected Store
 class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate {
-
+    
     /// Custom rating view for handling ratings
     @IBOutlet weak var ratingView: HCSStarRatingView!
     /// TextView for the review's body
@@ -39,7 +38,6 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     
     var assets: [DKAsset]?
     var imageArray = [UIImage]()
-    
     
     @IBOutlet weak var previewView: UICollectionView?
     
@@ -67,7 +65,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
                 if imageArray.count == 0 {
                     reviewManager.uploadNewReview(text, fileURL: nil, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock: { (success, store, errorMessage) in
                         if success == true {
-                        
+                            
                             // 현재 리로드가 안됨 - Notification 활용 필요
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewUploaded"), object: nil)
                             _ = self.navigationController?.popViewController(animated: true)
@@ -176,11 +174,11 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
      */
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if (info[UIImagePickerControllerOriginalImage] as? UIImage) != nil {
-//            reviewImageView.image = pickedImage
+            //            reviewImageView.image = pickedImage
         }
         
         dismiss(animated: true) { () -> Void in
-//            self.reviewImageViewHeightConstraint.constant = 100.0
+            //            self.reviewImageViewHeightConstraint.constant = 100.0
             self.view.layoutIfNeeded()
         }
     }
@@ -215,15 +213,15 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
         // Add tap recongizer to the view, so keyboard can be closed easily
         // Close this action bcs collectionView Tap should be active
         /**
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddReviewViewController.viewTapped))
-            tapRecognizer.numberOfTapsRequired = 1
-            view.addGestureRecognizer(tapRecognizer)
-          */
+         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddReviewViewController.viewTapped))
+         tapRecognizer.numberOfTapsRequired = 1
+         view.addGestureRecognizer(tapRecognizer)
+         */
         
         pickerController = DKImagePickerController()
         previewView?.allowsSelection = true
     }
-
+    
     /**
      Dismisses the keyboard if the view is tapped - disabled
      */

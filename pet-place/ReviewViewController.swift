@@ -11,6 +11,7 @@ import XLPagerTabStrip
 import SCLAlertView
 import SKPhotoBrowser
 import Kingfisher
+import OneSignal
 
 /// 스토리리뷰에서 리뷰 파트를 보여주는 뷰컨트롤러
 class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableViewDataSource, UITableViewDelegate, StoryReviewTableViewCellProtocol  {
@@ -28,7 +29,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     
     // 리뷰가 없을 때
     @IBOutlet weak var noReviewView: UIView!
-    
     
     // 지역 선택할 수 있게 하는 배열
     let locations = ["모두 보기", "서울 강북", "서울 강남", "경기도", "인천", "대구", "부산", "제주", "대전", "광주", "울산", "세종", "강원도", "경상도", "전라도", "충청도"]
@@ -294,7 +294,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                 } else {
                     let url = URL(string: profileURL as! String)
                     DispatchQueue.main.async {
-                        cell.profileImage.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                        cell.profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                     }
                 }
             }
@@ -543,9 +543,18 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                     self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
                 
+                // 리뷰 쓴 사람에게 Notification 날리기
+                if let oneSignalId = selectedReview.creator?.getProperty("OneSignalID") {
+                    if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                        let data = ["contents" : ["en" : "\(userName) likes your Review!", "ko" : "\(userName)가 당신의 리뷰를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                        OneSignal.postNotification(data)
+                    }
+                }
+                
             }, error: { (Fault) in
                 print("리뷰 라이크를 저장하는데 에러: \(String(describing: Fault?.description))")
             })
+            
             
         } else {
             // 좋아요 취소

@@ -95,7 +95,7 @@ extension MyStoryViewController: UICollectionViewDataSource, UICollectionViewDel
             if let firstImageUrl = imageUrls.first {
                 let url = URL(string: firstImageUrl)
                 DispatchQueue.main.async(execute: { 
-                    cell.storyImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageplaceholder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
+                    cell.storyImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                     cell.timeLabel.text = self.dateFormatter.string(from: myStory.created as Date)
 
                 })
