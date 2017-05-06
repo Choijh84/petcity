@@ -58,7 +58,7 @@ class LocationsDownloadManager : NSObject {
         let queryOptions = QueryOptions()
         queryOptions.relationsDepth = 1
         
-        // 쿼리조건 - 2000km, 향후에 radius도 받아서 조정 가능
+        // 이 함수는 유저 주변으로 radius만 받아서 검색
         dataQuery.whereClause = "distance(\(userCoordinate.latitude), \(userCoordinate.longitude), location.latitude, location.longitude) < km(\(radius))"
         
         queryOptions.related = ["location"]

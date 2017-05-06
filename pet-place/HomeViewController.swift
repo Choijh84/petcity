@@ -44,6 +44,10 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     var isShowBusinessInfo = false
     var reloadIndexPath: IndexPath?
     
+    @IBAction func showPushNotis(_ sender: Any) {
+        performSegue(withIdentifier: "showPushNotis", sender: nil)
+    }
+    
     @IBAction func wantToSearch(_ sender: Any) {
         performSegue(withIdentifier: "performSearch", sender: nil)
     }

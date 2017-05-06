@@ -23,6 +23,7 @@
 		BE17B8261E8D304B00CC2B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE17B8281E8D304B00CC2B43 /* Main.storyboard */; };
 		BE17B8311E8D38F300CC2B43 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE17B82F1E8D38F300CC2B43 /* Localizable.strings */; };
 		BE1E7A2A1EB3B853001CA952 /* LoadStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1E7A291EB3B853001CA952 /* LoadStoreViewController.swift */; };
+		BE24ADD21EBCDE5500A3BBD1 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE24ADD11EBCDE5500A3BBD1 /* ReviewDetailViewController.swift */; };
 		BE2683F61E7B8014008BFAB6 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */; };
 		BE270FB91E3CAF3A00DE1DF5 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FB81E3CAF3A00DE1DF5 /* NewsTableViewCell.swift */; };
 		BE270FBB1E3CB09200DE1DF5 /* NewsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */; };
@@ -30,6 +31,9 @@
 		BE270FBF1E3CB45D00DE1DF5 /* NewsDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */; };
 		BE2C86CA1EADD4F200C81421 /* StoryComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2C86C91EADD4F200C81421 /* StoryComment.swift */; };
 		BE2EA9EB1E8979E300E0FCA8 /* SignUpTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */; };
+		BE31C41E1EBA01D80011C781 /* PushNotis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE31C41D1EBA01D80011C781 /* PushNotis.swift */; };
+		BE31C4201EBA0D2B0011C781 /* PushNotisTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE31C41F1EBA0D2B0011C781 /* PushNotisTableViewController.swift */; };
+		BE31C4231EBA0D7D0011C781 /* PushNotisTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE31C4221EBA0D7D0011C781 /* PushNotisTableViewCell.swift */; };
 		BE33468F1E31252A00E23A88 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE33468D1E31252A00E23A88 /* ReviewTableViewCell.swift */; };
 		BE3346901E31252A00E23A88 /* ReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE33468E1E31252A00E23A88 /* ReviewTableViewCell.xib */; };
 		BE3346921E31272800E23A88 /* ReviewOptionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3346911E31272800E23A88 /* ReviewOptionsTableViewCell.swift */; };
@@ -84,7 +88,6 @@
 		BE6F63CC1E83B670008F8441 /* BMYEONSUNG.otf in Resources */ = {isa = PBXBuildFile; fileRef = BE6F63B41E83B439008F8441 /* BMYEONSUNG.otf */; };
 		BE7A22981E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7A22971E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift */; };
 		BE8123BE1EAA114F004656D0 /* StoryLikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8123BD1EAA114F004656D0 /* StoryLikes.swift */; };
-		BE8368251EB308A6004D194E /* EditStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8368241EB308A6004D194E /* EditStoryViewController.swift */; };
 		BE8368271EB32130004D194E /* ReviewLikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8368261EB32130004D194E /* ReviewLikes.swift */; };
 		BE842C9E1E59A5B500246A39 /* ShowStreetMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */; };
 		BE85709A1EAC97F1003C1CE7 /* StoryViewController_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8570991EAC97F0003C1CE7 /* StoryViewController_1.swift */; };
@@ -257,6 +260,7 @@
 		BE17B82E1E8D37D000CC2B43 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		BE17B8301E8D38F300CC2B43 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = "pet-place/ko.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		BE1E7A291EB3B853001CA952 /* LoadStoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadStoreViewController.swift; sourceTree = "<group>"; };
+		BE24ADD11EBCDE5500A3BBD1 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		BE270FB81E3CAF3A00DE1DF5 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		BE270FBA1E3CB09200DE1DF5 /* NewsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsNavigationController.swift; sourceTree = "<group>"; };
@@ -264,6 +268,9 @@
 		BE270FBE1E3CB45D00DE1DF5 /* NewsDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDownloader.swift; sourceTree = "<group>"; };
 		BE2C86C91EADD4F200C81421 /* StoryComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryComment.swift; sourceTree = "<group>"; };
 		BE2EA9EA1E8979E300E0FCA8 /* SignUpTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTypeViewController.swift; sourceTree = "<group>"; };
+		BE31C41D1EBA01D80011C781 /* PushNotis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotis.swift; sourceTree = "<group>"; };
+		BE31C41F1EBA0D2B0011C781 /* PushNotisTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotisTableViewController.swift; sourceTree = "<group>"; };
+		BE31C4221EBA0D7D0011C781 /* PushNotisTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotisTableViewCell.swift; sourceTree = "<group>"; };
 		BE33468D1E31252A00E23A88 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		BE33468E1E31252A00E23A88 /* ReviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewTableViewCell.xib; sourceTree = "<group>"; };
 		BE3346911E31272800E23A88 /* ReviewOptionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewOptionsTableViewCell.swift; sourceTree = "<group>"; };
@@ -319,7 +326,6 @@
 		BE6F63BE1E83B516008F8441 /* 서울한강 장체M.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "서울한강 장체M.otf"; sourceTree = "<group>"; };
 		BE7A22971E978BEA00EBF36A /* StoreNaverMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreNaverMapTableViewCell.swift; sourceTree = "<group>"; };
 		BE8123BD1EAA114F004656D0 /* StoryLikes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryLikes.swift; sourceTree = "<group>"; };
-		BE8368241EB308A6004D194E /* EditStoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditStoryViewController.swift; sourceTree = "<group>"; };
 		BE8368261EB32130004D194E /* ReviewLikes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewLikes.swift; sourceTree = "<group>"; };
 		BE842C9D1E59A5B500246A39 /* ShowStreetMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowStreetMapViewController.swift; sourceTree = "<group>"; };
 		BE8570991EAC97F0003C1CE7 /* StoryViewController_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryViewController_1.swift; path = "pet-place/StoryViewController_1.swift"; sourceTree = "<group>"; };
@@ -549,12 +555,21 @@
 			name = Archives;
 			sourceTree = "<group>";
 		};
+		BE31C4211EBA0D6A0011C781 /* Home Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE31C4221EBA0D7D0011C781 /* PushNotisTableViewCell.swift */,
+			);
+			name = "Home Views";
+			sourceTree = "<group>";
+		};
 		BE3346931E3129C200E23A88 /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
 				BE3346941E3129FD00E23A88 /* ReviewsViewController.swift */,
 				BE3346981E3138A500E23A88 /* ReviewsDetailViewController.swift */,
 				BE4147231EB74020001E51BF /* AddReviewViewController.swift */,
+				BE24ADD11EBCDE5500A3BBD1 /* ReviewDetailViewController.swift */,
 			);
 			name = Reviews;
 			sourceTree = "<group>";
@@ -619,7 +634,6 @@
 				BEC3F8191EAFA49E00DD43A8 /* StoryViewController.swift */,
 				BE85709D1EACCDEE003C1CE7 /* StoryDetailViewController.swift */,
 				BE3C57731E7BE8B5008ECA4E /* AddStoryViewController.swift */,
-				BE8368241EB308A6004D194E /* EditStoryViewController.swift */,
 				BE2683F51E7B8014008BFAB6 /* CommentViewController.swift */,
 				BEEDCC961E7848BA007E82AB /* ReviewViewController.swift */,
 				BEDCE0591E91690000E564DD /* ReviewCommentViewController.swift */,
@@ -726,6 +740,7 @@
 				BE2C86C91EADD4F200C81421 /* StoryComment.swift */,
 				BE8123BD1EAA114F004656D0 /* StoryLikes.swift */,
 				BEB08C031EA7D4F100D0B3F4 /* Fault.swift */,
+				BE31C41D1EBA01D80011C781 /* PushNotis.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -755,6 +770,7 @@
 				EBB619951E1996060061BCEB /* OverlayView.xib */,
 				EB2957001E16DAE40024E3E3 /* UIExtension.swift */,
 				BE013FB61E7D19B800C4715E /* KenButton.swift */,
+				BE31C4211EBA0D6A0011C781 /* Home Views */,
 				BEBF03041E78F9F200484B81 /* Story Views */,
 				BE0B06301E6143C600432300 /* Account Views */,
 				EBB6196D1E195C6C0061BCEB /* Onboarding View */,
@@ -858,6 +874,7 @@
 				BE013FBA1E7EDA9900C4715E /* FirstViewController.swift */,
 				BE1E7A291EB3B853001CA952 /* LoadStoreViewController.swift */,
 				BE8EC45B1E9A206E00FE1A5E /* PerformSearchViewController.swift */,
+				BE31C41F1EBA0D2B0011C781 /* PushNotisTableViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -1418,6 +1435,7 @@
 				BEE51EED1E66D74800D11843 /* BounceButton.swift in Sources */,
 				BEB1F8961E6AB877002D273A /* LocationControlViewController.swift in Sources */,
 				BEDCE0581E91566F00E564DD /* ReviewComment.swift in Sources */,
+				BE31C41E1EBA01D80011C781 /* PushNotis.swift in Sources */,
 				BEA6BE8A1E3CCA4700D75CEE /* NewsListDetailViewController.swift in Sources */,
 				BEA79C491E97BD4900D92DA9 /* NMapViewResources.swift in Sources */,
 				EBB619761E1961E50061BCEB /* OnboardingTransitionAnimator.swift in Sources */,
@@ -1430,6 +1448,7 @@
 				BE0001901E68431800ED7B86 /* FavoriteListViewController.swift in Sources */,
 				EBB619751E1961E50061BCEB /* OnboardingTransitionManager.swift in Sources */,
 				BE3C57721E7B9F88008ECA4E /* CommentTableViewCell.swift in Sources */,
+				BE31C4201EBA0D2B0011C781 /* PushNotisTableViewController.swift in Sources */,
 				BE33469D1E31440700E23A88 /* StoreDetailActionButton.swift in Sources */,
 				BEB74FE41E65DD7A00DF0904 /* ShowTermsViewController.swift in Sources */,
 				BE0B062C1E60202200432300 /* PetProfileInputViewController.swift in Sources */,
@@ -1440,6 +1459,7 @@
 				EBB6199B1E1996640061BCEB /* LoadingTableView.swift in Sources */,
 				BE85709A1EAC97F1003C1CE7 /* StoryViewController_1.swift in Sources */,
 				BE3346951E3129FD00E23A88 /* ReviewsViewController.swift in Sources */,
+				BE31C4231EBA0D7D0011C781 /* PushNotisTableViewCell.swift in Sources */,
 				BEB934B81E87C8470020304E /* BWWalkthroughPageViewController.swift in Sources */,
 				EB71A68D1E1CF7CB00948F41 /* StoreLocationAnnotationPoint.swift in Sources */,
 				EB2956C11E16D4E00024E3E3 /* AppDelegate.swift in Sources */,
@@ -1469,9 +1489,9 @@
 				EB71A6891E1CF45700948F41 /* InfoWithIconTableViewCell.swift in Sources */,
 				EBB6196B1E1950C30061BCEB /* LocationHandler.swift in Sources */,
 				EB71A6961E1D388400948F41 /* StoreDetailViewDatasource.swift in Sources */,
+				BE24ADD21EBCDE5500A3BBD1 /* ReviewDetailViewController.swift in Sources */,
 				EB71A6931E1D335300948F41 /* StoreDetailViewController.swift in Sources */,
 				EBB619541E19483C0061BCEB /* News.swift in Sources */,
-				BE8368251EB308A6004D194E /* EditStoryViewController.swift in Sources */,
 				EBB619561E1948EA0061BCEB /* GeneralSettings.swift in Sources */,
 				EBB619501E1947420061BCEB /* Review.swift in Sources */,
 				EB2957011E16DAE40024E3E3 /* UIExtension.swift in Sources */,

@@ -11,7 +11,8 @@ import HCSStarRatingView
 import SKPhotoBrowser
 import Kingfisher
 
-/// Custom viewcontroller that displays a selected review
+
+/// 팝업 형태로 리뷰의 사진 및 본문을 보여주는 뷰
 class ReviewsDetailViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     /// Selected review to be displayed

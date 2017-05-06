@@ -39,6 +39,22 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
                         if let userName = UserManager.currentUser()!.getProperty("nickname") {
                             let data = ["contents" : ["en" : "\(userName) makes comment on your Review!", "ko" : "\(userName)가 당신의 리뷰에 댓글을 달았네요!"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
                             OneSignal.postNotification(data)
+                            
+                            // 데이터베이스에 저장하기
+                            // 푸쉬 객체 생성
+                            let newPush = PushNotis()
+                            newPush.from = Backendless.sharedInstance().userService.currentUser.objectId as String
+                            newPush.to = self.selectedReview.creator!.objectId! as String
+                            newPush.type = "review"
+                            newPush.typeId = self.selectedReview.objectId!
+                            newPush.bodyText = "\(userName)가 당신의 리뷰에 댓글을 달았네요!"
+                            
+                            let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
+                            pushStore?.save(newPush, response: { (response) in
+                                print("백엔드리스에 푸쉬 저장 완료")
+                            }, error: { (Fault) in
+                                print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
+                            })
                         }
                     }
                     
@@ -153,6 +169,9 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         cell.delegate = self
         
         let comment = commentArray[indexPath.row]
+        
+        // 셀 스타일 설정
+        cell.style = "review"
         
         // 코멘트 by 유저 찾아오기 
         let userID = comment.by

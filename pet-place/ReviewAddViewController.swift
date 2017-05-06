@@ -10,6 +10,7 @@ import UIKit
 import SCLAlertView
 
 protocol reviewAddDelegate: class {
+    
     // 테이블에서 선택한 스토어 객체와 함께 뷰를 변수로 넘겨줌
     // 뷰를 dismiss하고 넘겨받은 스토어를 바탕으로 리뷰를 적을 수 있음
     func dismissViewController(_ controller: UIViewController, selectedStore: Store)
@@ -259,6 +260,7 @@ extension ReviewAddViewController: LocationHandlerProtocol {
         tableView.reloadData()
     }
     
+    /// 반경 20km의 50개의 샵을 읽어오기로
     func downloadStores() {
         
         if lastLocation != nil {
@@ -266,7 +268,7 @@ extension ReviewAddViewController: LocationHandlerProtocol {
             refreshControl.beginRefreshing()
             tableView.showLoadingIndicator()
             
-            downloadManager.downloadStoresWithoutCategory(skippingNumberOfObjects: 0, limit: 50, radius: 50, completionBlock: { (storeObjects, error) in
+            downloadManager.downloadStoresWithoutCategory(skippingNumberOfObjects: 0, limit: 50, radius: 20, completionBlock: { (storeObjects, error) in
                 self.isLoadingItems = false
                 if let error = error {
                     SCLAlertView().showError("에러", subTitle: error)

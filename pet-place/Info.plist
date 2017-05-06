@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>카메라 사용하겠습니다</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -63,7 +65,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>위치정보를 허용해주세요</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진 사용 하겠습니다</string>
+	<string>사진 사용하겠습니다</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SDSwaggerTTF.ttf</string>

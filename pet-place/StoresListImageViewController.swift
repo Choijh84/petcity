@@ -48,11 +48,21 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     /// 검색 반경 설정 변수
     var searchRadius : Int = 0
     
+    // 검색 결과가 없을 때 보여주는 뷰
+    @IBOutlet weak var noResultView: UIView!
+    
+    
     /// View which contains filter
     @IBOutlet weak var filterView: UIView!
     /// Label which shows Filter condition
     @IBOutlet weak var filterConditionLabel: UILabel!
     
+    @IBAction func moveToRecommend(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "Account", bundle: nil)
+        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "PlaceRegisterViewController") as! PlaceRegisterViewController
+        
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
     
     /**
      Called after the view has been loaded. Customise the view and download the store objects
@@ -60,6 +70,11 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         title = NSLocalizedString(selectedStoreType.name!, comment: "")
+        
+        // 결과가 없을 때 보여주는 뷰는 우선 숨김
+        noResultView.layer.cornerRadius = 7.5
+        noResultView.isHidden = true
+        
         super.viewDidLoad()
         findStoreCategoryByName()
         customizeViews()
@@ -213,14 +228,14 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             
             // Store Category assignmenet
             downloadManager.selectedStoreCategory = selectedStoreCategory
-            // 검색 반경 확인 - 기본 50킬로
-            var radius : NSNumber = 50
+            // 검색 반경 확인 - 기본 20킬로
+            var radius : NSNumber = 20
             if searchRadius != 0 {
                 radius = NSNumber(integerLiteral: searchRadius)
             }
             // print("This is searchRadius: \(searchRadius)")
             
-            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 20, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 50, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
                 self.isLoadingItems = false
                 if let error = error { 
                     self.showAlertViewWithRedownloadOption(error)
@@ -249,13 +264,13 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
         isLoadingItems = true
         refreshControl.beginRefreshing()
         let temp = objectsArray.count as NSNumber
-        // 검색 반경 확인 - 기본 50킬로
-        var radius : NSNumber = 50
+        // 검색 반경 확인 - 기본 20킬로
+        var radius : NSNumber = 20
         if searchRadius != 0 {
             radius = NSNumber(integerLiteral: searchRadius)
         }
         
-        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 20, selectedStoreCategory: selectedStoreCategory, radius: radius) { (storeObjects, error) in
+        downloadManager.downloadStores(skippingNumberOfObjects: temp, limit: 50, selectedStoreCategory: selectedStoreCategory, radius: radius) { (storeObjects, error) in
             if let error = error {
                 self.showAlertViewWithRedownloadOption(error)
             } else {
@@ -290,8 +305,12 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
     */
     func displayStoreObjects(_ stores: [Store]?) {
         objectsArray.removeAll()
+        
         if let stores = stores {
             objectsArray.append(contentsOf: stores)
+            if stores.count == 0 {
+                self.noResultView.isHidden = false
+            }
         } else {
             objectsArray.removeAll()
         }

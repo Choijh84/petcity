@@ -42,12 +42,6 @@ class InfoChangeViewController: UIViewController {
     // 이메일 수신 동의
     var isEmailReceive = false
     
-    // 입력된 값을 바탕으로 모두 저장
-    @IBAction func allSave(_ sender: Any) {
-        
-    }
-    
-
     // 이메일 수신 동의 버튼 클릭할 때 액션
     @IBAction func emailSubscribe(_ sender: Any) {
         changeEmailReceived()
@@ -85,11 +79,21 @@ class InfoChangeViewController: UIViewController {
     
     // 전화 번호 변경 - 재인증 구현 필요, 현재는 그냥 변경되게 해둠
     @IBAction func phoneChange(_ sender: Any) {
+        
+        /*
         let phoneNumber = mobileTextfield.text
         print("this is phoneNumber: \(String(describing: phoneNumber))")
         user?.setProperty("phoneNumber", object: phoneNumber)
         _ = Backendless.sharedInstance().userService.update(user)
         SCLAlertView().showSuccess("전화번호 변경", subTitle: "완료되었습니다")
+        */
+        
+        let storyBoard = UIStoryboard(name: "Account", bundle: nil)
+        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "SMSVerficationViewController") as! SMSVerficationViewController
+        
+        
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+        
     }
 
     // 회원 탈퇴

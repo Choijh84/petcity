@@ -38,6 +38,22 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                         if let userName = UserManager.currentUser()!.getProperty("nickname") {
                             let data = ["contents" : ["en" : "\(userName) makes comment on your Story!", "ko" : "\(userName)가 당신의 스토리에 댓글을 달았네요!"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
                             OneSignal.postNotification(data)
+                            
+                            // 데이터베이스에 저장하기
+                            // 푸쉬 객체 생성
+                            let newPush = PushNotis()
+                            newPush.from = Backendless.sharedInstance().userService.currentUser.objectId as String
+                            newPush.to = self.selectedStory.writer.objectId as String
+                            newPush.type = "story"
+                            newPush.typeId = self.selectedStory.objectId!
+                            newPush.bodyText = "\(userName)가 당신의 스토리에 댓글을 달았네요!"
+                            
+                            let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
+                            pushStore?.save(newPush, response: { (response) in
+                                print("백엔드리스에 푸쉬 저장 완료")
+                            }, error: { (Fault) in
+                                print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
+                            })
                         }
                     }
                     
@@ -163,7 +179,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.commentLabel.text = comment.bodyText
         // 시간은 그냥 작성된 시간 기준으로 - 편집 기능은 없앨 수도.... 
         let time = comment.created
-        print("This is created time: \(String(describing: time))")
         let timedifference = timeDifferenceShow(date: time!)
         cell.timeLabel.text = timedifference
 

@@ -132,6 +132,29 @@ class StoryDownloadManager: NSObject {
         })
     }
     
+    /// 스토리 수정하기 - 본문, storyID
+    func changeStory(_ text: String,_ storyID: String, completionBlock: @escaping (_ success: Bool, _ errorMessage: String?) -> ()) {
+        
+        dataStore1?.findID(storyID, response: { (response) in
+            let responseStory = response as! Story
+            
+            responseStory.bodyText = text
+            
+            self.dataStore1?.save(responseStory, response: { (response) in
+                print("스토리 수정 완료")
+                completionBlock(true, nil)
+            }, error: { (Fault) in
+                print("스토리 수정에 문제가 있습니다: \(String(describing: Fault?.description))")
+                completionBlock(false, Fault?.description)
+            })
+            
+            
+        }, error: { (Fault) in
+            print("스토리 로딩에 문제가 있습니다: \(String(describing: Fault?.description))")
+            completionBlock(false, Fault?.description)
+        })
+    }
+    
     /// 스토리 삭제하기 - param: storyID
     func deleteStory(_ storyID: String, completionBlock: @escaping (_ success: Bool, _ errorMessage: String?) -> ()) {
         

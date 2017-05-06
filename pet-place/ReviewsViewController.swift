@@ -9,6 +9,7 @@
 import UIKit
 import SCLAlertView
 import Kingfisher
+import OneSignal
 
 /// 스토어뷰에서 리뷰를 더 보기하면 스토어 관련된 리뷰를 쭉 보여주는 뷰컨트롤러
 class ReviewsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ReviewTableViewCellProtocol {
@@ -72,8 +73,10 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.estimatedRowHeight = 150
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        // 업로드가 된걸 노티 받으면 바로 refresh
+        // 업로드가 된걸 노티 받으면 바로 refresh, reviewUploaded & reviewChanged(편집)
         NotificationCenter.default.addObserver(self, selector: #selector(ReviewsViewController.refresh), name: NSNotification.Name(rawValue: "reviewUploaded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReviewsViewController.refresh), name: NSNotification.Name(rawValue: "reviewChanged"), object: nil)
+        
         // 리뷰 코멘트가 올라가거나 변경된걸 받으면 바로 refresh
         NotificationCenter.default.addObserver(self, selector: #selector(ReviewsViewController.refresh), name: NSNotification.Name(rawValue: "reviewCommentChanged"), object: nil)
         
@@ -362,7 +365,8 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         // 우선 선택 해제
         tableView.deselectRow(at: indexPath, animated: true)
         // 뷰 이동
-        performSegue(withIdentifier: "showReview", sender: indexPath)
+        // performSegue(withIdentifier: "showReview", sender: indexPath)
+        performSegue(withIdentifier: "showDetail", sender: indexPath)
     }
     
     // MARK: Interaction Handling 
@@ -472,6 +476,31 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                     self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
                 
+                // 리뷰 쓴 사람에게 Notification 날리기
+                if let oneSignalId = selectedReview.creator?.getProperty("OneSignalID") {
+                    if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                        let data = ["contents" : ["en" : "\(userName) likes your Review!", "ko" : "\(userName)가 당신의 리뷰를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                        OneSignal.postNotification(data)
+                        
+                        // 데이터베이스에 저장하기
+                        // 푸쉬 객체 생성
+                        let newPush = PushNotis()
+                        newPush.from = objectID! as String
+                        newPush.to = selectedReview.creator!.objectId! as String
+                        newPush.type = "review"
+                        newPush.typeId = reviewId
+                        newPush.bodyText = "\(userName)가 당신의 리뷰를 좋아합니다"
+                        
+                        let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
+                        pushStore?.save(newPush, response: { (response) in
+                            print("백엔드리스에 푸쉬 저장 완료")
+                        }, error: { (Fault) in
+                            print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
+                        })
+                    }
+                }
+                
+                
             }, error: { (Fault) in
                 print("리뷰 라이크를 저장하는데 에러: \(String(describing: Fault?.description))")
             })
@@ -521,7 +550,8 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
 
-    // MARK: - Navigation
+    // MARK: - Navigation method 
+    
     /**
      Called before performing a segue. Need to assign the selected Store object to the AddReviewViewController, to be able to leave a review on that Store object.
      
@@ -541,6 +571,10 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
             let index = sender as! Int
             let destinationVC = segue.destination as! ReviewCommentViewController
             destinationVC.selectedReview = reviewsArray[index]
+        } else if segue.identifier == "showDetail", let indexPath = sender as? IndexPath  {
+            let selectedReview = reviewsArray[indexPath.row]
+            let destinationVC = segue.destination as! ReviewDetailViewController
+            destinationVC.selectedReview = selectedReview
         }
     }
     

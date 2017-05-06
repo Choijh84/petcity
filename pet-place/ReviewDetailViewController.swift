@@ -1,8 +1,8 @@
 //
-//  StoryDetailViewController.swift
+//  ReviewDetailViewController.swift
 //  pet-place
 //
-//  Created by Ken Choi on 2017. 4. 23..
+//  Created by Ken Choi on 2017. 5. 6..
 //  Copyright © 2017년 press.S. All rights reserved.
 //
 
@@ -11,19 +11,21 @@ import Kingfisher
 import SCLAlertView
 import SKPhotoBrowser
 import OneSignal
+import HCSStarRatingView
 
-class StoryDetailViewController: UIViewController {
+/// 전체 페이지로 리뷰의 디테일을 보여주는 뷰, 라이크, 코멘트, 공유, 기타 기능을 모두 포함
+class ReviewDetailViewController: UIViewController {
 
-    var selectedStory: Story!
+    var selectedReview: Review!
     
     var photoList = [String]()
     var photoArrray = [UIImage]()
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var profileImage: LoadingImageView!
     @IBOutlet weak var profileNickname: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var ratingView: HCSStarRatingView!
     
     @IBOutlet weak var bodyTextLabel: UILabel!
     
@@ -49,7 +51,7 @@ class StoryDetailViewController: UIViewController {
         return dateFormatter
     }()
     
-    /// 라이크 버튼 눌렀을 때
+    // 라이크 버튼 눌렀을 때
     @IBAction func tapLikeButton(_ sender: UIButton) {
         // like 여부 체크해서 추가하던가 지운다
         if sender.image(for: .normal) == #imageLiteral(resourceName: "like_bw") {
@@ -72,74 +74,15 @@ class StoryDetailViewController: UIViewController {
         }
     }
     
-    func changeLike(_ addLike: Bool) {
-        let dataStore = Backendless.sharedInstance().data.of(StoryLikes.ofClass())
-        
-        let storyId = selectedStory.objectId!
-        let objectID = Backendless.sharedInstance().userService.currentUser.objectId
-        
-        // 좋아요 눌렀을 때
-        if addLike {
-            let like = StoryLikes()
-            like.by = objectID! as String
-            like.to = storyId
-            // 좋아요 저장
-            dataStore?.save(like, response: nil, error: { (Fault) in
-                SCLAlertView().showError("에러", subTitle: "라이크를 추가하는데 에러 발생함")
-                print("라이크를 추가하는데 에러: \(String(describing: Fault?.description))")
-            })
-            
-            // 스토리를 쓴 사람에게 Notification 날리기
-            if let oneSignalId = selectedStory.writer.getProperty("OneSignalID") {
-                if let userName = UserManager.currentUser()!.getProperty("nickname") {
-                    let data = ["contents" : ["en" : "\(userName) likes your Story!", "ko" : "\(userName)가 당신의 스토리를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
-                    OneSignal.postNotification(data)
-                    
-                    // 데이터베이스에 저장하기
-                    // 푸쉬 객체 생성
-                    let newPush = PushNotis()
-                    newPush.from = objectID! as String
-                    newPush.to = selectedStory.writer.objectId as String
-                    newPush.type = "story"
-                    newPush.typeId = storyId
-                    newPush.bodyText = "\(userName)가 당신의 스토리를 좋아합니다"
-                    
-                    let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
-                    pushStore?.save(newPush, response: { (response) in
-                        print("백엔드리스에 푸쉬 저장 완료")
-                    }, error: { (Fault) in
-                        print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
-                    })
-                }
-            }
-            self.likeNumber = likeNumber + 1
-            self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
-           
-        } else {
-            // 좋아요 취소
-            let dataQuery = BackendlessDataQuery()
-            dataQuery.whereClause = "by = '\(objectID!)' AND to = '\(storyId)'"
-            
-            dataStore?.find(dataQuery, response: { (collection) in
-                let like = (collection?.data as! [StoryLikes]).first
-                
-                // 좋아요 삭제
-                _ = dataStore?.remove(like)
-                
-                self.likeNumber = self.likeNumber - 1
-                self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
-                
-            }, error: { (Fault) in
-                SCLAlertView().showError("에러", subTitle: "라이크를 삭제하는데 에러 발생함")
-                print("라이크를 삭제하는데 에러: \(String(describing: Fault?.description))")
-            })
-        }
-    }
-    
     /// 댓글 버튼 눌렀을 때
     @IBAction func tapCommentButton(_ sender: Any) {
-        // 코멘트뷰로 segue 이동
-        performSegue(withIdentifier: "showComments", sender: nil)
+        
+        // 코멘트뷰로 이동
+        let storyBoard = UIStoryboard(name: "StoryAndReview", bundle: nil)
+        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "ReviewCommentViewController") as! ReviewCommentViewController
+        
+        destinationVC.selectedReview = selectedReview
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     /// 공유 버튼 눌렀을 때
@@ -147,36 +90,38 @@ class StoryDetailViewController: UIViewController {
         shareButtonPressed()
     }
     
-    ///
     @IBAction func tapMoreButton(_ sender: Any) {
-        // 수정, 삭제, 신고를 선택하게 합시다 
+        // 수정, 삭제, 신고를 선택하게 합시다
         let appearance = SCLAlertView.SCLAppearance(
             showCloseButton: false
         )
         let alertView = SCLAlertView(appearance: appearance)
         
-        // 이 스토리가 내 스토리면 수정과 삭제 추가
-        if selectedStory.writer.objectId == UserManager.currentUser()?.objectId {
-            alertView.addButton("스토리 본문 수정") {
-                // 스토리 입력하는 곳으로
-                let storyBoard = UIStoryboard(name: "StoryAndReview", bundle: nil)
-                let destinationVC = storyBoard.instantiateViewController(withIdentifier: "AddStoryViewController") as! AddStoryViewController
-                destinationVC.isEditingStory = true
-                destinationVC.selectedStory = self.selectedStory
+        // 이 리뷰가 내 리뷰면 수정하고 삭제가 되게
+        if selectedReview.creator?.objectId == UserManager.currentUser()?.objectId {
+            alertView.addButton("리뷰 수정") {
+                
+                let storyBoard = UIStoryboard(name: "Reviews", bundle: nil)
+                let destinationVC = storyBoard.instantiateViewController(withIdentifier: "AddReviewViewController") as! AddReviewViewController
+                
+                destinationVC.isReviewEditing = true
+                destinationVC.selectedStore = self.selectedReview.store
+                destinationVC.isEditingReview = self.selectedReview
                 
                 self.navigationController?.pushViewController(destinationVC, animated: true)
+                
             }
-            alertView.addButton("스토리 삭제") {
+            alertView.addButton("리뷰 삭제") {
                 // 삭제하기 전에 한 번 더 물어보기
                 let appearance = SCLAlertView.SCLAppearance(
                     showCloseButton: false
                 )
                 let alertView = SCLAlertView(appearance: appearance)
                 alertView.addButton("삭제") {
-                    StoryDownloadManager().deleteStory(self.selectedStory.objectId!, completionBlock: { (success, error) in
+                    ReviewManager().deleteReview(self.selectedReview.objectId!, completionBlock: { (success, error) in
                         if success {
-                            // 'changed' Notification주기
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "storyChanged"), object: nil)
+                            // 'changed' Notification 주기
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewChanged"), object: nil)
                             SCLAlertView().showSuccess("삭제 완료", subTitle: "")
                             // 그 전 뷰로 돌아가기
                             _ = self.navigationController?.popViewController(animated: true)
@@ -214,35 +159,17 @@ class StoryDetailViewController: UIViewController {
         alertView.showNotice("선택", subTitle: "")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let screenWidth = UIScreen.main.bounds.width
-        scrollView.contentSize = CGSize(width: screenWidth, height: screenWidth+350)
-        
-        // 타이틀 만들기
-        if let name = UserManager.currentUser()?.name {
-            let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-            let myString = "\(name)의 스토리"
-            let myAttribute = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 18)!]
-            
-            titleLabel.attributedText = NSAttributedString(string: myString, attributes: myAttribute)
-            titleLabel.adjustsFontSizeToFitWidth = true
-            titleLabel.textColor = UIColor.navigationTitleColor()
-            titleLabel.textAlignment = .center
-            
-            self.navigationItem.titleView = titleLabel
-        }
-        
-        // 프로필 이미지 동그랗게
+
+        // 프로필 이미지 동그랗게 세팅
         profileImage.layer.cornerRadius = profileImage.frame.width/2
         
         // 페이지 컨트롤
         pageControl.hidesForSinglePage = true
-
+        
         // 닉네임하고 프로필 설정
-        if let user = selectedStory.writer {
+        if let user = selectedReview.creator {
             let nickname = user.getProperty("nickname") as! String
             profileNickname.text = nickname
             
@@ -255,28 +182,65 @@ class StoryDetailViewController: UIViewController {
                     profileImage.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: nil, progressBlock: nil, completionHandler: nil)
                 }
             }
+            
+            // 장소 이름 추가해서 타이틀 만들기
+            if let store = selectedReview.store {
+                let storeName = store.name!
+                
+                let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+                let myString = "\(nickname)의 \(storeName) 리뷰"
+                let myAttribute = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 18)!]
+                
+                titleLabel.attributedText = NSAttributedString(string: myString, attributes: myAttribute)
+                titleLabel.adjustsFontSizeToFitWidth = true
+                titleLabel.textColor = UIColor.navigationTitleColor()
+                titleLabel.textAlignment = .center
+                
+                self.navigationItem.titleView = titleLabel
+            }
+            
         } else {
             //  삭제된 유저의 경우
             profileNickname.text = "탈퇴 유저"
             profileImage.image = #imageLiteral(resourceName: "user_profile")
+            
+            // 장소 이름 추가해서 타이틀 만들기
+            if let store = selectedReview.store {
+                let storeName = store.name!
+                
+                let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+                let myString = "\(storeName) 리뷰"
+                let myAttribute = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 18)!]
+                
+                titleLabel.attributedText = NSAttributedString(string: myString, attributes: myAttribute)
+                titleLabel.adjustsFontSizeToFitWidth = true
+                titleLabel.textColor = UIColor.navigationTitleColor()
+                titleLabel.textAlignment = .center
+                
+                self.navigationItem.titleView = titleLabel
+            }
         }
         
         // 본문 설정
-        bodyTextLabel.text = selectedStory.bodyText
+        bodyTextLabel.text = selectedReview.text
         bodyTextLabel.setLineHeight(lineHeight: 2)
         
         // 시간 설정
-        timeLabel.text = dateFormatter.string(from: selectedStory.created! as Date)
+        timeLabel.text = dateFormatter.string(from: selectedReview.created! as Date)
         
         // 사진 배열 설정
-        photoList = (selectedStory.imageArray?.components(separatedBy: ","))!
+        photoList = (selectedReview.fileURL!.components(separatedBy: ","))
         imageCollection.reloadData()
         
         // 라이크 설정
         likeCheck()
         
+        // 평점 설정
+        ratingView.allowsHalfStars = true
+        ratingView.value = selectedReview.rating as! CGFloat
+        
         // 사진 풀화면으로 보여주기
-        let tap = UITapGestureRecognizer(target: self, action: #selector(StoryDetailViewController.showPhoto))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ReviewDetailViewController.showPhoto))
         tap.numberOfTapsRequired = 2
         imageCollection.isUserInteractionEnabled = true
         imageCollection.addGestureRecognizer(tap)
@@ -284,16 +248,16 @@ class StoryDetailViewController: UIViewController {
         // 코멘트 개수
         DispatchQueue.global(qos: .userInteractive).async {
             // 댓글수 찾기
-            let tempStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
+            let tempStore = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
             
-            let storyId = self.selectedStory.objectId!
+            let reviewId = self.selectedReview.objectId!
             let dataQuery = BackendlessDataQuery()
-            // 이 스토리에 달린 댓글 모두 몇 개인지 찾기
-            dataQuery.whereClause = "to = '\(storyId)'"
+            // 이 리뷰에 달린 댓글 모두 몇 개인지 찾기
+            dataQuery.whereClause = "to = '\(reviewId)'"
             
             DispatchQueue.main.async {
                 tempStore?.find(dataQuery, response: { (collection) in
-                    let comments = collection?.data as! [StoryComment]
+                    let comments = collection?.data as! [ReviewComment]
                     self.commentNumber = comments.count
                     
                     self.commentNumberLabel.text = String(self.commentNumber) + "개의 수다들"
@@ -303,67 +267,20 @@ class StoryDetailViewController: UIViewController {
                 })
             }
         }
-        // 스토리 수정에 대한 Notification
-        NotificationCenter.default.addObserver(self, selector: #selector(StoryDetailViewController.refresh), name: NSNotification.Name(rawValue: "storyChanged"), object: nil)
+        
+        // 리뷰 변경에 대한 Notification
+        NotificationCenter.default.addObserver(self, selector: #selector(ReviewDetailViewController.refresh), name: NSNotification.Name(rawValue: "reviewChanged"), object: nil)
         
         // 코멘트 등록 및 삭제에 대한 Notification
-        NotificationCenter.default.addObserver(self, selector: #selector(StoryDetailViewController.commentChanged), name: NSNotification.Name(rawValue: "StoryCommentAdded"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(StoryDetailViewController.commentChanged), name: NSNotification.Name(rawValue: "StoryCommentDeleted"), object: nil)
-        
-    }
-    
-    /// 스토리 관련 정보가 변경되었을 때 다시 데이터를 받아오는 함수
-    func refresh() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // 댓글수 찾기
-            let tempStore = Backendless.sharedInstance().data.of(Story.ofClass())
-            
-            let storyId = self.selectedStory.objectId!
-            
-            DispatchQueue.main.async {
-                tempStore?.findID(storyId, response: { (response) in
-                    let responseStory = response as! Story
-                    
-                    self.bodyTextLabel.text = responseStory.bodyText
-                    
-                }, error: { (Fault) in
-                    print("스토리 읽어오기 실패: \(String(describing: Fault?.description))")
-                })
-                
-            }
-        }
-    }
-    
-    /// 댓글이 변경되거나 추가되었을 때 다시 데이터를 받아오는 함수
-    func commentChanged() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // 댓글수 찾기
-            let tempStore = Backendless.sharedInstance().data.of(StoryComment.ofClass())
-            
-            let storyId = self.selectedStory.objectId!
-            let dataQuery = BackendlessDataQuery()
-            // 이 스토리에 달린 댓글 모두 몇 개인지 찾기
-            dataQuery.whereClause = "to = '\(storyId)'"
-            
-            DispatchQueue.main.async {
-                tempStore?.find(dataQuery, response: { (collection) in
-                    let comments = collection?.data as! [StoryComment]
-                    self.commentNumber = comments.count
-                    
-                    self.commentNumberLabel.text = String(self.commentNumber) + "개의 수다들"
-                    
-                }, error: { (Fault) in
-                    print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
-                })
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(ReviewDetailViewController.commentChanged), name: NSNotification.Name(rawValue: "reviewCommentChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReviewDetailViewController.commentChanged), name: NSNotification.Name(rawValue: "reviewCommentDeleted"), object: nil)
     }
     
     func likeCheck() {
-        let likeStore = Backendless.sharedInstance().data.of(StoryLikes.ofClass())
+        let likeStore = Backendless.sharedInstance().data.of(ReviewLikes.ofClass())
         let dataQuery = BackendlessDataQuery()
         
-        let objectID = selectedStory.objectId!
+        let objectID = selectedReview.objectId!
         let userID = UserManager.currentUser()!.objectId!
         // print("objectID & userID: \(objectID) & \(userID)")
         
@@ -372,7 +289,7 @@ class StoryDetailViewController: UIViewController {
         
         DispatchQueue.main.async {
             likeStore?.find(dataQuery, response: { (collection) in
-                let likes = collection?.data as! [StoryLikes]
+                let likes = collection?.data as! [ReviewLikes]
                 
                 // 하트를 안 눌렀을 때
                 if likes.count == 0 {
@@ -407,11 +324,124 @@ class StoryDetailViewController: UIViewController {
         }
     }
     
+    func changeLike(_ addLike: Bool) {
+        let dataStore = Backendless.sharedInstance().data.of(ReviewLikes.ofClass())
+        
+        let reviewId = selectedReview.objectId!
+        let objectID = Backendless.sharedInstance().userService.currentUser.objectId
+        
+        // 좋아요 눌렀을 때
+        if addLike {
+            let like = StoryLikes()
+            like.by = objectID! as String
+            like.to = reviewId
+            // 좋아요 저장
+            dataStore?.save(like, response: nil, error: { (Fault) in
+                SCLAlertView().showError("에러", subTitle: "라이크를 추가하는데 에러 발생함")
+                print("라이크를 추가하는데 에러: \(String(describing: Fault?.description))")
+            })
+            
+            // 스토리를 쓴 사람에게 Notification 날리기
+            if let oneSignalId = selectedReview.creator?.getProperty("OneSignalID") {
+                if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                    let data = ["contents" : ["en" : "\(userName) likes your Review!", "ko" : "\(userName)가 당신의 리뷰를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                    OneSignal.postNotification(data)
+                    
+                    // 데이터베이스에 저장하기
+                    // 푸쉬 객체 생성
+                    let newPush = PushNotis()
+                    newPush.from = objectID! as String
+                    newPush.to = (selectedReview.creator!).objectId! as! String
+                    newPush.type = "review"
+                    newPush.typeId = reviewId
+                    newPush.bodyText = "\(userName)가 당신의 리뷰를 좋아합니다"
+                    
+                    let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
+                    pushStore?.save(newPush, response: { (response) in
+                        print("백엔드리스에 푸쉬 저장 완료")
+                    }, error: { (Fault) in
+                        print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
+                    })
+                }
+            }
+            self.likeNumber = likeNumber + 1
+            self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
+            
+        } else {
+            // 좋아요 취소
+            let dataQuery = BackendlessDataQuery()
+            dataQuery.whereClause = "by = '\(objectID!)' AND to = '\(reviewId)'"
+            
+            dataStore?.find(dataQuery, response: { (collection) in
+                let like = (collection?.data as! [StoryLikes]).first
+                
+                // 좋아요 삭제
+                _ = dataStore?.remove(like)
+                
+                self.likeNumber = self.likeNumber - 1
+                self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
+                
+            }, error: { (Fault) in
+                SCLAlertView().showError("에러", subTitle: "라이크를 삭제하는데 에러 발생함")
+                print("라이크를 삭제하는데 에러: \(String(describing: Fault?.description))")
+            })
+        }
+    }
+    
+    func refresh() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            // 평점하고 본문 다시 읽어오기
+            let tempStore = Backendless.sharedInstance().data.of(Review.ofClass())
+            
+            let reviewId = self.selectedReview.objectId!
+            
+            DispatchQueue.main.async {
+                tempStore?.findID(reviewId, response: { (response) in
+                    let responseReview = response as! Review
+                    
+                    // 본문
+                    self.bodyTextLabel.text = responseReview.text
+                    
+                    // 평점
+                    self.ratingView.value = responseReview.rating as! CGFloat
+                    
+                }, error: { (Fault) in
+                    print("리뷰 로딩 실패: \(String(describing: Fault?.description))")
+                })
+            }
+        }
+    }
+    
+    func commentChanged() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            // 댓글수 찾기
+            let tempStore = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
+            
+            let reviewId = self.selectedReview.objectId!
+            let dataQuery = BackendlessDataQuery()
+            
+            dataQuery.whereClause = "to = '\(reviewId)'"
+            
+            // 이 스토리에 달린 댓글 모두 몇 개인지 찾기
+            DispatchQueue.main.async {
+                tempStore?.find(dataQuery, response: { (collection) in
+                    let comments = collection?.data as! [ReviewComment]
+                    self.commentNumber = comments.count
+                    
+                    self.commentNumberLabel.text = String(self.commentNumber) + "개의 수다들"
+                    
+                }, error: { (Fault) in
+                    print("서버에서 댓글 얻어오기 실패: \(String(describing: Fault?.description))")
+                })
+            }
+        }
+    }
+    
     // 사진 전체화면으로 보기
     func showPhoto() {
         
         // imageArray 구성하기
-        let imageURL = selectedStory.imageArray?.components(separatedBy: ",")
+        let imageURL = selectedReview.fileURL?.components(separatedBy: ",")
         
         var images = [SKPhoto]()
         
@@ -432,12 +462,12 @@ class StoryDetailViewController: UIViewController {
         browser.initializePageIndex(0)
         self.present(browser, animated: true, completion: nil)
     }
-
+    
     /// 공유를 위한 함수
     func shareButtonPressed() {
         
-        let shareText = "이 스토리를 펫시티에서 같이 봐주세요!"
-        if let bodyText = selectedStory.bodyText {
+        let shareText = "이 리뷰를 펫시티에서 같이 봐주세요!"
+        if let bodyText = selectedReview.text {
             let activityViewController = UIActivityViewController(activityItems: [ shareText, bodyText ], applicationActivities: nil)
             self.present(activityViewController, animated: true, completion: nil)
         } else {
@@ -446,21 +476,13 @@ class StoryDetailViewController: UIViewController {
         }
         
     }
-    
-    // MARK: - Segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any? ) {
-        if segue.identifier == "showComments" {
-            let destinationVC = segue.destination as! CommentViewController
-            destinationVC.selectedStory = selectedStory
-        }
-    }
-    
+
     // 신고 이메일 현재 수신인: ourpro.choi@gmail.com
     func sendEmail() {
         let userEmail = Backendless.sharedInstance().userService.currentUser.email
         
-        let subject = "스토리 게시물 신고 이메일"
-        let body = "신고 사용자: \(userEmail!).\n 신고한 게시물은 이 게시물입니다. ID: \(String(describing: selectedStory.objectId!))"
+        let subject = "리뷰 게시물 신고 이메일"
+        let body = "신고 사용자: \(userEmail!).\n 신고한 게시물은 이 게시물입니다. ID: \(String(describing: selectedReview.objectId!))"
         let recipient = "ourpro.choi@gmail.com"
         Backendless.sharedInstance().messagingService.sendHTMLEmail(subject, body: body, to: [recipient], response: { (response) in
             SCLAlertView().showSuccess("신고 완료", subTitle: "제출되었습니다")
@@ -468,10 +490,11 @@ class StoryDetailViewController: UIViewController {
             print("Server reported an error: \(String(describing: Fault?.description))")
         }
     }
+    
 }
 
-extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+extension ReviewDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -482,7 +505,7 @@ extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! StoryDetailCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ReviewDetailCollectionViewCell
         
         cell.imageView.kf.indicatorType = .activity
         let url = URL(string: photoList[indexPath.row])
@@ -504,7 +527,7 @@ extension StoryDetailViewController: UICollectionViewDelegate, UICollectionViewD
     
 }
 
-class StoryDetailCollectionViewCell: UICollectionViewCell {
+class ReviewDetailCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     

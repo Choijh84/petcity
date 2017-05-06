@@ -109,6 +109,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         
         // 업로드가 된걸 노티 받으면 바로 refresh
         NotificationCenter.default.addObserver(self, selector: #selector(ReviewViewController.refresh), name: NSNotification.Name(rawValue: "reviewUploaded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReviewViewController.refresh), name: NSNotification.Name(rawValue: "reviewChanged"), object: nil)
         // 리뷰 코멘트가 올라가거나 변경된걸 받으면 바로 refresh
         NotificationCenter.default.addObserver(self, selector: #selector(ReviewViewController.refresh), name: NSNotification.Name(rawValue: "reviewCommentChanged"), object: nil)
         
@@ -537,7 +538,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             like.to = reviewId
             
             dataStore?.save(like, response: { (response) in
-                print("liked")
+                
                 DispatchQueue.main.async {
                     let indexPath = IndexPath(row: row, section: 0)
                     self.tableView.reloadRows(at: [indexPath], with: .none)
@@ -548,6 +549,22 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                     if let userName = UserManager.currentUser()!.getProperty("nickname") {
                         let data = ["contents" : ["en" : "\(userName) likes your Review!", "ko" : "\(userName)가 당신의 리뷰를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
                         OneSignal.postNotification(data)
+                        
+                        // 데이터베이스에 저장하기
+                        // 푸쉬 객체 생성
+                        let newPush = PushNotis()
+                        newPush.from = objectID! as String
+                        newPush.to = selectedReview.creator!.objectId! as String
+                        newPush.type = "review"
+                        newPush.typeId = reviewId
+                        newPush.bodyText = "\(userName)가 당신의 리뷰를 좋아합니다"
+                        
+                        let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
+                        pushStore?.save(newPush, response: { (response) in
+                            print("백엔드리스에 푸쉬 저장 완료")
+                        }, error: { (Fault) in
+                            print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
+                        })
                     }
                 }
                 

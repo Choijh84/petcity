@@ -21,11 +21,17 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     
     /// Button to select an image
     @IBOutlet weak var selectButton: UIButton!
-    
-    // 텍스트뷰 글자수 알려주기
+    /// 사진 변경 불가 안내 문구
+    @IBOutlet weak var photoCaution: UILabel!
+    /// 텍스트뷰 글자수 알려주기
     @IBOutlet weak var textViewCountLabel: UILabel!
-    // 텍스트뷰 글자수 변수
+    /// 텍스트뷰 글자수 변수
     var textCount = 0
+    
+    /// 편집 중일 때는 이 변수가 true
+    var isReviewEditing = false
+    /// 편집 모드일 때 받아두는 리뷰 객체 
+    var isEditingReview: Review? 
     
     /// Manager object that handles uploading/creatig a new Review
     let reviewManager = ReviewManager()
@@ -39,6 +45,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     var assets: [DKAsset]?
     var imageArray = [UIImage]()
     
+    /// 사진 보여주는 콜렉션 뷰
     @IBOutlet weak var previewView: UICollectionView?
     
     /// Overlay view to be shown while creating a new review
@@ -51,56 +58,95 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
      Creates a new review when the user pressed the send button
      */
     func sendButtonPressed() {
-        
-        // 리뷰가 30자 이상 되는지 검사
-        if let text = reviewField.text {
-            if textCount < 20 {
-                SCLAlertView().showError("20자가 안되요 ㅠ", subTitle: "상세한 리뷰를 부탁드릴게요")
-            } else {
-                reviewField.resignFirstResponder()
-                
-                overlayView.displayView(view, text: "리뷰 올리는 중...")
-                
-                // 사진이 없을 때
-                if imageArray.count == 0 {
-                    reviewManager.uploadNewReview(text, fileURL: nil, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock: { (success, store, errorMessage) in
-                        if success == true {
-                            
-                            // 현재 리로드가 안됨 - Notification 활용 필요
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewUploaded"), object: nil)
+        // 편집 중일 때는 사진은 터치하지 않고 문구와 평점만 수정해서 저장
+        if isReviewEditing {
+            
+            if let text = reviewField.text {
+                if textCount < 20 {
+                    SCLAlertView().showError("20자가 안되요 ㅠ", subTitle: "상세한 리뷰를 부탁드릴게요")
+                } else {
+                    
+                    reviewField.resignFirstResponder()
+                    
+                    overlayView.displayView(view, text: "리뷰 수정 중...")
+                    
+                    let rating = self.ratingView.value as NSNumber
+                    let reviewID = self.isEditingReview!.objectId!
+                    reviewManager.editReview(text, rating, reviewID, completionBlock: { (success, error) in
+                        if success {
+                            // 수정된 곳에 노티 보내기
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewChanged"), object: nil)
                             _ = self.navigationController?.popViewController(animated: true)
                             
                         } else {
+                            
+                            self.overlayView.hideView()
                             SCLAlertView().showInfo("에러 발생", subTitle: "확인 부탁드립니다")
-                            self.overlayView.hideView()
+                            
                         }
                     })
-                } else {
-                    // 사진이 여러 장
-                    reviewManager.uploadBlobPhotos(selectedImages: imageArray, completionBlock: { (success, fileURL, error) in
-                        if error == nil {
-                            print("This is FILEURL: \(String(describing: fileURL))")
-                            self.overlayView.hideView()
-                            self.reviewManager.uploadNewReview(text, fileURL: fileURL, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock:
-                                { (success, store, errorMessage) in
-                                    if success == true {
-                                        
-                                        // 현재 리로드가 안됨 - Notification 활용 필요
-                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewUploaded"), object: nil)
-                                        _ = self.navigationController?.popViewController(animated: true)
-                                        
-                                    } else {
-                                        SCLAlertView().showInfo("에러 발생", subTitle: "확인 부탁드립니다")
-                                    }
-                            })
-                        } else {
-                            SCLAlertView().showInfo("사진 업로드 에러", subTitle: "확인 부탁드립니다")
-                        }
-                    })
+                    
+                    
                 }
+            } else {
+                SCLAlertView().showError("확인 필요", subTitle: "리뷰를 입력해주세요")
             }
+            
         } else {
-            SCLAlertView().showError("확인 필요", subTitle: "리뷰를 입력해주세요")
+            // 새롭게 저장할 때
+            // 리뷰가 특정 길이(20자) 이상 되는지 검사
+            if let text = reviewField.text {
+                if textCount < 20 {
+                    SCLAlertView().showError("20자가 안되요 ㅠ", subTitle: "상세한 리뷰를 부탁드릴게요")
+                } else {
+                    reviewField.resignFirstResponder()
+                    
+                    overlayView.displayView(view, text: "리뷰 올리는 중...")
+                    
+                    // 사진이 없을 때
+                    if imageArray.count == 0 {
+                        reviewManager.uploadNewReview(text, fileURL: nil, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock: { (success, store, errorMessage) in
+                            if success == true {
+                                
+                                // 현재 리로드가 안됨 - Notification 활용 필요
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewUploaded"), object: nil)
+                                _ = self.navigationController?.popViewController(animated: true)
+                                
+                            } else {
+                                
+                                self.overlayView.hideView()
+                                SCLAlertView().showInfo("에러 발생", subTitle: "확인 부탁드립니다")
+                                
+                            }
+                        })
+                    } else {
+                        // 사진이 여러 장
+                        reviewManager.uploadBlobPhotos(selectedImages: imageArray, completionBlock: { (success, fileURL, error) in
+                            if error == nil {
+                                print("This is FILEURL: \(String(describing: fileURL))")
+                                self.overlayView.hideView()
+                                self.reviewManager.uploadNewReview(text, fileURL: fileURL, rating: (self.ratingView.value) as NSNumber, store: self.selectedStore, completionBlock:
+                                    { (success, store, errorMessage) in
+                                        if success == true {
+                                            
+                                            // 현재 리로드가 안됨 - Notification 활용 필요
+                                            NotificationCenter.default.post(name: Notification.Name(rawValue: "reviewUploaded"), object: nil)
+                                            _ = self.navigationController?.popViewController(animated: true)
+                                            
+                                        } else {
+                                            SCLAlertView().showInfo("에러 발생", subTitle: "확인 부탁드립니다")
+                                        }
+                                })
+                            } else {
+                                SCLAlertView().showInfo("사진 업로드 에러", subTitle: "확인 부탁드립니다")
+                            }
+                        })
+                    }
+                }
+            } else {
+                // 리뷰가 입력이 안되었을 때
+                SCLAlertView().showError("확인 필요", subTitle: "리뷰를 입력해주세요")
+            }
         }
     }
     
@@ -111,27 +157,30 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     @IBAction func addImageButtonPressed() {
         reviewField.resignFirstResponder()
         
-        let actionsheet = UIAlertController(title: "Choose source", message: nil, preferredStyle: .actionSheet)
+        let actionsheet = UIAlertController(title: "선택", message: nil, preferredStyle: .actionSheet)
+        /*
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            actionsheet.addAction(UIAlertAction(title: "Take a picture", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            actionsheet.addAction(UIAlertAction(title: "카메라", style: UIAlertActionStyle.default, handler: { (action) -> Void in
                 self.pickerController.sourceType = .camera
                 self.showImagePicker()
+                
             }))
         }
+        */
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            actionsheet.addAction(UIAlertAction(title: "Choose photo", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            actionsheet.addAction(UIAlertAction(title: "사진 고르기", style: UIAlertActionStyle.default, handler: { (action) -> Void in
                 self.pickerController.assetType = .allPhotos
                 self.showImagePicker()
             }))
         }
-        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionsheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         present(actionsheet, animated: true, completion: nil)
     }
     
     // MARK: DKIMAGE PICKER
     func showImagePicker() {
         
-        pickerController.showsCancelButton = true
+        pickerController.showsCancelButton = false
         
         pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
             
@@ -139,6 +188,7 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
             self.previewView?.reloadData()
             self.fromAssetToImage()
         }
+        
         
         if UI_USER_INTERFACE_IDIOM() == .pad {
             pickerController.modalPresentationStyle = .formSheet
@@ -189,37 +239,88 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "리뷰 올리기"
         
-        // show a send button on the navigation bar
-        let sendBarButton = UIBarButtonItem(title: "Send", style: .plain, target: self, action: #selector(AddReviewViewController.sendButtonPressed))
-        sendBarButton.tintColor = UIColor.rgbColor(red: 235.0, green: 198.0, blue: 16.0)
-        navigationItem.rightBarButtonItem = sendBarButton
-        
-        // 별점 반개 allow
-        ratingView.allowsHalfStars = true
-        ratingView.value = 4.5
-        
-        reviewField.text = ""
-        reviewField.layer.borderColor = UIColor.rgbColor(red: 179, green: 179, blue: 179).withAlphaComponent(0.2).cgColor
-        reviewField.layer.borderWidth = 1.0
-        reviewField.layer.cornerRadius = 4.0
-        reviewField.becomeFirstResponder()
-        
-        selectButton.layer.cornerRadius = 4.0
-        
-        view.layoutIfNeeded()
-        
-        // Add tap recongizer to the view, so keyboard can be closed easily
-        // Close this action bcs collectionView Tap should be active
-        /**
-         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddReviewViewController.viewTapped))
-         tapRecognizer.numberOfTapsRequired = 1
-         view.addGestureRecognizer(tapRecognizer)
-         */
-        
-        pickerController = DKImagePickerController()
-        previewView?.allowsSelection = true
+        if isReviewEditing {
+            selectButton.isHidden = true
+            previewView?.isHidden = true
+            photoCaution.isHidden = true
+            
+            // 타이틀
+            // 장소 이름 추가해서 타이틀 만들기
+            let storeName = selectedStore.name!
+            
+            let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+            let myString = "\(storeName) 리뷰 본문 수정하기"
+            let myAttribute = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 18)!]
+            
+            titleLabel.attributedText = NSAttributedString(string: myString, attributes: myAttribute)
+            titleLabel.adjustsFontSizeToFitWidth = true
+            titleLabel.textColor = UIColor.navigationTitleColor()
+            titleLabel.textAlignment = .center
+            
+            self.navigationItem.titleView = titleLabel
+            
+            // 네비게이션 바에 '수정' 버튼 추가하기
+            let sendBarButton = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(AddReviewViewController.sendButtonPressed))
+            // sendBarButton.tintColor = UIColor.rgbColor(red: 235.0, green: 198.0, blue: 16.0)
+            navigationItem.rightBarButtonItem = sendBarButton
+            
+            // 별점 설정
+            ratingView.allowsHalfStars = true
+            ratingView.value = isEditingReview?.rating as! CGFloat
+            
+            // 리뷰 필드 설정
+            reviewField.text = isEditingReview?.text
+            reviewField.layer.borderColor = UIColor.rgbColor(red: 179, green: 179, blue: 179).withAlphaComponent(0.2).cgColor
+            reviewField.layer.borderWidth = 1.0
+            reviewField.layer.cornerRadius = 4.0
+            reviewField.becomeFirstResponder()
+            
+            // 뷰 리셋
+            view.layoutIfNeeded()
+            
+        } else {
+            
+            // 장소 이름 추가해서 타이틀 만들기
+            let storeName = selectedStore.name!
+            
+            let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+            let myString = "\(storeName) 리뷰 올리기"
+            let myAttribute = [NSForegroundColorAttributeName: UIColor.navigationTitleColor(), NSFontAttributeName: UIFont(name: "YiSunShinDotumM", size: 18)!]
+            
+            titleLabel.attributedText = NSAttributedString(string: myString, attributes: myAttribute)
+            titleLabel.adjustsFontSizeToFitWidth = true
+            titleLabel.textColor = UIColor.navigationTitleColor()
+            titleLabel.textAlignment = .center
+            
+            self.navigationItem.titleView = titleLabel
+            
+            // 네비게이션 바에 '센드' 버튼 추가하기
+            let sendBarButton = UIBarButtonItem(title: "업로드", style: .plain, target: self, action: #selector(AddReviewViewController.sendButtonPressed))
+            sendBarButton.tintColor = UIColor.rgbColor(red: 235.0, green: 198.0, blue: 16.0)
+            navigationItem.rightBarButtonItem = sendBarButton
+            
+            // 별점 반개 allow
+            ratingView.allowsHalfStars = true
+            ratingView.value = 4.0
+            
+            // 리뷰 필드 설정
+            reviewField.text = ""
+            reviewField.layer.borderColor = UIColor.rgbColor(red: 179, green: 179, blue: 179).withAlphaComponent(0.2).cgColor
+            reviewField.layer.borderWidth = 1.0
+            reviewField.layer.cornerRadius = 4.0
+            reviewField.becomeFirstResponder()
+            
+            // 셀렉 버튼 동그랗게
+            selectButton.layer.cornerRadius = 4.0
+            
+            // 뷰 리셋
+            view.layoutIfNeeded()
+            
+            pickerController = DKImagePickerController()
+            previewView?.allowsSelection = true
+        }
+
     }
     
     /**

@@ -18,6 +18,9 @@ class CommentTableViewCell: UITableViewCell {
     weak var delegate: CommentTableViewCellProtocol?
     var row: Int?
     
+    // 리뷰인지 스토리인지 저장하는 변수
+    var style: String = "story"
+    
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -46,8 +49,14 @@ class CommentTableViewCell: UITableViewCell {
         alertView.addButton("삭제") { 
             print("This is deleteButton tag: \(self.deleteButton.tag)")
             self.delegate?.actionTapped(row: self.deleteButton.tag)
+            
             // 스토리디테일뷰에 Notification 주기
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "StoryCommentDeleted"), object: nil)
+            if self.style == "story" {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "StoryCommentDeleted"), object: nil)
+            } else if self.style == "review" {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "ReviewCommentDeleted"), object: nil)
+            }
+            
         }
         alertView.addButton("취소") { 
             print("취소되었습니다")

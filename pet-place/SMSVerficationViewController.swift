@@ -14,9 +14,13 @@ class SMSVerficationViewController: UIViewController {
     // 회원가입한 유저 
     let user = Backendless.sharedInstance().userService.currentUser
     
+    // 청기와랩 관련 정보
     let url = "https://api.bluehouselab.com/smscenter/v1.0/sendsms"
     let appid = "petcity"
     let apikey = "8c8f208003ed11e7ba080cc47a1fcfae"
+    
+    // 오른쪽 바버튼
+    @IBOutlet weak var rightBarButton: UIBarButtonItem!
     
     // 인증 번호
     var generatedString = ""
@@ -46,17 +50,24 @@ class SMSVerficationViewController: UIViewController {
     // 휴대폰 번호 중복 경고 라벨
     @IBOutlet weak var overlapMessageLabel: UILabel!
     
-    
+    // 다음 버튼 누르면
     @IBAction func nextView(_ sender: Any) {
-        // 인증했는지 물어보고 
-        
         // 홈 뷰로 이동하기
-        // 홈 화면으로 이동
-        let vc = StoryboardManager.homeTabbarController()
-        self.present(vc, animated: true, completion: nil)
+        // 홈 화면으로 이동할지 물어보고 이동하기
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("홈 화면으로 이동") {
+            let vc = StoryboardManager.homeTabbarController()
+            self.present(vc, animated: true, completion: nil)
+        }
+        alertView.addButton("취소") {
+            print("취소되었습니다")
+        }
+        alertView.showSuccess("홈 화면 이동", subTitle: "")
+       
     }
-    
-    
     
     // 번호 전송 요청
     @IBAction func verificationRequest(_ sender: Any) {
@@ -69,7 +80,7 @@ class SMSVerficationViewController: UIViewController {
                 // 이 func안에서 데이터베이스 유효 및 발송까지 처리
                 // 체크사항: 발송 횟수, 시간
                 if sentCount > 3 {
-                    SCLAlertView().showInfo("문자 발송", subTitle: "3회를 초과했습니다")
+                    SCLAlertView().showInfo("문자 발송 3회 초과", subTitle: "초과했습니다")
                 } else {
                     checkPhoneNumber()
                 }
@@ -98,21 +109,28 @@ class SMSVerficationViewController: UIViewController {
                     
                     if response?.totalObjects == 0 {
                         // 만약에 데이터베이스에 인증 번호가 없을 때
-                        print("This is response1: \(String(describing: response))")
+                        // print("This is response1: \(String(describing: response))")
                         SCLAlertView().showError("인증 실패", subTitle: "확인되지 않는 인증 번호")
                     } else {
                         // 데이터베이스에 인증 번호 확인
-                        print("This is response2: \(String(describing: response))")
-                        // 매칭 되면 핸드폰 번호 인증
-                        SCLAlertView().showSuccess("인증 완료", subTitle: "감사합니다")
-                        // 홈 화면으로 이동
-                        let vc = StoryboardManager.homeTabbarController()
-                        self.present(vc, animated: true, completion: nil)
-                        // 유저 정보에 핸드폰 번호 저장
-                        self.savePhoneNumber()
-                        // 데이터베이스에서 인증 번호 삭제
-                        self.deleteGenerateString(str: self.generatedString)
+                        // print("This is response2: \(String(describing: response))")
                         
+                        // 매칭 되면 핸드폰 번호 인증, 메세지 보여주고 확인 누르면 홈화면으로 이동하게
+                        let appearance = SCLAlertView.SCLAppearance(
+                            showCloseButton: false
+                        )
+                        let alertView = SCLAlertView(appearance: appearance)
+                        alertView.addButton("홈 화면으로 이동") {
+                            // 홈 화면으로 이동
+                            let vc = StoryboardManager.homeTabbarController()
+                            self.present(vc, animated: true, completion: nil)
+                            // 유저 정보에 핸드폰 번호 저장
+                            self.savePhoneNumber()
+                            // 데이터베이스에서 인증 번호 삭제
+                            self.deleteGenerateString(str: self.generatedString)
+                        }
+                        alertView.showSuccess("인증 완료", subTitle: "감사합니다")
+
                     }
                 }, error: { (Fault) in
                     print("Server reported an error: \(String(describing: Fault?.description))")
@@ -130,7 +148,7 @@ class SMSVerficationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("This is current user: \(String(describing: user))")
+        // print("This is current user: \(String(describing: user))")
         
         // 아래 메세지 라벨들은 우선 숨김
         remainingTimeLabel.isHidden = true
@@ -143,7 +161,7 @@ class SMSVerficationViewController: UIViewController {
         let PHONE_REGEX = "^\\d{3}\\d{3,4}\\d{4}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result =  phoneTest.evaluate(with: value)
-        print("This is the result: \(result)")
+        // print("This is the result: \(result)")
         return result
     }
 
@@ -197,7 +215,7 @@ class SMSVerficationViewController: UIViewController {
             let someString = String(randomNum)
             generatedString.append(someString)
         }
-        print("This is 인증번호 생성: \(generatedString)")
+        // print("This is 인증번호 생성: \(generatedString)")
     }
     
     // 유저 중 핸드폰 번호 중복 체크
@@ -213,7 +231,7 @@ class SMSVerficationViewController: UIViewController {
                 
                 if response?.totalObjects == 0 {
                     // 만약에 데이터베이스에 핸드폰 번호가 안 겹칠 때
-                    print("This is response1: \(String(describing: response))")
+                    // print("This is response1: \(String(describing: response))")
                     self.overlapMessageLabel.isHidden = true
                     if self.checkSMS() {
                         self.sendSMS()
@@ -223,7 +241,7 @@ class SMSVerficationViewController: UIViewController {
                     }
                 } else {
                     // 데이터베이스에 겹칠 때
-                    print("This is response2: \(String(describing: response))")
+                    // print("This is response2: \(String(describing: response))")
                     self.overlapMessageLabel.isHidden = false
                     self.phoneNumberField.becomeFirstResponder()
                 }
@@ -243,7 +261,7 @@ class SMSVerficationViewController: UIViewController {
         let basic = "\(appid):\(apikey)"
         let data = basic.data(using: .utf8)
         let encoded = "Basic " + (data?.base64EncodedString())!
-        print("This is encoded: \(encoded)")
+        // print("This is encoded: \(encoded)")
         
         // 문자에 들어갈 내용 작성
         let content = "[펫시티] 인증번호는 [\(generatedString)]입니다."
@@ -273,19 +291,20 @@ class SMSVerficationViewController: UIViewController {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(String(describing: response))")
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                // check for http errors
+                // print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                // print("response = \(String(describing: response))")
             }
             let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(String(describing: responseString))")
+            // print("responseString = \(String(describing: responseString))")
         }
         
         task.resume()
         
         // 발송 여부 알람창 표시
         SCLAlertView().showSuccess("성공", subTitle: "인증 번호를 발송하였습니다")
-        timeLeft = 30
+        timeLeft = 180
         myTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SMSVerficationViewController.timerRunning), userInfo: nil, repeats: true)
         self.timerRunning()
         
@@ -303,7 +322,7 @@ class SMSVerficationViewController: UIViewController {
             loggedUser?.setProperty("phoneNumber", object: phoneNumber)
             
             dataStore?.save(loggedUser, response: { (response) in
-                print("데이터베이스에 핸드폰 번호 저장 완료")
+                // print("데이터베이스에 핸드폰 번호 저장 완료")
             }, error: { (Fault) in
                 print("Server reported an error to save user Phone number: \(String(describing: Fault?.description))")
             })
@@ -320,7 +339,7 @@ class SMSVerficationViewController: UIViewController {
         dataQuery.whereClause = whereClause
         
         dataStore?.removeAll(dataQuery, response: { (response) in
-            print("인증번호가 데이터베이스에서 삭제되었습니다")
+            // print("인증번호가 데이터베이스에서 삭제되었습니다")
         }, error: { (Fault) in
             print("Server reported an error to delete: \(String(describing: Fault?.description))")
         })

@@ -359,4 +359,61 @@ class ReviewManager: NSObject {
         })
     }
     
+    /// 리뷰 편집하기 - 본문, 평점, 리뷰아이디
+    func editReview(_ text: String, _ rating: NSNumber, _ reviewID: String, completionBlock: @escaping (_ success: Bool, _ errorMessage: String?) -> ()) {
+        
+        dataStore?.findID(reviewID, response: { (response) in
+            let responseReview = response as! Review
+            
+            responseReview.rating = rating
+            responseReview.text = text
+            
+            self.dataStore?.save(responseReview, response: { (response) in
+                print("수정 완료")
+                completionBlock(true, nil)
+            }, error: { (Fault) in
+                print("리뷰 수정에 문제가 있습니다: \(String(describing: Fault?.description))")
+                completionBlock(false, Fault?.description)
+            })
+            
+        }, error: { (Fault) in
+            print("리뷰 로딩에 문제가 있습니다: \(String(describing: Fault?.description))")
+            completionBlock(false, Fault?.description)
+        })
+    }
+    
+    /// 리뷰 삭제하게 - param: reviewId
+    func deleteReview(_ reviewID: String, completionBlock: @escaping (_ success: Bool, _ errorMessage: String?) -> ()) {
+        
+        dataStore?.findID(reviewID, response: { (response) in
+            let responseReview = response as! Review
+            if let imageArray = responseReview.fileURL?.components(separatedBy: ",") {
+                
+                for image in imageArray {
+                    // 관련 사진 지우기
+                    PhotoManager().deleteStoryFile(selectedUrl: image, completionblock: { (success, error) in
+                        if success {
+                            
+                        } else {
+                            print("사진 삭제 에러: \(String(describing: error?.description))")
+                        }
+                    })
+                }
+                
+                // 스토리 삭제하기
+                self.dataStore?.removeID(reviewID, response: { (success) in
+                    print("리뷰 삭제 완료 \(String(describing: success))")
+                    completionBlock(true, nil)
+                }, error: { (Fault) in
+                    print("리뷰 삭제에 문제가 있습니다: \(String(describing: Fault?.description))")
+                    completionBlock(false, Fault?.description)
+                })
+            }
+            
+        }, error: { (Fault) in
+            print("리뷰 로딩에 문제가 있습니다: \(String(describing: Fault?.description))")
+            completionBlock(false, Fault?.description)
+        })
+        
+    }
 }
