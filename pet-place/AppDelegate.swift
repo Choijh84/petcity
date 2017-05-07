@@ -13,7 +13,7 @@ import GoogleMaps
 import GooglePlaces
 import IQKeyboardManagerSwift
 import OneSignal
-
+import Branch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +40,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         CustomizeAppearance.globalCustomization()
         window?.tintColor = UIColor.globalTintColor()
+        
+        // 브랜치 세팅
+        let branch = Branch.getInstance()
+        
+        branch?.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: { (params, error) in
+            if error == nil {
+                 print("params: \(String(describing: params?.description))")
+            }
+        })
         
         // 백엔드리스 관련 설정
         backendless?.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
@@ -156,6 +165,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("AppDelegate -> application:openURL: \(String(describing: url.scheme))")
         
+        // responds to URI Scheme links
+        Branch.getInstance().application(application,
+                                         open: url,
+                                         sourceApplication: sourceApplication,
+                                         annotation: annotation
+        )
+        
         let backendless = Backendless.sharedInstance()
         let user = backendless?.userService.handleOpen(url)
         if user != nil {
@@ -166,6 +182,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
         // return FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
+    /// Resond to Universal Links
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        
+        // pass the url to the handle deep link call
+        Branch.getInstance().continue(userActivity)
+        
+        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

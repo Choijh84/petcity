@@ -9,6 +9,7 @@
 import UIKit
 import M13Checkbox
 import SCLAlertView
+import Branch
 
 class SignUpViewController: UIViewController, UITextFieldDelegate {
 
@@ -100,6 +101,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                                     // 위설정 내용으로 사용자 업데이트 진행 - 마케팅 및 닉네임 관련
                                     Backendless.sharedInstance().userService.update(registeredUser, response: { (updatedUser) in
                                         SCLAlertView().showSuccess("가입 완료", subTitle: "감사합니다")
+                                        
+                                        // Branch에 이벤트 track
+                                        Branch.getInstance().userCompletedAction("signup")
+                                        
                                         // 바로 로그인
                                         Backendless.sharedInstance().userService.login(newUser.email! as String!, password: tempPassword as String!, response: { (loggedUser) in
                                             print("Logged In")

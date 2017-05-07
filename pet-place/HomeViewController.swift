@@ -128,7 +128,7 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
     // MARK: - Walkthrough delegate -
     
     func walkthroughPageDidChange(_ pageNumber: Int) {
-        print("This is page: \(pageNumber)")
+        // print("This is page: \(pageNumber)")
     }
     
     // Close Button을 누르면
@@ -153,7 +153,7 @@ class HomeViewController: UITableViewController, BWWalkthroughViewControllerDele
                     self.present(alertView, animated: true, completion: nil)
                 } else {
                     if let promotions = promotions {
-                        print("promotion download done: \(promotions)")
+                        // print("promotion download done: \(promotions)")
                         self.promotions = promotions
                     }
                     self.tableInsideHome.reloadData()
