@@ -555,7 +555,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZL-Ma-FSA">
-                                                                    <rect key="frame" x="0.0" y="30" width="20" height="19.5"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="20" height="17.5"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="8"/>
                                                                     <state key="normal" title="편집">
                                                                         <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -565,7 +565,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Og-cS-d45">
-                                                                    <rect key="frame" x="0.0" y="59.5" width="20" height="23.5"/>
+                                                                    <rect key="frame" x="0.0" y="57.5" width="20" height="25.5"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="8"/>
                                                                     <state key="normal" title="삭제">
                                                                         <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -759,7 +759,7 @@
                                         <color key="currentPageIndicatorTintColor" red="1" green="0.75686274509999996" blue="0.027450980390000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="좋아요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poc-Pn-ca8">
-                                        <rect key="frame" x="8" y="599" width="120" height="20"/>
+                                        <rect key="frame" x="8" y="586" width="120" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="2nn-CW-fIK"/>
                                             <constraint firstAttribute="height" constant="20" id="SDn-Ga-fqa"/>
@@ -769,10 +769,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDB-mL-nPc">
-                                        <rect key="frame" x="61" y="544" width="45" height="45"/>
+                                        <rect key="frame" x="48" y="544" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Hlf-oM-Ibd"/>
-                                            <constraint firstAttribute="width" constant="45" id="tw6-Yz-mBR"/>
+                                            <constraint firstAttribute="height" constant="32" id="Hlf-oM-Ibd"/>
+                                            <constraint firstAttribute="width" constant="32" id="tw6-Yz-mBR"/>
                                         </constraints>
                                         <state key="normal" image="chat_color"/>
                                         <connections>
@@ -780,10 +780,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5h-Uh-pPA">
-                                        <rect key="frame" x="114" y="544" width="45" height="45"/>
+                                        <rect key="frame" x="88" y="544" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="MMI-yK-1YK"/>
-                                            <constraint firstAttribute="height" constant="45" id="g5c-A1-fee"/>
+                                            <constraint firstAttribute="width" constant="32" id="MMI-yK-1YK"/>
+                                            <constraint firstAttribute="height" constant="32" id="g5c-A1-fee"/>
                                         </constraints>
                                         <state key="normal" image="share_color"/>
                                         <connections>
@@ -791,10 +791,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZp-ja-mS5">
-                                        <rect key="frame" x="322" y="544" width="45" height="45"/>
+                                        <rect key="frame" x="335" y="544" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="TG0-lL-eyd"/>
-                                            <constraint firstAttribute="height" constant="45" id="hix-X5-IUb"/>
+                                            <constraint firstAttribute="width" constant="32" id="TG0-lL-eyd"/>
+                                            <constraint firstAttribute="height" constant="32" id="hix-X5-IUb"/>
                                         </constraints>
                                         <state key="normal" image="more_story"/>
                                         <connections>
@@ -802,10 +802,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0VF-ff-Q2v">
-                                        <rect key="frame" x="8" y="544" width="45" height="45"/>
+                                        <rect key="frame" x="8" y="544" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Ed3-H4-DNR"/>
-                                            <constraint firstAttribute="width" constant="45" id="T6e-f0-fpy"/>
+                                            <constraint firstAttribute="height" constant="32" id="Ed3-H4-DNR"/>
+                                            <constraint firstAttribute="width" constant="32" id="T6e-f0-fpy"/>
                                         </constraints>
                                         <state key="normal" image="like_bw"/>
                                         <connections>
@@ -813,7 +813,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="댓글 개수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQN-fo-C0i">
-                                        <rect key="frame" x="8" y="627" width="120" height="20"/>
+                                        <rect key="frame" x="8" y="614" width="120" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="9R9-jm-zlk"/>
                                             <constraint firstAttribute="height" constant="20" id="K3S-24-0b0"/>
@@ -918,10 +918,10 @@
     <resources>
         <image name="bigReviewEmpty" width="32" height="31"/>
         <image name="bigReviewFull" width="30" height="29"/>
-        <image name="chat_color" width="32" height="32"/>
-        <image name="like_bw" width="32" height="32"/>
+        <image name="chat_color" width="45" height="45"/>
+        <image name="like_bw" width="45" height="43"/>
         <image name="more_story" width="32" height="32"/>
-        <image name="share_color" width="32" height="32"/>
+        <image name="share_color" width="41" height="45"/>
         <image name="user_profile" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

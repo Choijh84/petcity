@@ -405,7 +405,7 @@
                                 <action selector="showPushNotis:" destination="yfQ-YV-8Io" id="3Kb-Qf-UXo"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="IF1-3f-Sik">
+                        <barButtonItem key="rightBarButtonItem" image="magnifier" id="IF1-3f-Sik">
                             <connections>
                                 <action selector="wantToSearch:" destination="yfQ-YV-8Io" id="2rN-Fx-5pS"/>
                             </connections>
@@ -1738,15 +1738,16 @@
     <resources>
         <image name="Background2" width="768" height="1024"/>
         <image name="Mark" width="80" height="70"/>
-        <image name="alarm" width="25" height="25"/>
+        <image name="alarm" width="23" height="25"/>
         <image name="backButton" width="10" height="18"/>
         <image name="emptyHeart" width="25" height="23"/>
-        <image name="filter icon" width="19" height="18"/>
-        <image name="homeIcon" width="24" height="23"/>
+        <image name="filter icon" width="19" height="25"/>
+        <image name="homeIcon" width="25" height="25"/>
         <image name="imageLoadingHolder" width="600" height="360"/>
         <image name="imageplaceholder" width="600" height="360"/>
-        <image name="locationsIcon" width="16" height="24"/>
-        <image name="mapIcon" width="22" height="22"/>
+        <image name="locationsIcon" width="25" height="25"/>
+        <image name="magnifier" width="25" height="25"/>
+        <image name="mapIcon" width="19" height="25"/>
         <image name="pethotel3" width="420" height="316"/>
         <image name="reviewStar" width="10" height="10"/>
         <image name="reviewStarEmpty" width="12" height="12"/>
@@ -1754,6 +1755,6 @@
         <image name="trash icon empty" width="22" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KNJ-ew-pAG"/>
+        <segue reference="j5R-Km-aTC"/>
     </inferredMetricsTieBreakers>
 </document>

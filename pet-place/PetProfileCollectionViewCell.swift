@@ -43,6 +43,7 @@ class PetProfileCollectionViewCell: UICollectionViewCell {
     
     
     override func awakeFromNib() {
+        petProfileImageView.layer.cornerRadius = petProfileImageView.frame.width/2
         pageControl.layer.cornerRadius = 7.5
     }
     

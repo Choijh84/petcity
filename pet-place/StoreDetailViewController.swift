@@ -230,7 +230,7 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         if isFavorited == true {
             let randomNum : UInt32 = arc4random_uniform(2)
             if randomNum == 0 {
-                isFavorite.setImage(#imageLiteral(resourceName: "redHeart"), for: .normal)
+                isFavorite.setImage(#imageLiteral(resourceName: "pawprint"), for: .normal)
             } else {
                 isFavorite.setImage(#imageLiteral(resourceName: "pawprint"), for: .normal)
             }

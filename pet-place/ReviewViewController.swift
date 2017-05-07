@@ -417,6 +417,18 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedReview = ReviewArray[indexPath.row]
+        
+        let storyBoard = UIStoryboard(name: "Reviews", bundle: nil)
+        let destinationVC = storyBoard.instantiateViewController(withIdentifier: "ReviewDetailViewController") as! ReviewDetailViewController
+        
+        destinationVC.selectedReview = selectedReview
+        
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }

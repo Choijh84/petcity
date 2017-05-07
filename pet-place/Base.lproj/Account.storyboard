@@ -57,7 +57,7 @@
                     <tabBarItem key="tabBarItem" title="My Profile" image="myProfile" id="ln7-Ab-Mdf"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7PA-xb-2yh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7PA-xb-2yh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1096,7 +1096,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="petcity@petcity.com" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S1W-uT-oXm">
-                                <rect key="frame" x="16" y="109" width="343" height="30"/>
+                                <rect key="frame" x="16" y="108.5" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rmf-NH-3gq"/>
                                 </constraints>
@@ -1105,7 +1105,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iP-I7-rpe">
-                                <rect key="frame" x="112" y="188.5" width="150" height="45"/>
+                                <rect key="frame" x="112" y="188" width="150" height="45"/>
                                 <color key="backgroundColor" red="0.83153553299492389" green="0.83153553299492389" blue="0.83153553299492389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="BEt-Uj-k4Z"/>
@@ -1119,7 +1119,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-9s-DxL">
-                                <rect key="frame" x="254" y="60" width="45" height="24"/>
+                                <rect key="frame" x="254" y="59.5" width="45" height="24"/>
                                 <color key="backgroundColor" red="0.83153553300000005" green="0.83153553300000005" blue="0.83153553300000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="dLL-CY-5iK"/>
@@ -1532,7 +1532,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휴대폰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-CX-ieC">
-                                <rect key="frame" x="16" y="305" width="38" height="15.5"/>
+                                <rect key="frame" x="16" y="304.5" width="38" height="15.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1556,7 +1556,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94g-jW-IdP">
-                                <rect key="frame" x="138" y="127" width="77" height="12.5"/>
+                                <rect key="frame" x="138" y="127.5" width="77" height="12.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1589,7 +1589,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UY7-Fj-ewp">
-                                <rect key="frame" x="16" y="340.5" width="278" height="30"/>
+                                <rect key="frame" x="16" y="340" width="278" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="14"/>
@@ -1621,7 +1621,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oP6-D3-yLc">
-                                <rect key="frame" x="313" y="342" width="46" height="27"/>
+                                <rect key="frame" x="313" y="341.5" width="46" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                 <state key="normal" title="인증">
@@ -2037,7 +2037,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iuq-Lf-IlE">
-                                                    <rect key="frame" x="317" y="10" width="52" height="30"/>
+                                                    <rect key="frame" x="317" y="10.5" width="52" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="RI5-CF-47d"/>
                                                         <constraint firstAttribute="height" constant="30" id="VgD-xp-kWC"/>
@@ -2074,7 +2074,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDU-cS-dYk">
-                                                    <rect key="frame" x="317" y="10" width="52" height="30"/>
+                                                    <rect key="frame" x="317" y="10.5" width="52" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="9up-L2-Bv3"/>
                                                         <constraint firstAttribute="width" constant="50" id="Z79-zW-JQS"/>
@@ -2185,7 +2185,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aAz-Nh-l8X">
-                                                    <rect key="frame" x="313" y="7" width="52" height="30"/>
+                                                    <rect key="frame" x="313" y="7.5" width="52" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="47j-bY-kqi"/>
                                                         <constraint firstAttribute="height" constant="30" id="DAg-4Q-Jlc"/>
@@ -2329,7 +2329,7 @@
                                                             <constraint firstAttribute="height" constant="20" id="Si4-4Q-hZM"/>
                                                             <constraint firstAttribute="width" constant="20" id="tlc-V4-iEH"/>
                                                         </constraints>
-                                                        <state key="normal" image="edit"/>
+                                                        <state key="normal" image="profile-photo-edit"/>
                                                         <connections>
                                                             <action selector="profilePictureChange:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="QOt-of-ak2"/>
                                                         </connections>
@@ -2354,17 +2354,17 @@
                                         <rect key="frame" x="0.0" y="150" width="323" height="85.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="neu-01-JSy">
-                                                <rect key="frame" x="0.0" y="0.0" width="64.5" height="85.5"/>
+                                                <rect key="frame" x="0.0" y="0.5" width="65" height="84.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gv-cn-PU0" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="64.5" height="65.5"/>
-                                                        <state key="normal" image="pet-footprint1"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="65" height="64.5"/>
+                                                        <state key="normal" image="pet-profile"/>
                                                         <connections>
                                                             <action selector="petProfileButtonPressed:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="D2c-8f-Iu0"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="펫 프로필" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="ZZm-0Y-1Mh">
-                                                        <rect key="frame" x="0.0" y="70.5" width="64.5" height="15"/>
+                                                        <rect key="frame" x="0.0" y="69.5" width="65" height="15"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="15" id="e0a-eC-0Tm"/>
                                                         </constraints>
@@ -2375,17 +2375,17 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pHe-hH-7i8">
-                                                <rect key="frame" x="126" y="0.0" width="71.5" height="85.5"/>
+                                                <rect key="frame" x="133" y="0.0" width="58" height="85.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlj-sT-TXD" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="71.5" height="64"/>
-                                                        <state key="normal" image="favorite-heart1"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="58" height="64"/>
+                                                        <state key="normal" image="favorite-place"/>
                                                         <connections>
                                                             <action selector="favoriteListButtonPressed:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="Cba-TP-agI"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="찜한 장소들" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="Q2U-7z-ZsA">
-                                                        <rect key="frame" x="0.0" y="69" width="71.5" height="16.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="찜한 장소" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="Q2U-7z-ZsA">
+                                                        <rect key="frame" x="0.0" y="69" width="58" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -2393,17 +2393,17 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="R59-cc-2NN">
-                                                <rect key="frame" x="259" y="0.0" width="64" height="85.5"/>
+                                                <rect key="frame" x="259" y="0.5" width="64" height="84.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRk-MH-ENr" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRk-MH-ENr" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <state key="normal" image="contract1"/>
+                                                        <state key="normal" image="my-story"/>
                                                         <connections>
                                                             <segue destination="qpo-H4-Tgc" kind="push" id="LVu-1n-cvi"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 스토리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="yOs-0Y-qWW">
-                                                        <rect key="frame" x="0.0" y="69" width="64" height="16.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="내 스토리" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="yOs-0Y-qWW">
+                                                        <rect key="frame" x="0.0" y="69" width="64" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -2429,7 +2429,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bq1-bb-Qjv" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
                                                         <rect key="frame" x="0.5" y="0.0" width="64" height="64"/>
-                                                        <state key="normal" image="help1"/>
+                                                        <state key="normal" image="my-info"/>
                                                         <connections>
                                                             <action selector="myInfoButtonPressed:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="fwd-Mp-RJl"/>
                                                         </connections>
@@ -2447,7 +2447,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ht1-HK-HDT" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <state key="normal" image="question1"/>
+                                                        <state key="normal" image="question-to-us"/>
                                                         <connections>
                                                             <action selector="inquiryButtonPressed:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="w9L-Zj-4Fk"/>
                                                         </connections>
@@ -2465,7 +2465,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tP6-df-bOu" customClass="BounceButton" customModule="pet_place" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
-                                                        <state key="normal" image="shop1"/>
+                                                        <state key="normal" image="place-recommendation"/>
                                                         <connections>
                                                             <action selector="recommendButtonPressed:" destination="PTw-dE-Uq1" eventType="touchUpInside" id="Por-bG-udo"/>
                                                         </connections>
@@ -2579,7 +2579,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uiW-qR-RmT" customClass="LoadingImageView" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="136" y="28" width="106" height="106"/>
+                                                    <rect key="frame" x="129" y="28" width="120" height="120"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="120" id="GNp-2F-YXa"/>
                                                         <constraint firstAttribute="width" secondItem="uiW-qR-RmT" secondAttribute="height" multiplier="1:1" id="gcM-fK-Bx5"/>
@@ -2587,13 +2587,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJe-sg-4ul">
-                                                    <rect key="frame" x="178" y="142" width="21" height="15"/>
+                                                    <rect key="frame" x="178" y="156" width="21" height="15"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Lnz-Vl-TYg">
-                                                    <rect key="frame" x="28" y="167" width="131.5" height="25"/>
+                                                    <rect key="frame" x="28" y="181" width="131.5" height="25"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tiedog1" translatesAutoresizingMaskIntoConstraints="NO" id="AVv-5v-vkv">
                                                             <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -2623,7 +2623,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="iME-aA-xzl">
-                                                    <rect key="frame" x="28" y="202" width="64.5" height="25"/>
+                                                    <rect key="frame" x="28" y="216" width="64.5" height="25"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="birthday-cake" translatesAutoresizingMaskIntoConstraints="NO" id="fJ8-eC-I5w">
                                                             <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -2641,7 +2641,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="oFp-rU-NPb">
-                                                    <rect key="frame" x="28" y="237" width="321" height="25"/>
+                                                    <rect key="frame" x="28" y="251" width="321" height="25"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="id-card1" translatesAutoresizingMaskIntoConstraints="NO" id="qrQ-Jk-uKv">
                                                             <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -2659,7 +2659,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="DuU-rh-vCm">
-                                                    <rect key="frame" x="28" y="272" width="321" height="25"/>
+                                                    <rect key="frame" x="28" y="286" width="321" height="25"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male-and-female1" translatesAutoresizingMaskIntoConstraints="NO" id="0bU-bh-XhI">
                                                             <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
@@ -2677,7 +2677,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="8DQ-UA-u7H">
-                                                    <rect key="frame" x="28" y="307" width="321" height="46"/>
+                                                    <rect key="frame" x="28" y="321" width="321" height="46"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wN1-FS-Bx7">
                                                             <rect key="frame" x="0.0" y="0.0" width="321" height="25"/>
@@ -2711,7 +2711,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="1H1-GV-WXy">
-                                                    <rect key="frame" x="28" y="363" width="321" height="46"/>
+                                                    <rect key="frame" x="28" y="377" width="321" height="46"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="AaR-5c-tIz">
                                                             <rect key="frame" x="0.0" y="0.0" width="321" height="25"/>
@@ -2745,7 +2745,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usK-Pm-XfO" customClass="MyButton" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="141" y="306.5" width="34" height="27"/>
+                                                    <rect key="frame" x="141" y="320.5" width="34" height="27"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="12"/>
                                                     <state key="normal" title="Show"/>
                                                     <connections>
@@ -2756,7 +2756,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PlY-HI-uYc" customClass="MyButton" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="141" y="362.5" width="34" height="27"/>
+                                                    <rect key="frame" x="141" y="376.5" width="34" height="27"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="12"/>
                                                     <state key="normal" title="Show"/>
                                                     <connections>
@@ -2767,14 +2767,15 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D0R-pe-nr6" customClass="MyButton" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="337" y="8" width="32" height="25"/>
+                                                    <rect key="frame" x="344" y="8" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="lEm-tb-w08"/>
+                                                        <constraint firstAttribute="width" constant="25" id="q6c-uq-DO7"/>
                                                     </constraints>
                                                     <state key="normal" image="delete-button1"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6a-f4-hzO" customClass="MyButton" customModule="pet_place" customModuleProvider="target">
-                                                    <rect key="frame" x="214" y="140" width="20" height="20"/>
+                                                    <rect key="frame" x="214" y="154" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="JSl-nc-UbU"/>
                                                         <constraint firstAttribute="width" constant="20" id="SKr-xB-kxS"/>
@@ -2782,7 +2783,7 @@
                                                     <state key="normal" image="pencil1"/>
                                                 </button>
                                                 <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="SbN-AF-qlW">
-                                                    <rect key="frame" x="151" y="419" width="75" height="20"/>
+                                                    <rect key="frame" x="151" y="433" width="75" height="20"/>
                                                     <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="9D0-q8-D7Q"/>
@@ -2880,7 +2881,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fSL-CM-l3c">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dEt-mQ-LLZ">
+                        <barButtonItem key="rightBarButtonItem" image="round-add" id="dEt-mQ-LLZ">
                             <connections>
                                 <segue destination="vgN-m2-SUW" kind="push" id="wS8-yh-uWc"/>
                             </connections>
@@ -3027,8 +3028,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cutecat" translatesAutoresizingMaskIntoConstraints="NO" id="WRI-hR-NyN">
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRI-hR-NyN">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" red="0.90668246861036661" green="0.90668246861036661" blue="0.90668246861036661" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-kG-qnb">
                                 <rect key="frame" x="26" y="89" width="323" height="429"/>
@@ -3176,24 +3178,25 @@
         </scene>
     </scenes>
     <resources>
-        <image name="birthday-cake" width="32" height="32"/>
+        <image name="birthday-cake" width="25" height="25"/>
         <image name="companyLogo" width="60" height="60"/>
-        <image name="contract1" width="64" height="64"/>
-        <image name="cutecat" width="396" height="562"/>
         <image name="delete-button1" width="32" height="32"/>
-        <image name="edit" width="64" height="64"/>
-        <image name="favorite-heart1" width="64" height="64"/>
-        <image name="help1" width="64" height="64"/>
-        <image name="id-card1" width="32" height="32"/>
+        <image name="edit" width="30" height="30"/>
+        <image name="favorite-place" width="56" height="64"/>
+        <image name="id-card1" width="25" height="23"/>
         <image name="imageplaceholder" width="600" height="360"/>
-        <image name="male-and-female1" width="32" height="32"/>
-        <image name="medical-records1" width="32" height="32"/>
-        <image name="myProfile" width="21" height="26"/>
+        <image name="male-and-female1" width="25" height="25"/>
+        <image name="medical-records1" width="23" height="25"/>
+        <image name="my-info" width="64" height="64"/>
+        <image name="my-story" width="64" height="64"/>
+        <image name="myProfile" width="19" height="25"/>
         <image name="pencil1" width="32" height="32"/>
-        <image name="pet-footprint1" width="64" height="64"/>
-        <image name="question1" width="64" height="64"/>
-        <image name="shop1" width="64" height="64"/>
-        <image name="syringe1" width="32" height="32"/>
+        <image name="pet-profile" width="50" height="64"/>
+        <image name="place-recommendation" width="64" height="64"/>
+        <image name="profile-photo-edit" width="30" height="30"/>
+        <image name="question-to-us" width="64" height="64"/>
+        <image name="round-add" width="25" height="25"/>
+        <image name="syringe1" width="25" height="25"/>
         <image name="tiedog1" width="32" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

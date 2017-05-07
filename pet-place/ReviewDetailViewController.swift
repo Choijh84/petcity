@@ -229,8 +229,15 @@ class ReviewDetailViewController: UIViewController {
         timeLabel.text = dateFormatter.string(from: selectedReview.created! as Date)
         
         // 사진 배열 설정
-        photoList = (selectedReview.fileURL!.components(separatedBy: ","))
-        imageCollection.reloadData()
+        if let photoURL = selectedReview.fileURL {
+            photoList = photoURL.components(separatedBy: ",")
+            imageCollection.reloadData()
+        } else {
+            // 사진이 없는 리뷰
+            photoList = ["https://api.backendless.com/6E11C098-5961-1872-FF85-2B0BD0AA0600/v1/files/storyImages/imageLoadingHolder%402x.png"]
+            imageCollection.reloadData()
+        }
+        
         
         // 라이크 설정
         likeCheck()

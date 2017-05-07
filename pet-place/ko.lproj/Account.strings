@@ -170,8 +170,8 @@
 /* Class = "UIButton"; normalTitle = "Show"; ObjectID = "PlY-HI-uYc"; */
 "PlY-HI-uYc.normalTitle" = "Show";
 
-/* Class = "UILabel"; text = "찜한 장소들"; ObjectID = "Q2U-7z-ZsA"; */
-"Q2U-7z-ZsA.text" = "찜한 장소들";
+/* Class = "UILabel"; text = "찜한 장소"; ObjectID = "Q2U-7z-ZsA"; */
+"Q2U-7z-ZsA.text" = "찜한 장소";
 
 /* Class = "UITextField"; placeholder = "petcity@petcity.com"; ObjectID = "S1W-uT-oXm"; */
 "S1W-uT-oXm.placeholder" = "petcity@petcity.com";
@@ -396,8 +396,8 @@
 /* Class = "UIButton"; normalTitle = "제출하기"; ObjectID = "y9a-4L-4FP"; */
 "y9a-4L-4FP.normalTitle" = "제출하기";
 
-/* Class = "UILabel"; text = "내 스토리들"; ObjectID = "yOs-0Y-qWW"; */
-"yOs-0Y-qWW.text" = "내 스토리들";
+/* Class = "UILabel"; text = "내 스토리"; ObjectID = "yOs-0Y-qWW"; */
+"yOs-0Y-qWW.text" = "내 스토리";
 
 /* Class = "UILabel"; text = "전체동의"; ObjectID = "yVq-uI-0yc"; */
 "yVq-uI-0yc.text" = "전체동의";

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "birthday-cake1-1.png",
+      "filename" : "birthday-cake.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "birthday-cake2-1.png",
+      "filename" : "birthday-cake@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "birthday-cake3.png",
+      "filename" : "birthday-cake@3x.png",
       "scale" : "3x"
     }
   ],

@@ -207,9 +207,10 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         
         /// petArray의 petProfile에서 사진이 있는 경우
         cell.petProfileImageView.image = #imageLiteral(resourceName: "imageplaceholder")
-        print("This is pet profile url: \(String(describing: petArray[indexPath.row].imagePic))")
-        if !(petArray[indexPath.row].imagePic?.isEmpty)! {
-            let url = URL(string: petArray[indexPath.row].imagePic!)
+        
+        // print("This is pet profile url: \(String(describing: petArray[indexPath.row].imagePic))")
+        if let imageUrl = petArray[indexPath.row].imagePic {
+            let url = URL(string: imageUrl)
             DispatchQueue.main.async(execute: {
                 cell.petProfileImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
             })
