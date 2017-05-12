@@ -3087,11 +3087,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/PlaceRegisterViewController.swift"
-            timestampString = "512631793.419586"
+            timestampString = "516288296.415081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "fillAutoCompleteButton()"
             landmarkType = "7">
          </BreakpointContent>
@@ -3103,11 +3103,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pet-place/PlaceRegisterViewController.swift"
-            timestampString = "512631793.419586"
+            timestampString = "516287722.36702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

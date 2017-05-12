@@ -1093,7 +1093,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="petcity@petcity.com" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="S1W-uT-oXm">
-                                <rect key="frame" x="16" y="109" width="343" height="30"/>
+                                <rect key="frame" x="16" y="108.5" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rmf-NH-3gq"/>
                                 </constraints>
@@ -1102,7 +1102,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iP-I7-rpe">
-                                <rect key="frame" x="112.5" y="188.5" width="150" height="45"/>
+                                <rect key="frame" x="112.5" y="188" width="150" height="45"/>
                                 <color key="backgroundColor" red="0.83153553299492389" green="0.83153553299492389" blue="0.83153553299492389" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="BEt-Uj-k4Z"/>
@@ -1116,7 +1116,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-9s-DxL">
-                                <rect key="frame" x="254" y="60" width="45" height="24"/>
+                                <rect key="frame" x="254" y="59.5" width="45" height="24"/>
                                 <color key="backgroundColor" red="0.83153553300000005" green="0.83153553300000005" blue="0.83153553300000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="dLL-CY-5iK"/>
@@ -1423,6 +1423,7 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i13-sQ-Vlr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="59.5" height="59.5"/>
+                                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="i13-sQ-Vlr" secondAttribute="height" multiplier="1:1" id="eIp-hv-2sZ"/>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="hZg-Ma-0cc"/>
@@ -1431,6 +1432,7 @@
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JT9-b6-35v">
                                                                 <rect key="frame" x="91.5" y="0.0" width="60" height="59.5"/>
+                                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="BUr-ww-yd0"/>
                                                                     <constraint firstAttribute="width" secondItem="JT9-b6-35v" secondAttribute="height" multiplier="1:1" id="HTY-F4-gBm"/>
@@ -1439,6 +1441,7 @@
                                                             </imageView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uIw-N6-OYC">
                                                                 <rect key="frame" x="183.5" y="0.0" width="59.5" height="59.5"/>
+                                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="40X-Le-L3T"/>
                                                                     <constraint firstAttribute="width" secondItem="uIw-N6-OYC" secondAttribute="height" multiplier="1:1" id="6Gm-Uq-say"/>
@@ -1746,7 +1749,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="휴대폰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-CX-ieC">
-                                <rect key="frame" x="16" y="305" width="38" height="15.5"/>
+                                <rect key="frame" x="16" y="304.5" width="38" height="15.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1770,7 +1773,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 수신 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94g-jW-IdP">
-                                <rect key="frame" x="138" y="127" width="77" height="12.5"/>
+                                <rect key="frame" x="138" y="127.5" width="77" height="12.5"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1803,7 +1806,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="10" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UY7-Fj-ewp">
-                                <rect key="frame" x="16" y="340.5" width="278" height="30"/>
+                                <rect key="frame" x="16" y="340" width="278" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="BMJUAOTF" family="BM JUA_OTF" pointSize="14"/>
@@ -1835,7 +1838,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oP6-D3-yLc">
-                                <rect key="frame" x="313" y="342" width="46" height="27"/>
+                                <rect key="frame" x="313" y="341.5" width="46" height="27"/>
                                 <color key="backgroundColor" red="1" green="0.87843137250000003" blue="0.50980392159999999" alpha="0.60686001710000004" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                 <state key="normal" title="인증">
@@ -2509,7 +2512,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="2Ga-Md-e5z">
-                                <rect key="frame" x="26" y="101.5" width="323" height="351"/>
+                                <rect key="frame" x="26" y="102" width="323" height="351"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="haY-es-nDx">
                                         <rect key="frame" x="91.5" y="0.0" width="140" height="120"/>
@@ -3242,12 +3245,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRI-hR-NyN">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="0.90668246861036661" green="0.90668246861036661" blue="0.90668246861036661" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-kG-qnb">
-                                <rect key="frame" x="26" y="89" width="323" height="429"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xAn-kG-qnb">
+                                <rect key="frame" x="26" y="89" width="323" height="310"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5aK-ER-P4J">
                                         <rect key="frame" x="0.0" y="0.0" width="323" height="50"/>
@@ -3273,39 +3272,51 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="OWx-O9-7w1" firstAttribute="centerX" secondItem="5aK-ER-P4J" secondAttribute="centerX" id="5Og-gq-Dm4"/>
+                                            <constraint firstItem="EdU-KW-OYx" firstAttribute="centerX" secondItem="5aK-ER-P4J" secondAttribute="centerX" id="mTi-7A-ECp"/>
+                                        </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="npe-4j-Mdg">
-                                        <rect key="frame" x="0.0" y="65" width="323" height="31"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="npe-4j-Mdg">
+                                        <rect key="frame" x="0.0" y="65" width="323" height="25"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="OJb-NM-l3q">
-                                                <rect key="frame" x="0.0" y="8" width="24" height="14.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="b3v-qr-x3T"/>
+                                                    <constraint firstAttribute="width" constant="30" id="cyo-jM-7mp"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="매장명을 입력해주세요" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dRH-61-uQ1">
-                                                <rect key="frame" x="39" y="0.5" width="284" height="30"/>
+                                                <rect key="frame" x="45" y="0.0" width="278" height="25"/>
                                                 <color key="backgroundColor" red="0.84313725490196079" green="0.80000000000000004" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
+                                                <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eWz-ev-05D">
-                                        <rect key="frame" x="0.0" y="111" width="323" height="30.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eWz-ev-05D">
+                                        <rect key="frame" x="0.0" y="105" width="323" height="25"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="위치" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="X3W-Rj-DTf">
-                                                <rect key="frame" x="0.0" y="8" width="24" height="14.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="An3-af-uTR"/>
+                                                    <constraint firstAttribute="width" constant="30" id="ORy-Zi-NZl"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="  주소를 아시면 입력해주세요! 탭하면 검색창으로 이동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="3DW-WP-Oo6">
-                                                <rect key="frame" x="39" y="0.0" width="284" height="30"/>
+                                            <label opaque="NO" contentMode="left" verticalHuggingPriority="251" text="  주소를 아시면 입력해주세요! 탭하면 검색창으로 이동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="3DW-WP-Oo6">
+                                                <rect key="frame" x="45" y="0.0" width="278" height="25"/>
                                                 <color key="backgroundColor" red="0.84313725490000002" green="0.80000000000000004" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="g4l-s2-cuT"/>
+                                                    <constraint firstAttribute="height" constant="25" id="g4l-s2-cuT"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -3317,19 +3328,26 @@
                                             <constraint firstItem="3DW-WP-Oo6" firstAttribute="leading" secondItem="X3W-Rj-DTf" secondAttribute="trailing" constant="15" id="Pqn-OU-sGd"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-cK-AI9">
-                                        <rect key="frame" x="0.0" y="156.5" width="323" height="227.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-cK-AI9">
+                                        <rect key="frame" x="0.0" y="145" width="323" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추천 이유" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wXr-yc-NDl">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="227.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="120"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="5Dh-c8-E5H"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D0F-n4-c08">
-                                                <rect key="frame" x="66" y="0.0" width="257" height="227.5"/>
+                                                <rect key="frame" x="65" y="0.0" width="258" height="120"/>
                                                 <color key="backgroundColor" red="0.84313725490000002" green="0.80000000000000004" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="12"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="150" id="VTm-Ra-dOl"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="owC-Uj-Axs"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="YiSunShinDotumL" family="YiSunShin Dotum L" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                             </textView>
                                         </subviews>
@@ -3339,27 +3357,40 @@
                                             <constraint firstAttribute="trailing" secondItem="D0F-n4-c08" secondAttribute="trailing" id="zxc-wY-Wsg"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9a-4L-4FP">
-                                        <rect key="frame" x="0.0" y="399" width="323" height="30"/>
-                                        <color key="backgroundColor" red="0.84313725490000002" green="0.80000000000000004" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="JZB-JW-SDt"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
-                                        <state key="normal" title="제출하기">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="submitOnTap:" destination="RmJ-O8-qg5" eventType="touchUpInside" id="6XR-HX-3jM"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eTp-8O-8mn">
+                                        <rect key="frame" x="0.0" y="280" width="323" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngJ-4M-RCn">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="AIA-ka-ysX"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9a-4L-4FP">
+                                                <rect key="frame" x="65" y="0.0" width="258" height="30"/>
+                                                <color key="backgroundColor" red="0.84313725490000002" green="0.80000000000000004" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="JZB-JW-SDt"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="14"/>
+                                                <state key="normal" title="제출하기">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="submitOnTap:" destination="RmJ-O8-qg5" eventType="touchUpInside" id="6XR-HX-3jM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="npe-4j-Mdg" firstAttribute="leading" secondItem="xAn-kG-qnb" secondAttribute="leading" id="4xR-F1-csB"/>
                                     <constraint firstAttribute="trailing" secondItem="eWz-ev-05D" secondAttribute="trailing" id="B8i-ul-DPf"/>
                                     <constraint firstItem="eWz-ev-05D" firstAttribute="leading" secondItem="xAn-kG-qnb" secondAttribute="leading" id="Fxe-en-VSO"/>
                                     <constraint firstAttribute="trailing" secondItem="7aN-cK-AI9" secondAttribute="trailing" id="TMj-wp-KPe"/>
-                                    <constraint firstItem="y9a-4L-4FP" firstAttribute="centerX" secondItem="xAn-kG-qnb" secondAttribute="centerX" id="TNN-Te-9m8"/>
                                     <constraint firstAttribute="trailing" secondItem="5aK-ER-P4J" secondAttribute="trailing" id="ZDc-OP-7QP"/>
                                     <constraint firstItem="7aN-cK-AI9" firstAttribute="leading" secondItem="xAn-kG-qnb" secondAttribute="leading" id="jWD-sg-Xfe"/>
                                     <constraint firstAttribute="trailing" secondItem="npe-4j-Mdg" secondAttribute="trailing" id="m71-bK-7oy"/>
@@ -3369,14 +3400,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="WRI-hR-NyN" firstAttribute="top" secondItem="41S-MA-pkz" secondAttribute="bottom" id="2mp-6V-0dc"/>
                             <constraint firstItem="xAn-kG-qnb" firstAttribute="leading" secondItem="5fi-yb-bVm" secondAttribute="leadingMargin" constant="10" id="4BX-xV-jqi"/>
-                            <constraint firstItem="TP6-HE-DGW" firstAttribute="top" secondItem="WRI-hR-NyN" secondAttribute="bottom" id="5Kb-wR-JSa"/>
-                            <constraint firstItem="WRI-hR-NyN" firstAttribute="leading" secondItem="5fi-yb-bVm" secondAttribute="leading" id="FwN-Za-2qg"/>
                             <constraint firstItem="xAn-kG-qnb" firstAttribute="top" secondItem="41S-MA-pkz" secondAttribute="bottom" constant="25" id="HrU-rM-X9D"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xAn-kG-qnb" secondAttribute="trailing" constant="10" id="ijf-kJ-Ni8"/>
-                            <constraint firstAttribute="trailing" secondItem="WRI-hR-NyN" secondAttribute="trailing" id="m3B-do-uY9"/>
-                            <constraint firstItem="TP6-HE-DGW" firstAttribute="top" secondItem="xAn-kG-qnb" secondAttribute="bottom" constant="100" id="rQr-1k-ger"/>
+                            <constraint firstItem="TP6-HE-DGW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xAn-kG-qnb" secondAttribute="bottom" constant="20" id="rQr-1k-ger"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="장소 추천" id="eoF-0V-muo"/>
@@ -3384,6 +3411,7 @@
                         <outlet property="locationLabel" destination="3DW-WP-Oo6" id="hpn-hm-eMG"/>
                         <outlet property="nameTextField" destination="dRH-61-uQ1" id="Quf-gS-XDc"/>
                         <outlet property="reasonTextView" destination="D0F-n4-c08" id="M5W-rC-0Y4"/>
+                        <outlet property="submitButton" destination="y9a-4L-4FP" id="xYb-Pk-mtr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpt-fc-rRp" userLabel="First Responder" sceneMemberID="firstResponder"/>

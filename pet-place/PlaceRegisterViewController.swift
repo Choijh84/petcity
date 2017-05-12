@@ -20,6 +20,9 @@ class PlaceRegisterViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     // 추천 이유
     @IBOutlet weak var reasonTextView: UITextView!
+    // 제출하기 버튼
+    @IBOutlet weak var submitButton: UIButton!
+    
     
     // 주소나 장소 관련된 정보를 저장할 변수
     var formattedAddress: String = ""
@@ -35,8 +38,10 @@ class PlaceRegisterViewController: UIViewController {
         locationLabel.layer.cornerRadius = 5.0
         reasonTextView.layer.cornerRadius = 5.0
         
-        // 스택뷰안에서 textView가 보이려면 스크롤 false 필요, 안 그러면 사이즈 계산이 안됨
-        reasonTextView.isScrollEnabled = false
+        submitButton.backgroundColor = UIColor.globalTintColor()
+        submitButton.layer.cornerRadius = 15
+        
+        reasonTextView.isScrollEnabled = true
         
         // Tap Gesture
         let tap = UITapGestureRecognizer(target: self, action: #selector(autocompleteClicked))
@@ -53,14 +58,15 @@ class PlaceRegisterViewController: UIViewController {
      */
     
     @IBAction func submitOnTap(_ sender: Any) {
-        print("name: \(String(describing: nameTextField.text)), location: \(String(describing: locationLabel.text))")
+        // print("name: \(String(describing: nameTextField.text)), location: \(String(describing: locationLabel.text))")
         
+        // 입력확인
         if nameTextField.text?.isEmpty == true || locationLabel.text?.isEmpty == true || nameTextField.text == "매장명을 입력해주세요" || reasonTextView.text.isEmpty {
 
             SCLAlertView().showWarning("입력 필요", subTitle: "입력 확인 부탁드립니다")
 
         } else {
-            
+            // 입력이 확인되면 이 내용을 바탕으로 메일 보냄
             self.sendEmail()
             
         }
@@ -87,9 +93,14 @@ class PlaceRegisterViewController: UIViewController {
         let name = nameTextField.text
         let reason = reasonTextView.text
         
-        let subject = "Recommendation from User"
-        let body = "This is an email sent by \(userEmail!).\n User recommends this place: \(name!) and the reason is like this - \(reason!)"
+        let subject = "사용자의 추천 등록"
+        let body =
+            "사용자 이메일 \(userEmail!).<br>" +
+            "추천 장소: \(name!)<br>" +
+            "문의 글 - \(reason!)<br>"
+        
         let recipient = "ourpro.choi@gmail.com"
+        
         Backendless.sharedInstance().messagingService.sendHTMLEmail(subject, body: body, to: [recipient], response: { (response) in
             SCLAlertView().showSuccess("제출 완료", subTitle: "제출되었습니다")
             self.nameTextField.text = ""
@@ -121,10 +132,10 @@ extension PlaceRegisterViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
         // Print place info to the console.
-        print("Place name: \(place.name)")
-        print("Place address: \(String(describing: place.formattedAddress))")
-        print("Place attributions: \(String(describing: place.attributions))")
-        print("Place Geolocation: \(place.coordinate)")
+        // print("Place name: \(place.name)")
+        // print("Place address: \(String(describing: place.formattedAddress))")
+        // print("Place attributions: \(String(describing: place.attributions))")
+        // print("Place Geolocation: \(place.coordinate)")
         
         if let address = place.formattedAddress {
             placeName = place.name
@@ -140,7 +151,7 @@ extension PlaceRegisterViewController: GMSAutocompleteViewControllerDelegate {
                 switch field.type {
                 case kGMSPlaceTypeLocality:
                     locality = field.name
-                    print("This is locality: \(locality)")
+                    // print("This is locality: \(locality)")
                 default:
                     print("Type: \(field.type), Name: \(field.name)")
                 }
@@ -159,7 +170,7 @@ extension PlaceRegisterViewController: GMSAutocompleteViewControllerDelegate {
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
+        // print("Error: ", error.localizedDescription)
         self.dismiss(animated: true, completion: nil)
     }
     
