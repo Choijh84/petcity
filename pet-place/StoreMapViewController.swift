@@ -144,7 +144,7 @@ class StoreMapViewController: UIViewController, GMSMapViewDelegate, CLLocationMa
             // Store Category assignmenet
             downloadManager.selectedStoreCategory = selectedStoreType
             
-            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 10, selectedStoreCategory: selectedStoreType, radius: 5, completionBlock: { (storeObj, error) in
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 100, selectedStoreCategory: selectedStoreType, radius: 50, completionBlock: { (storeObj, error) in
                 if let error = error {
                     self.showAlertViewWithRedownloadOption(error)
                 } else {

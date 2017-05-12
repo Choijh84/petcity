@@ -250,6 +250,10 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
     
     /// 사진 브라우저 더블탭하면 런칭
     func showPhoto(recognizer: UIGestureRecognizer) {
+        var touchLocation: CGPoint?
+        var photoIndex : Int?
+        let width = UIScreen.main.bounds.width
+        
         // 사진이 있는지 없는지 판단해서 보여주기
         // 사진이 없다면
         if SKimageArray.count == 0 {
@@ -260,17 +264,30 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         } else {
             // 사진이 있다면 
             let tapLocation = recognizer.location(in: self.tableView)
+            print("This is tapLocation:  \(tapLocation)")
             if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
                 if isExpanded == false {
                     if tapIndexPath == [6,0] {
                         let browser = SKPhotoBrowser(photos: SKimageArray)
-                        browser.initializePageIndex(0)
+                        
+                        let cell = (self.tableView.cellForRow(at: tapIndexPath)) as! storePhotoTableViewCell
+                        touchLocation = recognizer.location(in: cell.scrollView)
+                        
+                        photoIndex = Int((touchLocation?.x)!) / Int(width)
+                        
+                        browser.initializePageIndex(photoIndex!)
                         self.present(browser, animated: true, completion: nil)
                     }
                 } else {
                     if tapIndexPath == [8,0] {
                         let browser = SKPhotoBrowser(photos: SKimageArray)
-                        browser.initializePageIndex(0)
+                        
+                        let cell = (self.tableView.cellForRow(at: tapIndexPath)) as! storePhotoTableViewCell
+                        touchLocation = recognizer.location(in: cell.scrollView)
+                        
+                        photoIndex = Int((touchLocation?.x)!) / Int(width)
+                        
+                        browser.initializePageIndex(photoIndex!)
                         self.present(browser, animated: true, completion: nil)
                     }
                 }
@@ -413,6 +430,8 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
             }
         }
     }
+    
+    
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         print("Nothing to do")

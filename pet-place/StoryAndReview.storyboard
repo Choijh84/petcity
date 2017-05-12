@@ -492,12 +492,23 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7v3-Dx-uZJ">
                                                     <rect key="frame" x="16" y="327" width="343" height="32"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="본문" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-tV-oFe">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Acn-Pt-fPZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="286" height="32"/>
-                                                            <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="15"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="본문" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-tV-oFe">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="286" height="32"/>
+                                                                    <fontDescription key="fontDescription" name="SeN-CM" family="SeoulNamsan CM" pointSize="15"/>
+                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="WGu-tV-oFe" firstAttribute="top" secondItem="Acn-Pt-fPZ" secondAttribute="top" id="6Nh-gZ-axM"/>
+                                                                <constraint firstAttribute="trailing" secondItem="WGu-tV-oFe" secondAttribute="trailing" id="DWJ-Le-Olc"/>
+                                                                <constraint firstItem="WGu-tV-oFe" firstAttribute="leading" secondItem="Acn-Pt-fPZ" secondAttribute="leading" id="FAT-kb-Le1"/>
+                                                                <constraint firstAttribute="bottom" secondItem="WGu-tV-oFe" secondAttribute="bottom" id="yCS-nX-dko"/>
+                                                            </constraints>
+                                                        </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUY-gD-g1k">
                                                             <rect key="frame" x="291" y="0.0" width="32" height="32"/>
                                                             <constraints>
@@ -523,7 +534,6 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="09d-IG-31b" secondAttribute="trailing" id="UHC-0F-vw3"/>
                                                         <constraint firstAttribute="height" constant="32" id="k7G-TN-ltE"/>
-                                                        <constraint firstItem="WGu-tV-oFe" firstAttribute="leading" secondItem="7v3-Dx-uZJ" secondAttribute="leading" id="nnU-p7-uGJ"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -1464,7 +1474,7 @@
                     <tabBarItem key="tabBarItem" title="커뮤니티" image="newsIcon" id="JMn-zV-z1G"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SIy-O5-EtU">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="SIy-O5-EtU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

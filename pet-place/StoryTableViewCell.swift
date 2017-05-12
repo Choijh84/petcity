@@ -86,6 +86,9 @@ class StoryTableViewCell: UITableViewCell {
         self.addSubview(likePic)
         self.bringSubview(toFront: likePic)
         
+        // bodyTextLabel setting
+        bodyTextLabel.lineBreakMode = .byTruncatingTail
+        
         // 크기를 키우고 0.6초 동안 키우고 0.2초 동안 숨김
         DispatchQueue.main.async(execute: {
             UIView.animate(withDuration: 1, animations: {
