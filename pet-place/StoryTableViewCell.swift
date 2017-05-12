@@ -38,10 +38,10 @@ class StoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var likeNumberLabel: UILabel!
     
+    var likeNumber: Int?
+    
     // 라이크버튼 눌렀을 때
     @IBAction func likeButtonClicked(_ sender: UIButton) {
-        // 버튼 너무 빨리 연속으로 못 누르게 막아놓기
-        likeButton.isUserInteractionEnabled = false
         
         delegate?.actionTapped(tag: likeButton.tag)
         // 좋아하는 스토리인지 아닌지를 구분
@@ -53,14 +53,14 @@ class StoryTableViewCell: UITableViewCell {
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
             }, completion: nil)
-            self.likeButton.isUserInteractionEnabled = true
+            
             
         } else {
             // 좋아요를 취소할 때
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
             }, completion: nil)
-            self.likeButton.isUserInteractionEnabled = true
+            
         }
     }
     

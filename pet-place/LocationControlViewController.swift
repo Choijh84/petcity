@@ -77,9 +77,15 @@ class LocationControlViewController: UIViewController, UITableViewDelegate, UITa
         if let index = formattedAddress.characters.index(of: " ") {
             let startIndex = formattedAddress.index(after: index)
             let pos = formattedAddress.substring(from: startIndex)
-            print("This is substring: \(pos)")
-            addressline.text = pos
-            addressline.textColor = UIColor.black
+            
+            // print("This is substring: \(pos)")
+            
+            // addressline.text = pos
+            // addressline.textColor = UIColor.black
+            let myAttribute = [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: UIFont(name: "YiSunShinDotumB", size: 15)!]
+            
+            addressline.attributedText = NSAttributedString(string: pos, attributes: myAttribute)
+            
             formattedAddress = pos
         }
     }

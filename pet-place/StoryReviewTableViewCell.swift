@@ -67,25 +67,27 @@ class StoryReviewTableViewCell: UITableViewCell {
     // 이동 버튼
     @IBOutlet weak var moveButton: UIButton!
     
+    var likeNumbers: Int? 
+    
     // 라이크버튼 누르면 액션 실행, 태그 6
     @IBAction func likeButtonClicked(_ sender: UIButton) {
-        print("Like Button Clicked: \(likeButton.tag)")
-        // 버튼 너무 빨리 연속으로 못 누르게 막아놓기
-        likeButton.isUserInteractionEnabled = false
+        // print("Like Button Clicked: \(likeButton.tag)")
         
         delegate?.actionTapped(tag: likeButton.tag)
         
         // 우선 이미지 바꿔주기
         if sender.image(for: .normal) == #imageLiteral(resourceName: "like_bw") {
+            
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_red"), for: .normal)
             }, completion: nil)
-            self.likeButton.isUserInteractionEnabled = true
+            
         } else {
+            
             UIView.transition(with: sender, duration: 0.2, options: .transitionCrossDissolve, animations: {
                 sender.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)
             }, completion: nil)
-            self.likeButton.isUserInteractionEnabled = true
+            
         }
     }
     
@@ -126,7 +128,6 @@ class StoryReviewTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         // Initialization
         collectionView.delegate = self
@@ -139,6 +140,9 @@ class StoryReviewTableViewCell: UITableViewCell {
         // 이미지뷰 원형 모양으로
         profileImage.layer.cornerRadius = profileImage.layer.frame.width/2
         
+        // moveToStoreButton
+        moveButton.layer.cornerRadius = 3.0
+        
         // 사진 보여주기 기능 설정
         /*
         let tap = UITapGestureRecognizer(target: self, action: #selector(StoryTableViewCell.showPhotos(_:)))
@@ -146,6 +150,7 @@ class StoryReviewTableViewCell: UITableViewCell {
         collectionView.isUserInteractionEnabled = true
         collectionView.addGestureRecognizer(tap)
         */
+
     }
     
     func showPhotos(_ sender: UITapGestureRecognizer) {

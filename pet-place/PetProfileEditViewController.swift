@@ -10,6 +10,7 @@ import UIKit
 import Eureka
 import SCLAlertView
 
+/// 펫 프로필 편집해주는 VC
 class PetProfileEditViewController: FormViewController {
     
     var selectedPetProfile: PetProfile!
@@ -46,7 +47,8 @@ class PetProfileEditViewController: FormViewController {
                     if success {
                         /// show alarm and dismiss
                         SCLAlertView().showSuccess("프로필 변경 완료", subTitle: "저장되었습니다")
-                        self.dismiss(animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "petProfileChanged"), object: nil)
                     } else {
                         /// show error
                         SCLAlertView().showError("에러 발생", subTitle: "다시 시도해주세요")
@@ -58,6 +60,7 @@ class PetProfileEditViewController: FormViewController {
                 SCLAlertView().showInfo("취소", subTitle: "저장이 취소되었습니다")
             }
             alertView.showInfo("펫 프로필 저장", subTitle: "저장이 완료되면 알려드립니다")
+            
         }
     }
     
@@ -190,13 +193,13 @@ class PetProfileEditViewController: FormViewController {
             <<< ImageRow("imagePic"){ row in
                 row.title = NSLocalizedString("Pet Photo", comment: "")
                 
-                let imageUrl = selectedPetProfile.imagePic
-                if imageUrl != "" {
-                    let url = URL(string: imageUrl!)
-                    let data = try? Data(contentsOf: url!)
-                    let image = UIImage(data: data!)
-                    
-                    row.value = image
+                if let imageUrl = selectedPetProfile.imagePic {
+                    if let url = URL(string: imageUrl) {
+                        let data = try? Data(contentsOf: url)
+                        let image = UIImage(data: data!)
+                        
+                        row.value = image
+                    }
                 }
                 
             }

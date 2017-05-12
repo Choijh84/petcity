@@ -309,8 +309,8 @@
 /* Class = "UILabel"; text = "자동 로그인"; ObjectID = "kOn-wi-2LT"; */
 "kOn-wi-2LT.text" = "자동 로그인";
 
-/* Class = "UITabBarItem"; title = "My Profile"; ObjectID = "ln7-Ab-Mdf"; */
-"ln7-Ab-Mdf.title" = "내 프로필";
+/* Class = "UITabBarItem"; title = "My Page"; ObjectID = "ln7-Ab-Mdf"; */
+"ln7-Ab-Mdf.title" = "마이페이지";
 
 /* Class = "UIButton"; normalTitle = "네이버 회원가입"; ObjectID = "nBp-cw-kBl"; */
 "nBp-cw-kBl.normalTitle" = "네이버 회원가입";
@@ -340,7 +340,7 @@
 "pwP-Tu-kB6.normalTitle" = "이메일 회원가입";
 
 /* Class = "UITextField"; placeholder = "Input Your Email or Mobile"; ObjectID = "qrB-zV-YjP"; */
-"qrB-zV-YjP.placeholder" = "Input Your Email or Mobile";
+"qrB-zV-YjP.placeholder" = "회신받으실 연락처를 알려주세요";
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "rNR-1b-ENp"; */
 "rNR-1b-ENp.title" = "Save";
@@ -364,7 +364,7 @@
 "ukE-Kw-NRv.text" = "핸드폰 번호 인증(선택)";
 
 /* Class = "UITextField"; placeholder = "Title"; ObjectID = "usF-MG-3Ip"; */
-"usF-MG-3Ip.placeholder" = "Title";
+"usF-MG-3Ip.placeholder" = "제목";
 
 /* Class = "UIButton"; normalTitle = "Show"; ObjectID = "usK-Pm-XfO"; */
 "usK-Pm-XfO.normalTitle" = "Show";

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,11 +28,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jiM-2K-Xwj" id="vcZ-Ws-MuB">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="155"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="154.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svE-XU-xpt" customClass="HCSStarRatingView">
-                        <rect key="frame" x="149.5" y="132" width="80" height="15"/>
+                        <rect key="frame" x="155.5" y="132" width="80" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="80" id="dzM-8Y-aGW"/>
                             <constraint firstAttribute="height" constant="15" id="wni-zG-hFt"/>
@@ -131,7 +131,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21.10.2015" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3L-KK-tlK">
-                        <rect key="frame" x="239.5" y="131.5" width="70.5" height="17"/>
+                        <rect key="frame" x="245.5" y="131.5" width="64.5" height="17"/>
                         <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="14"/>
                         <color key="textColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="0.79761402027027029" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -195,11 +195,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chat_color" width="32" height="32"/>
-        <image name="like_bw" width="32" height="32"/>
+        <image name="chat_color" width="45" height="45"/>
+        <image name="like_bw" width="45" height="43"/>
         <image name="reviewStar" width="10" height="10"/>
         <image name="reviewStarEmpty" width="12" height="12"/>
-        <image name="share_color" width="32" height="32"/>
+        <image name="share_color" width="41" height="45"/>
         <image name="user_profile" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

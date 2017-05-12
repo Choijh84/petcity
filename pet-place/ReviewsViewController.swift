@@ -59,7 +59,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
-        title = "리뷰"
+        title = "리뷰들"
         
         reviewButton.layer.cornerRadius = 6.0
         
@@ -92,6 +92,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         // 기억하고 있던 자리로 이동 - 나중에 실시간 글이 많아지게 되면 안 통할 듯...
         // 10개 이상 있던 곳에서 확인했다가 돌아오면? 어떻게 그걸 보유하고 있을까
         tableView.setContentOffset(CGPoint(x: 0, y: verticalContentOffset), animated: false)
@@ -290,13 +291,10 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
             
             DispatchQueue.global(qos: .userInteractive).async {
                 let matchingLikes = likeStore?.find(countQuery)
-                let likeNumbers = matchingLikes?.totalObjects
-                
-                DispatchQueue.main.async {
-                    if likeNumbers == 0 {
-                        reviewCell.likeLabel.text = "라이크 없음 ㅠ"
-                    } else {
-                        reviewCell.likeLabel.text = "\(String(describing: likeNumbers!))개의 좋아요"
+                if let likeNumbers = matchingLikes?.totalObjects {
+                    reviewCell.likeNumbers = likeNumbers as? Int
+                    DispatchQueue.main.async {
+                        reviewCell.likeLabel.text = "\(String(describing: likeNumbers))개의 좋아요"
                     }
                 }
             }
@@ -345,7 +343,7 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                     reviewCell.reviewImageView.kf.setImage(with:  URL(string: imageArray[0]), placeholder: #imageLiteral(resourceName: "imageLoadingHolder"), options: [.transition(.fade(0.2))], progressBlock: nil, completionHandler: nil)
                 })
                 
-                // Add UIView which can explain the number of photos behind
+                // 추가로 사진이 몇 개가 더 있는지 보여주는 뷰 보여주기
                 let myLabel = UILabel(frame: CGRect(x: reviewCell.reviewImageView.frame.width-30, y: reviewCell.reviewImageView.frame.height-30, width: 30, height: 30))
                 myLabel.textAlignment = .center
                 myLabel.backgroundColor = UIColor(red: 211, green: 211, blue: 211, alpha: 0.8)
@@ -381,40 +379,49 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         switch realTag {
             case 0:
-                print("Comment Button Clicked")
+                // print("Comment Button Clicked")
                 verticalContentOffset = tableView.contentOffset.y
                 // 코멘트 액션 - 뷰 이동
                 performSegue(withIdentifier: "showComments", sender: row)
             
             case 1:
-                print("Comment Button Clicked")
+                // print("Comment Button Clicked")
                 verticalContentOffset = tableView.contentOffset.y
                 performSegue(withIdentifier: "showComments", sender: row)
             
             case 2:
-                print("Share Button Clicked")
+                // print("Share Button Clicked")
                 // 공유 액션
                 self.shareButtonPressed(row)
             
             case 3:
-                print("Like Button Clicked")
+                // print("Like Button Clicked")
                 // 라이크 체크
+                let indexPath = IndexPath(row: row, section: 0)
+                let cell = self.tableView.cellForRow(at: indexPath) as! ReviewTableViewCell
+                cell.isUserInteractionEnabled = false
+                
                 self.checkLike(row, completionHandler: { (success) in
                     if success {
                         // 이미 좋아해서 취소할 때
+                        if let likeNumbers = cell.likeNumbers {
+                            cell.likeNumbers = likeNumbers - 1
+                            cell.likeLabel.text = "\(String(likeNumbers-1))개의 좋아요"
+                        }
                         self.changeLike(row, true, completionHandler: { (success) in
-                            if success {
-                                // 나중에 DB에 처리하고 바꿔주기
-                                // self.tableView.reloadData()
-                            }
+                            print("취소 완료")
+                            cell.isUserInteractionEnabled = true
+                            
                         })
                     } else {
                         // 새롭게 좋아해서 추가
+                        if let likeNumbers = cell.likeNumbers {
+                            cell.likeNumbers = likeNumbers + 1
+                            cell.likeLabel.text = "\(String(likeNumbers+1))개의 좋아요"
+                        }
                         self.changeLike(row, false, completionHandler: { (success) in
-                            if success {
-                                // 나중에 DB에 처리하고 바꿔주기
-                                // self.tableView.reloadData()
-                            }
+                            print("추가 완료")
+                            cell.isUserInteractionEnabled = true
                         })
                     }
                 })
@@ -471,10 +478,6 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
             like.to = reviewId
             
             dataStore?.save(like, response: { (response) in
-                DispatchQueue.main.async {
-                    let indexPath = IndexPath(row: row, section: 0)
-                    self.tableView.reloadRows(at: [indexPath], with: .none)
-                }
                 
                 // 리뷰 쓴 사람에게 Notification 날리기
                 if let oneSignalId = selectedReview.creator?.getProperty("OneSignalID") {
@@ -499,10 +502,11 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                         })
                     }
                 }
-                
+                completionHandler(true)
                 
             }, error: { (Fault) in
                 print("리뷰 라이크를 저장하는데 에러: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
             
         } else {
@@ -517,17 +521,15 @@ class ReviewsViewController: UIViewController, UITableViewDataSource, UITableVie
                 let like = (collection?.data as! [ReviewLikes]).first
                 
                 dataStore?.remove(like, response: { (number) in
-                    DispatchQueue.main.async {
-                        let indexPath = IndexPath(row: row, section: 0)
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
-                    }
+                    completionHandler(true)
                 }, error: { (Fault) in
                     print("리뷰 라이크 지우는데 에러: \(String(describing: Fault?.description))")
-                    
+                    completionHandler(false)
                 })
                 
             }, error: { (Fault) in
                 print("리뷰 라이크 찾는데 에러: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
             
         }

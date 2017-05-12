@@ -200,15 +200,16 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxB-TB-ONj">
+                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FxB-TB-ONj">
                                 <rect key="frame" x="88" y="238.5" width="200" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="RFB-bg-HXq"/>
                                     <constraint firstAttribute="height" constant="50" id="cHb-22-hxY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="YiSunShinDotumM" family="YiSunShin Dotum M" pointSize="16"/>
-                                <state key="normal" title="+ 사진 고르기">
-                                    <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="사진 고르기">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="addImageButtonPressed" destination="DMM-K5-PTO" eventType="touchUpInside" id="Y5a-WO-5RB"/>
@@ -920,7 +921,7 @@
         <image name="bigReviewFull" width="30" height="29"/>
         <image name="chat_color" width="45" height="45"/>
         <image name="like_bw" width="45" height="43"/>
-        <image name="more_story" width="32" height="32"/>
+        <image name="more_story" width="32" height="10"/>
         <image name="share_color" width="41" height="45"/>
         <image name="user_profile" width="32" height="32"/>
     </resources>

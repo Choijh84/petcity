@@ -85,10 +85,9 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         // Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ReviewCommentViewController.dismissKeyboard))
         
-        //Uncomment the line below if you want the tap not interfere and cancel other interactions.
-        //tap.cancelsTouchesInView = false
-        
         view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ReviewCommentViewController.refresh), name: NSNotification.Name(rawValue: "ReviewCommentDeleted"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,16 +96,24 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
+    func refresh() {
+        setUpCommentArray()
+    }
+    
     func setUpCommentArray() {
         tableView.showLoadingIndicator()
         commentArray.removeAll()
         
-        // ReviewCommentdㅔ서 받아오기
+        // ReviewComment에서서 받아오기
         let reviewId = selectedReview.objectId!
         
         let dataStore = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = "to = '\(reviewId)'"
+        let queryOptions = QueryOptions()
+        queryOptions.sortBy = ["created desc"]
+        dataQuery.queryOptions = queryOptions
+
         
         dataStore?.find(dataQuery, response: { (collection) in
             let comments = collection?.data as! [ReviewComment]
@@ -136,7 +143,7 @@ class ReviewCommentViewController: UIViewController, UITableViewDelegate, UITabl
         let selectedCommentId = commentArray[row].objectId
         // 뷰에서 삭제
         commentArray.remove(at: row)
-        tableView.reloadData()
+
         
         let dataStore = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
         dataStore?.removeID(selectedCommentId, response: { (success) in

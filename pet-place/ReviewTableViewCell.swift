@@ -45,12 +45,13 @@ class ReviewTableViewCell: UITableViewCell {
     weak var delegate: ReviewTableViewCellProtocol?
     var row: Int?
     
+    var likeNumbers: Int?
+    
     /// Width constraint for the reviewImageView so it can be adjusted according to the review's image. If there isn't any, than we hide the imageView completely, by setting the constraint to be 0
     @IBOutlet weak var reviewImageViewWidthConstraint: NSLayoutConstraint!
     
     // 라이크 버튼 눌렀을 때
     @IBAction func likeButtonClicked(_ sender: UIButton) {
-        print("Like Button Clicked: \(likeButton.tag)")
         
         delegate?.actionTapped(tag: likeButton.tag)
         
@@ -67,13 +68,13 @@ class ReviewTableViewCell: UITableViewCell {
 
     // 댓글 버튼 눌렀을 때
     @IBAction func commentButtonClicked(_ sender: Any) {
-        print("Comment Button Clicked: \(commentButton.tag)")
+        
         delegate?.actionTapped(tag: commentButton.tag)
     }
     
     // 공유 버튼 눌렀을 때
     @IBAction func shareButtonClicked(_ sender: Any) {
-        print("Share Button Clicked: \(shareButton.tag)")
+        
         delegate?.actionTapped(tag: shareButton.tag)
     }
     
@@ -96,6 +97,8 @@ class ReviewTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        profileImageView.image = nil
+        reviewImageView.image = nil
         likeLabel.text = "좋아요"
         commentLabel.text = "댓글"
         likeButton.setImage(#imageLiteral(resourceName: "like_bw"), for: .normal)

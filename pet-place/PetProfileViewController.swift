@@ -30,6 +30,7 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "펫 프로필"
         
         // 당신의 펫 프로필을 추가하시겠습니까?
         self.addView.isHidden = true
@@ -47,11 +48,30 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
                 self.addView.isHidden = false
             }
         }
+        
+        // 펫 프로필이 추가되거나 변경되는 경우
+        NotificationCenter.default.addObserver(self, selector: #selector(PetProfileViewController.refresh), name: NSNotification.Name(rawValue: "petProfileAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PetProfileViewController.refresh), name: NSNotification.Name(rawValue: "petProfileChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PetProfileViewController.refresh), name: NSNotification.Name(rawValue: "petProfileDeleted"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        collectionView.reloadData()
+    }
+    
+    func refresh() {
+        setupPetArray { (success) in
+            if success {
+                if self.petArray.count != 0 {
+                    self.addView.isHidden = true
+                } else {
+                    self.addView.isHidden = false
+                }
+            } else {
+                self.addView.isHidden = false
+            }
+        }
     }
     
     // 반려동물 배열 준비하기
@@ -120,6 +140,7 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
     
     // 프로필 삭제 물어보고
     func deletePetProfile(sender: MyButton) {
+        print("This is sender and row: \(sender.row!)")
         let profile = petArray[sender.row!]
         let user = Backendless.sharedInstance().userService.currentUser
         
@@ -130,15 +151,23 @@ class PetProfileViewController: UIViewController, UICollectionViewDataSource, UI
         let alertView = SCLAlertView(appearance: appearance)
         
         if user != nil {
-            alertView.addButton("Yes", action: { 
+            alertView.addButton("Yes", action: {
+                // 펫프로필 찾아서 삭제하기
                 var petProfiles = user?.getProperty("petProfiles") as! [PetProfile]
-                if let index = petProfiles.index(of: profile) {
-                    petProfiles.remove(at: index)
+                
+                for petProfile in petProfiles {
+                    if petProfile.objectId == profile.objectId {
+                        petProfiles.remove(object: petProfile)
+                    }
                 }
+                
+                // 변경된 정보 저장
                 user?.setProperty("petProfiles", object: petProfiles)
                 Backendless.sharedInstance().userService.update(user, response: { (user) in
-                    SCLAlertView().showSuccess("삭제되었습니다", subTitle: "OK")
-                    _ = self.navigationController?.popViewController(animated: true)
+                    SCLAlertView().showSuccess("삭제되었습니다", subTitle: "확인")
+                    // _ = self.navigationController?.popViewController(animated: true)
+                    // 알려주기
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "petProfileDeleted"), object: nil)
                 }, error: { (Fault) in
                     print("Server reported an error on deleting pet profile: \(String(describing: Fault?.description))")
                 })

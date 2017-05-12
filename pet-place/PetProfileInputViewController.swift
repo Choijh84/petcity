@@ -52,7 +52,8 @@ class PetProfileInputViewController: FormViewController {
                     if success {
                         /// show alarm and dismiss
                         SCLAlertView().showSuccess("프로필 저장 완료", subTitle: "저장되었습니다")
-                        self.dismiss(animated: true, completion: nil)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "petProfileAdded"), object: nil)
+                        _ = self.navigationController?.popViewController(animated: true)
                     } else {
                         /// show error
                         SCLAlertView().showError("에러 발생", subTitle: "다시 시도해주세요")
@@ -64,6 +65,8 @@ class PetProfileInputViewController: FormViewController {
                 SCLAlertView().showInfo("취소", subTitle: "저장이 취소되었습니다")
             }
             alertView.showInfo("펫 프로필 저장", subTitle: "저장이 완료되면 알려드립니다")
+            
+            
         }
         
     }
@@ -336,7 +339,7 @@ class PetProfileInputViewController: FormViewController {
         }
     }
     
-    /// 펫프로일을 업로드하는 함수
+    /// 펫프로필을 업로드하는 함수
     func uploadPetProfile(profile: PetProfile, completionHandler: @escaping (_ success: Bool) -> ()) {
 
         let user = Backendless.sharedInstance().userService.currentUser
@@ -346,13 +349,18 @@ class PetProfileInputViewController: FormViewController {
             _ = petProfiles.append(profile)
             user?.setProperty("petProfiles", object: petProfiles)
             Backendless.sharedInstance().userService.update(user, response: { (user) in
-                SCLAlertView().showSuccess("Save Pet Profile", subTitle: "OK")
-                _ = self.navigationController?.popViewController(animated: true)
+                
+                completionHandler(true)
+                // SCLAlertView().showSuccess("Save Pet Profile", subTitle: "OK")
+                // _ = self.navigationController?.popViewController(animated: true)
+                
             }, error: { (Fault) in
                 print("Server reported an error on saving pet profile: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
         } else {
             print("There is no user u can save")
+            completionHandler(false)
         }
     }
     

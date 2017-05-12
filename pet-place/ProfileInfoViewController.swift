@@ -266,7 +266,7 @@ class ProfileInfoViewController: UIViewController, UINavigationControllerDelegat
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "내 프로필"
+        title = NSLocalizedString("My Page", comment: "")
         
         // Do any additional setup after loading the view.
         /**

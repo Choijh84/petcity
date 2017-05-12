@@ -240,6 +240,8 @@ class AddReviewViewController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        selectButton.layer.cornerRadius = 7.5
+        
         if isReviewEditing {
             selectButton.isHidden = true
             previewView?.isHidden = true

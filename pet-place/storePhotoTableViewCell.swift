@@ -38,4 +38,9 @@ class storePhotoTableViewCell: UITableViewCell {
         separatorInset = UIEdgeInsets.zero
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        let location = touch?.location(in: self)
+        print("This is touch and location: \(touch) & \(location)")
+    }
 }

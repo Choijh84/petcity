@@ -265,34 +265,21 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             
             DispatchQueue.global(qos: .userInteractive).async {
                 let matchingLikes = likeStore?.find(countQuery)
-                let likeNumbers = matchingLikes?.totalObjects
-                
-                DispatchQueue.main.async {
-                    if likeNumbers == 0 {
-                        UIView.animate(withDuration: 0.3, animations: { 
-                            cell.likeNumberLabel.isHidden = true
-                            cell.layoutIfNeeded()
-                        })
-                    } else {
-                        cell.likeNumberLabel.text = String(describing: likeNumbers!)
+                if let likeNumbers = matchingLikes?.totalObjects {
+                    cell.likeNumber = likeNumbers as? Int
+                    
+                    DispatchQueue.main.async {
+                        
+                        cell.likeNumberLabel.text = String(describing: likeNumbers)
+                        
                     }
                 }
+                
             }
         }
         
         cell.bodyTextLabel.text = story.bodyText
         cell.bodyTextLabel.setLineHeight(lineHeight: 2)
-        
-        // 더 보기 버튼 세팅하기 
-        /*
-        if let textheight = cell.bodyTextLabel.text?.height(withConstrainedWidth: cell.bodyTextLabel.frame.width, font: cell.bodyTextLabel.font) {
-            if cell.bodyTextLabel.intrinsicContentSize.height < textheight {
-                cell.readMoreButton.isHidden = false
-            } else {
-                cell.readMoreButton.isHidden = true
-            }
-        }
-        */
         
         DispatchQueue.global(qos: .userInteractive).async {
             if let photoList = (story.imageArray?.components(separatedBy: ",")) {
@@ -306,7 +293,6 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
                 
                 if photoList.count > 1 {
                     cell.morePhotoButton.isHidden = false
-                    // cell.readMoreButton.isHidden = false
                 } else {
                     cell.morePhotoButton.isHidden = true
                 }
@@ -365,21 +351,37 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
         
         switch realTag {
         case 1:
-            print("Like Button Clicked")
+            // 라이크 체크
+            let indexPath = IndexPath(row: row, section: 0)
+            let cell = self.tableView.cellForRow(at: indexPath) as! StoryTableViewCell
+            cell.isUserInteractionEnabled = false
+            
             // 라이크 변경 함수 콜 - changeLike
             self.checkLike(row, completionHandler: { (success) in
-                print("체크 라이크 결과: \(success)")
+                
                 if success {
                     // 이미 있을 때 - 삭제
+                    if let likeNumbers = cell.likeNumber {
+                        if likeNumbers > 0 {
+                            cell.likeNumber = likeNumbers - 1
+                            cell.likeNumberLabel.text = "\(String(likeNumbers-1))"
+                        }
+                    }
                     self.changeLike(row, true, completionHandler: { (success) in
-                        // print(success)
+                        print("취소 완료")
+                        cell.isUserInteractionEnabled = true
                     
                     })
                 } else {
                     // 아직 없을 때 - 추가
-                    self.changeLike(row, false, completionHandler: { (success) in
-                        // print(success)
+                    if let likeNumbers = cell.likeNumber {
+                        cell.likeNumber = likeNumbers + 1
+                        cell.likeNumberLabel.text = "\(String(likeNumbers+1))"
                         
+                    }
+                    self.changeLike(row, false, completionHandler: { (success) in
+                        print("추가 완료")
+                        cell.isUserInteractionEnabled = true
                     })
                 }
             })
@@ -457,18 +459,14 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
      */
     
     func changeLike(_ row: Int, _ nowLike: Bool, completionHandler: @escaping (_ success: Bool) -> Void) {
-        print("Change like")
+        
         let selectedStory = StoryArray[row]
         let storyId = selectedStory.objectId
-        
-        // let likeNumber = selectedStory.likeNumbers
-        // print("현재 라이크 수: \(likeNumber)개")
         
         let likeStore = Backendless.sharedInstance().data.of(StoryLikes.ofClass())
         
         // 그냥 유저 객체로 비교는 안되고 objectId로 체크를 해야 함
         let objectID = Backendless.sharedInstance().userService.currentUser.objectId
-        
         
         // 좋아요 - nowLike가 true이면 라이크 추가
         if !nowLike {
@@ -479,41 +477,45 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             like.to = storyId
             
             likeStore?.save(like, response: { (response) in
-
+                
+                /*
                 // 우선 해당 테이블 row만 refresh하자
                 DispatchQueue.main.async {
                     let indexPath = IndexPath(row: row, section: 0)
                     self.tableView.reloadRows(at: [indexPath], with: .none)
                 }
+                */
+                
+                // 스토리를 쓴 사람에게 Notification 날리기
+                if let oneSignalId = selectedStory.writer.getProperty("OneSignalID") {
+                    if let userName = UserManager.currentUser()!.getProperty("nickname") {
+                        let data = ["contents" : ["en" : "\(userName) likes your Story!", "ko" : "\(userName)가 당신의 스토리를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
+                        OneSignal.postNotification(data)
+                        
+                        // 데이터베이스에 저장하기
+                        // 푸쉬 객체 생성
+                        let newPush = PushNotis()
+                        newPush.from = objectID! as String
+                        newPush.to = selectedStory.writer.objectId as String
+                        newPush.type = "story"
+                        newPush.typeId = storyId
+                        newPush.bodyText = "\(userName)가 당신의 스토리를 좋아합니다"
+                        
+                        let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
+                        pushStore?.save(newPush, response: { (response) in
+                            print("백엔드리스에 푸쉬 저장 완료")
+                        }, error: { (Fault) in
+                            print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
+                        })
+                    }
+                    
+                }
+                completionHandler(true)
                 
             }, error: { (Fault) in
                 print("스토리를 저장하는데 에러: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
-            
-            // 스토리를 쓴 사람에게 Notification 날리기
-            if let oneSignalId = selectedStory.writer.getProperty("OneSignalID") {
-                if let userName = UserManager.currentUser()!.getProperty("nickname") {
-                    let data = ["contents" : ["en" : "\(userName) likes your Story!", "ko" : "\(userName)가 당신의 스토리를 좋아합니다"], "include_player_ids" : ["\(oneSignalId)"], "ios_badgeType" : "Increase", "ios_badgeCount" : "1"] as [String : Any]
-                    OneSignal.postNotification(data)
-                    
-                    // 데이터베이스에 저장하기
-                    // 푸쉬 객체 생성
-                    let newPush = PushNotis()
-                    newPush.from = objectID! as String
-                    newPush.to = selectedStory.writer.objectId as String
-                    newPush.type = "story"
-                    newPush.typeId = storyId
-                    newPush.bodyText = "\(userName)가 당신의 스토리를 좋아합니다"
-                    
-                    let pushStore = Backendless.sharedInstance().data.of(PushNotis.ofClass())
-                    pushStore?.save(newPush, response: { (response) in
-                        print("백엔드리스에 푸쉬 저장 완료")
-                    }, error: { (Fault) in
-                        print("푸쉬를 백엔드리스에 저장하는데 에러: \(String(describing: Fault?.description))")
-                    })
-                }
-                
-            }
             
         } else {
             // 좋아요 취소
@@ -522,34 +524,29 @@ class StoryViewController: UIViewController, IndicatorInfoProvider, UITableViewD
             let dataQuery = BackendlessDataQuery()
             // 쿼리문은 by가 유저ID, to가 현재 포스트 objectId일 때
             dataQuery.whereClause = "by = '\(objectID!)' AND to = '\(storyId!)'"
-            // print("by = '\(objectID)' AND to = '\(storyId)'")
             
             // 해당 스토리 라이크를 찾자
             likeStore?.find(dataQuery, response: { (collection) in
                 let like = (collection?.data as! [StoryLikes]).first
                 
                 likeStore?.remove(like, response: { (number) in
-                    print("disliked")
-                    
-                    // 여기서 버튼 설정해줄 수도 있음, viewcontroller는 아니고 cell에서 해줘야 함
-                    // self.likeBtn.setTitle("unlike", for: UIControlState())
-                    // self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), for: UIControlState())
-                    
-                    // send notification
-                    // NotificationCenter.default.post(name: Notification.Name(rawValue: "liked"), object: nil)
-                    
+                    /*
                     // 우선 해당 테이블 row만 refresh해보자
                     DispatchQueue.main.async(execute: {
                         let indexPath = IndexPath(row: row, section: 0)
                         self.tableView.reloadRows(at: [indexPath], with: .none)
                     })
+                    */
+                    completionHandler(true)
                     
                 }, error: { (Fault) in
                     print("스토리를 지우는데 에러: \(String(describing: Fault?.description))")
+                    completionHandler(false)
                 })
                 
             }, error: { (Fault) in
                 print("스토리를 찾는데 에러: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
         }
     }

@@ -234,7 +234,7 @@ class ReviewDetailViewController: UIViewController {
             imageCollection.reloadData()
         } else {
             // 사진이 없는 리뷰
-            photoList = ["https://api.backendless.com/6E11C098-5961-1872-FF85-2B0BD0AA0600/v1/files/storyImages/imageLoadingHolder%402x.png"]
+            photoList = ["https://petcity.blob.core.windows.net/review-images/noImageReviewHolder.png"]
             imageCollection.reloadData()
         }
         
@@ -332,21 +332,26 @@ class ReviewDetailViewController: UIViewController {
     }
     
     func changeLike(_ addLike: Bool) {
-        let dataStore = Backendless.sharedInstance().data.of(ReviewLikes.ofClass())
+        let tempStore = Backendless.sharedInstance().data.of(ReviewLikes.ofClass())
         
         let reviewId = selectedReview.objectId!
         let objectID = Backendless.sharedInstance().userService.currentUser.objectId
         
         // 좋아요 눌렀을 때
         if addLike {
-            let like = StoryLikes()
+            let like = ReviewLikes()
             like.by = objectID! as String
             like.to = reviewId
+            
             // 좋아요 저장
-            dataStore?.save(like, response: nil, error: { (Fault) in
+            tempStore?.save(like, response: { (response) in
+                let responseReview = response as! ReviewLikes
+                print("저장 완료: \(responseReview.objectId!)")
+            }, error: { (Fault) in
                 SCLAlertView().showError("에러", subTitle: "라이크를 추가하는데 에러 발생함")
                 print("라이크를 추가하는데 에러: \(String(describing: Fault?.description))")
             })
+
             
             // 스토리를 쓴 사람에게 Notification 날리기
             if let oneSignalId = selectedReview.creator?.getProperty("OneSignalID") {
@@ -358,7 +363,7 @@ class ReviewDetailViewController: UIViewController {
                     // 푸쉬 객체 생성
                     let newPush = PushNotis()
                     newPush.from = objectID! as String
-                    newPush.to = (selectedReview.creator!).objectId! as! String
+                    newPush.to = (selectedReview.creator!).objectId! as String
                     newPush.type = "review"
                     newPush.typeId = reviewId
                     newPush.bodyText = "\(userName)가 당신의 리뷰를 좋아합니다"
@@ -379,11 +384,11 @@ class ReviewDetailViewController: UIViewController {
             let dataQuery = BackendlessDataQuery()
             dataQuery.whereClause = "by = '\(objectID!)' AND to = '\(reviewId)'"
             
-            dataStore?.find(dataQuery, response: { (collection) in
-                let like = (collection?.data as! [StoryLikes]).first
+            tempStore?.find(dataQuery, response: { (collection) in
+                let like = (collection?.data as! [ReviewLikes]).first
                 
                 // 좋아요 삭제
-                _ = dataStore?.remove(like)
+                _ = tempStore?.remove(like)
                 
                 self.likeNumber = self.likeNumber - 1
                 self.likeNumberLabel.text = String(describing: self.likeNumber) + "개의 좋아요"
@@ -447,27 +452,36 @@ class ReviewDetailViewController: UIViewController {
     // 사진 전체화면으로 보기
     func showPhoto() {
         
-        // imageArray 구성하기
-        let imageURL = selectedReview.fileURL?.components(separatedBy: ",")
-        
         var images = [SKPhoto]()
         
         // 킹피셔 사용해서 캐시에서 url 이용해서 이미지 불러오기
-        for url in imageURL! {
-            ImageCache.default.retrieveImage(forKey: url, options: [.transition(.fade(0.2))], completionHandler: { (image, cacheType) in
-                if let image = image {
-                    let photo = SKPhoto.photoWithImage(image)
-                    images.append(photo)
-                } else {
-                    print("Problem on cache image")
-                }
-            })
+        // imageArray 구성하기
+        if let imageURL = selectedReview.fileURL?.components(separatedBy: ",") {
+            for url in imageURL {
+                ImageCache.default.retrieveImage(forKey: url, options: [.transition(.fade(0.2))], completionHandler: { (image, cacheType) in
+                    if let image = image {
+                        let photo = SKPhoto.photoWithImage(image)
+                        images.append(photo)
+                    } else {
+                        print("Problem on cache image")
+                    }
+                })
+            }
             
+            // 브라우저 보여주기
+            let browser = SKPhotoBrowser(photos: images)
+            if let currentIndexPath = imageCollection.indexPathsForVisibleItems.first?.row {
+                browser.initializePageIndex(currentIndexPath)
+            } else {
+                browser.initializePageIndex(0)
+            }
+            
+            self.present(browser, animated: true, completion: nil)
+        } else {
+            SCLAlertView().showNotice("사진 확인", subTitle: "사진이 없는 리뷰예요!")
         }
-        // 브라우저 보여주기
-        let browser = SKPhotoBrowser(photos: images)
-        browser.initializePageIndex(0)
-        self.present(browser, animated: true, completion: nil)
+        
+        
     }
     
     /// 공유를 위한 함수

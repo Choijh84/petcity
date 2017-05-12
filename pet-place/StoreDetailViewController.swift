@@ -293,8 +293,12 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
         // 펼쳤는지 접었는지에 따라 indexPath가 달라짐
         
         if let tapIndexPath = tableView.indexPathForRow(at: tapLocation) {
+            
             print("This is tapIndexPath: \(tapIndexPath)")
             print("This is isExpanded: \(isExpanded)")
+            print("tap information: \(recognizer)")
+            
+            
             if self.tableView.cellForRow(at: tapIndexPath) != nil {
                 // 안 접혔을 때
                 if isExpanded == false {
@@ -306,13 +310,24 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                         if var website = storeToDisplay.website {
                             if website.lowercased().hasPrefix("http") == false {
                                 website = "http://".appending(website)
-                            } 
-                            print("This is url: \(website)")
+                            }
+                            
                             if let url = URL(string: website) {
                                 let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
                                 vc.delegate = self
-                                // vc.modalPresentationStyle = .overFullScreen
                                 present(vc, animated: true, completion: nil)
+                            } else {
+                                
+                                // 한글인 경우 한글 인코딩을 한 번 해주고 이동
+                                if let encodedWebsite = website.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                                    if let url = URL(string: encodedWebsite) {
+                                        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+                                        vc.delegate = self
+                                        present(vc, animated: true, completion: nil)
+                                    }
+                                } else {
+                                    SCLAlertView().showNotice("홈페이지 인식 에러", subTitle: "에러를 알려주세요!")
+                                }
                             }
                         } else {
                             SCLAlertView().showNotice("웹사이트가 없어요", subTitle: "생기면 업데이트를 하겠습니다")
@@ -349,12 +364,24 @@ class StoreDetailViewController: UIViewController, SFSafariViewControllerDelegat
                             if website.lowercased().hasPrefix("http") == false {
                                 website = "http://".appending(website)
                             }
-                            print("This is url: \(website)")
+                            
                             if let url = URL(string: website) {
                                 let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
                                 vc.delegate = self
                                 // vc.modalPresentationStyle = .overFullScreen
                                 present(vc, animated: true, completion: nil)
+                            } else {
+                                
+                                // 한글인 경우 한글 인코딩을 한 번 해주고 이동
+                                if let encodedWebsite = website.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                                    if let url = URL(string: encodedWebsite) {
+                                        let vc = SFSafariViewController(url: url, entersReaderIfAvailable: true)
+                                        vc.delegate = self
+                                        present(vc, animated: true, completion: nil)
+                                    }
+                                } else {
+                                    SCLAlertView().showNotice("홈페이지 인식 에러", subTitle: "에러를 알려주세요!")
+                                }
                             }
                         } else {
                             SCLAlertView().showNotice("웹사이트가 없어요", subTitle: "생기면 업데이트를 하겠습니다")

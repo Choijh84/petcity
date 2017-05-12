@@ -228,14 +228,15 @@ class StoresListImageViewController: UIViewController, UITableViewDelegate, UITa
             
             // Store Category assignmenet
             downloadManager.selectedStoreCategory = selectedStoreCategory
-            // 검색 반경 확인 - 기본 20킬로
-            var radius : NSNumber = 20
+            
+            // 검색 반경 확인 - 기본 500킬로
+            var radius : NSNumber = 500
             if searchRadius != 0 {
                 radius = NSNumber(integerLiteral: searchRadius)
             }
             // print("This is searchRadius: \(searchRadius)")
             
-            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 50, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
+            downloadManager.downloadStores(skippingNumberOfObjects: 0, limit: 100, selectedStoreCategory: selectedStoreCategory, radius: radius, completionBlock: { (storeObjects, error) in
                 self.isLoadingItems = false
                 if let error = error { 
                     self.showAlertViewWithRedownloadOption(error)

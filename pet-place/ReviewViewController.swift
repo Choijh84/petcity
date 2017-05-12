@@ -45,7 +45,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
     // 리뷰 저장하는 배열
     var ReviewArray: [Review] = []
     
-    /// 리뷰를 다운로드하고 있으면 true
+    /// 데이터를 다운로드하고 있으면 true
     var isLoadingItems: Bool = false
     
     var itemInfo: IndicatorInfo = "지역 리뷰"
@@ -158,11 +158,15 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                 self.showAlertViewWithRedownloadOption(error)
             } else {
                 if let reviews = reviews {
+                    
                     self.ReviewArray.append(contentsOf: reviews)
+                    // self.fillOtherData()
+                    
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                         self.tableView.hideLoadingIndicator()
                     }
+                    
                 }
             }
         }
@@ -308,9 +312,11 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         // 장소 이름
         if let store = ReviewArray[indexPath.row].store {
             cell.storeName.text = "장소: \(String(describing: store.name!))"
+            
         } else {
             cell.storeName.text = "가게 이름"
         }
+        
         
         // 라이크버튼 설정 - 라이크 모양은 여기서 컨트롤, delegate에서 user 라이크 컨트롤
         DispatchQueue.global(qos: .userInteractive).async {
@@ -357,15 +363,16 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             
             DispatchQueue.global(qos: .userInteractive).async {
                 let matchingLikes = likeStore?.find(countQuery)
-                let likeNumbers = matchingLikes?.totalObjects
-                
-                DispatchQueue.main.async {
-                    if likeNumbers == 0 {
-                        cell.likeLabel.text = "라이크 없음 ㅠ"
-                    } else {
-                        cell.likeLabel.text = "\(String(describing: likeNumbers!))개의 좋아요"
+                if let likeNumbers = matchingLikes?.totalObjects {
+                    
+                    cell.likeNumbers = likeNumbers as? Int
+                    
+                    DispatchQueue.main.async {
+                        cell.likeLabel.text = "\(String(describing: likeNumbers))개의 좋아요"
                     }
                 }
+                
+                
             }
         }
         
@@ -375,7 +382,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         // 리뷰 바디
         cell.reviewBody.text = review.text
         
-        // 코멘트 개수 받아오기
         DispatchQueue.global(qos: .userInteractive).async {
             // 댓글수 찾기
             let tempStore = Backendless.sharedInstance().data.of(ReviewComment.ofClass())
@@ -396,6 +402,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                 })
             }
         }
+        
         
         // 사진URL이 유효한지 체크, 사진이 없으면 photoStackview를 숨기자
         if let string = review.fileURL {
@@ -453,15 +460,15 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         case 0:
             print("프로필뷰 만들면 이동")
         case 1:
-            print("댓글 라벨 탭")
+            // print("댓글 라벨 탭")
             // 코멘트 액션
             performSegue(withIdentifier: "showComments", sender: row)
             lastContentOffset = tableView.contentOffset.y
         case 2:
-            print("신고 버튼 탭")
+            // print("신고 버튼 탭")
             sendEmail(row)
         case 3:
-            print("댓글 버튼 탭")
+            // print("댓글 버튼 탭")
             // 코멘트 액션
             performSegue(withIdentifier: "showComments", sender: row)
             lastContentOffset = tableView.contentOffset.y
@@ -477,22 +484,30 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         case 7:
             // 좋아요 관련 액션
             // 라이크 체크
+            let indexPath = IndexPath(row: row, section: 0)
+            let cell = self.tableView.cellForRow(at: indexPath) as! StoryReviewTableViewCell
+            cell.isUserInteractionEnabled = false
+            
             self.checkLike(row, completionHandler: { (success) in
                 if success {
                     // 이미 좋아해서 취소할 때
+                    if let likeNumbers = cell.likeNumbers {
+                        cell.likeNumbers = likeNumbers - 1
+                        cell.likeLabel.text = "\(String(likeNumbers-1))개의 좋아요"
+                    }
                     self.changeLike(row, true, completionHandler: { (success) in
-                        if success {
-                            // 나중에 DB에 처리하고 바꿔주기
-                            // self.tableView.reloadData()
-                        }
+                        print("취소 완료")
+                        cell.isUserInteractionEnabled = true
                     })
                 } else {
                     // 새롭게 좋아해서 추가
+                    if let likeNumbers = cell.likeNumbers {
+                        cell.likeNumbers = likeNumbers + 1
+                        cell.likeLabel.text = "\(String(likeNumbers+1))개의 좋아요"
+                    }
                     self.changeLike(row, false, completionHandler: { (success) in
-                        if success {
-                            // 나중에 DB에 처리하고 바꿔주기
-                            // self.tableView.reloadData()
-                        }
+                        print("추가 완료")
+                        cell.isUserInteractionEnabled = true
                     })
                 }
             })
@@ -536,6 +551,7 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
         let selectedReview = ReviewArray[row]
         let reviewId = selectedReview.objectId
         
+        
         // 그냥 유저 객체로 비교는 안되고 objectId로 체크를 해야 함
         let objectID = Backendless.sharedInstance().userService.currentUser.objectId
         
@@ -550,11 +566,6 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
             like.to = reviewId
             
             dataStore?.save(like, response: { (response) in
-                
-                DispatchQueue.main.async {
-                    let indexPath = IndexPath(row: row, section: 0)
-                    self.tableView.reloadRows(at: [indexPath], with: .none)
-                }
                 
                 // 리뷰 쓴 사람에게 Notification 날리기
                 if let oneSignalId = selectedReview.creator?.getProperty("OneSignalID") {
@@ -579,9 +590,10 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                         })
                     }
                 }
-                
+                completionHandler(true)
             }, error: { (Fault) in
                 print("리뷰 라이크를 저장하는데 에러: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
             
             
@@ -597,17 +609,16 @@ class ReviewViewController: UIViewController, IndicatorInfoProvider, UITableView
                 let like = (collection?.data as! [ReviewLikes]).first
                 
                 dataStore?.remove(like, response: { (number) in
-                    DispatchQueue.main.async {
-                        let indexPath = IndexPath(row: row, section: 0)
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
-                    }
+                    
+                    completionHandler(true)
                 }, error: { (Fault) in
                     print("리뷰 라이크 지우는데 에러: \(String(describing: Fault?.description))")
-
+                    completionHandler(false)
                 })
                 
             }, error: { (Fault) in
                 print("리뷰 라이크 찾는데 에러: \(String(describing: Fault?.description))")
+                completionHandler(false)
             })
             
         }

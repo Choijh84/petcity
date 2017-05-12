@@ -97,8 +97,8 @@ class FavoriteListViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let store = favoriteList[indexPath.row]
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "storeDetailViewController") as! StoreDetailViewController
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyBoard.instantiateViewController(withIdentifier: "StoreDetailViewController") as! StoreDetailViewController
         controller.storeToDisplay = store
         
         navigationController?.pushViewController(controller, animated: true)

@@ -57,9 +57,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
                         }
                     }
                     
-                    // 스토리디테일뷰에 Notification 주기
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "StoryCommentAdded"), object: nil)
-                    
                 } else {
                     SCLAlertView().showWarning("에러 발생", subTitle: "확인해주세요")
                 }
@@ -82,13 +79,16 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         setUpCommentArray()
         
-        //Looks for single or multiple taps.
+        // Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CommentViewController.dismissKeyboard))
         
-        //Uncomment the line below if you want the tap not interfere and cancel other interactions.
-        //tap.cancelsTouchesInView = false
-        
         view.addGestureRecognizer(tap)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentViewController.refresh), name: NSNotification.Name(rawValue: "StoryCommentDeleted"), object: nil)
+    }
+    
+    func refresh() {
+        setUpCommentArray()
     }
     
     func setUpCommentArray() {
@@ -97,11 +97,6 @@ class CommentViewController: UIViewController, UITableViewDelegate, UITableViewD
         // 코멘트 다운로드 받아서 정렬하기
         StoryDownloadManager().downloadComments(selectedStory) { (comments, error) in
             self.commentArray = comments!
-            
-            // 생성 시간으로 정렬
-            self.commentArray = self.commentArray.sorted { (left, right) -> Bool in
-                return left.created < right.created
-            }
             
             self.tableView.reloadData()
             self.tableView.hideLoadingIndicator()
